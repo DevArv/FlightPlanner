@@ -2,7 +2,7 @@ using FlightPlanner.Enums;
 
 namespace FlightPlanner.Models;
 
-public class Planner
+public class Planner : FlightSpecs
 {
     public Guid ID { get; set; }
     
@@ -32,17 +32,7 @@ public class Planner
     
     public int ArrivalRunway { get; set; } = 0;
     
-    public int NauticalMiles { get; set; } = 0;
-    
-    public decimal FuelRequired { get; set; } = 0;
-    
-    public int CruiseSpeedKnots { get; set; } = 0;
-    
     public int AltitudeFeet { get; set; } = 0;
-    
-    public int ReserveFuel { get; set; } = 0;
-    
-    public int EmergencyFuel { get; set; } = 0;
     
     public int ArrivalRunwayElevation { get; set; } = 0;
     
@@ -59,14 +49,4 @@ public class Planner
     public ApproachTypeEnum ApproachType { get; set; } = ApproachTypeEnum.DEFAULT;
     
     public FlightTypesEnum FlightType { get; set; } = FlightTypesEnum.DEFAULT;
-    
-    public decimal FlightEstimatedHourTime { get; set; } = 0;
-    
-    public int FlightEstimatedMinutesTime { get; set; } = 0;
-    
-    public int AverageFuelConsumption { get; set; } = 0;
-    
-    public int BasicFuel { get; set; } = 0;
-    
-    public decimal TotalFuel { get; set; } = 0;
 }
