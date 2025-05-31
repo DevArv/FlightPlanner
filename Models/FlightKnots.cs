@@ -2,6 +2,8 @@ namespace FlightPlanner.Models;
 
 public class FlightKnots
 {
+    public Guid ID { get; set; }
+    
     // El peso define las velocidades 
     public int CurrentWeight { get; set; } = 0;
     
