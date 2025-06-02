@@ -1,9 +1,15 @@
 @page
-@model Create
+@using FlightPlanner.Enums
+@model CreateModel
 
 @{
     ViewData["Title"] = "Nuevo vuelo";
     Layout = "_Layout";
+}
+
+@section Scripts
+{
+    <script src="~/js/create-flight.js"></script>
 }
 
 <h1>Nuevo vuelo</h1>
@@ -12,18 +18,8 @@
 
 <div class="row">
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Fecha de agenda</label>
-        <input type="date" class="form-control" id="" value=""/>
-    </div>
-    
-    <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Tiempo estimado de vuelo - Horas</label>
-        <input type="number" class="form-control" id="" value=""/>
-    </div>
-    
-    <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Tiempo estimado de vuelo - Minutos</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.Date)" class="form-label">Fecha de agenda</label>
+        <input type="date" class="form-control" id="@nameof(Model.Record.Date)" value="@Model.Record.Date.ToString(Constants.Global.DATETIME_FORMAT)"/>
     </div>
 </div>
 
@@ -35,23 +31,28 @@
 
 <div class="row">
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">ICAO</label>
-        <input type="text" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.ICAODeparture)" class="form-label">ICAO</label>
+        <input type="text" class="form-control" style="background-color: lightyellow;" id="@nameof(Model.Record.ICAODeparture)" value="@Model.Record.ICAODeparture"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Nombre Aeropuerto</label>
-        <input type="text" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.DepartureAirportName)" class="form-label">Nombre Aeropuerto</label>
+        <input type="text" class="form-control" id="@nameof(Model.Record.DepartureAirportName)" value="@Model.Record.DepartureAirportName"/>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.DepartureRunway)" class="form-label">Pista de Salida</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.DepartureRunway)" value="@Model.Record.DepartureRunway"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">BARO</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.BaroPressureDeparture)" class="form-label">BARO</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.BaroPressureDeparture)" value="@Model.Record.BaroPressureDeparture"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Altitud de transición</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.TransitionAltitudeDeparture)" class="form-label">Altitud de transición</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.TransitionAltitudeDeparture)" value="@Model.Record.TransitionAltitudeDeparture"/>
     </div>
 </div>
 
@@ -63,54 +64,65 @@
 
 <div class="row">
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">ICAO</label>
-        <input type="text" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.ICAOArrival)" class="form-label">ICAO</label>
+        <input type="text" class="form-control" style="background-color: lightyellow;" id="@nameof(Model.Record.ICAOArrival)" value="@Model.Record.ICAOArrival"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Nombre Aeropuerto</label>
-        <input type="text" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.ArrivalAirportName)" class="form-label">Nombre Aeropuerto</label>
+        <input type="text" class="form-control" id="@nameof(Model.Record.ArrivalAirportName)" value="@Model.Record.ArrivalAirportName"/>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.ArrivalRunway)" class="form-label">Pista de Llegada</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.ArrivalRunway)" value="@Model.Record.ArrivalRunway"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">BARO</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.BaroPressureArrival)" class="form-label">BARO</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.BaroPressureArrival)" value="@Model.Record.BaroPressureArrival"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Altitud de transición</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.TransitionAltitudeArrival)" class="form-label">Altitud de transición</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.TransitionAltitudeArrival)" value="@Model.Record.TransitionAltitudeArrival"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Elevación de pista</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.ArrivalRunwayElevation)" class="form-label">Elevación de pista</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.ArrivalRunwayElevation)" value="@Model.Record.ArrivalRunwayElevation"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Altitud minima de aproximación</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.ArrivalRunwayMinimumAltitude)" class="form-label">Altitud minima de aproximación</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.ArrivalRunwayMinimumAltitude)" value="@Model.Record.ArrivalRunwayMinimumAltitude"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Localizador</label>
-        <input type="number" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.LocalizerFrequency)" class="form-label">Localizador</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.LocalizerFrequency)" value="@Model.Record.LocalizerFrequency"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Vector final ruedas de aterrizaje</label>
-        <input type="text" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.LocalizerVectorName)" class="form-label">Vector final ruedas de aterrizaje</label>
+        <input type="text" class="form-control" id="@nameof(Model.Record.LocalizerVectorName)" value="@Model.Record.LocalizerVectorName"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="" class="form-label">Tipo de aterrizaje</label>
-        <input type="text" class="form-control" id="" value=""/>
+        <label for="@nameof(Model.Record.ApproachType)" class="form-label">Tipo de aterrizaje</label>
+        <select class="form-select" id="@nameof(Model.Record.ApproachType)" name="@Model.Record.ApproachType">
+            <option value="@((int)ApproachTypeEnum.DEFAULT)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.DEFAULT))"></option>
+            <option value="@((int)ApproachTypeEnum.ILS)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.ILS))">ILS (Instrument Landing System)</option>
+            <option value="@((int)ApproachTypeEnum.RNAV)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.RNAV))">RNAV (Area Navigation)</option>
+            <option value="@((int)ApproachTypeEnum.VOR)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.VOR))">VOR Approach</option>
+            <option value="@((int)ApproachTypeEnum.VISUAL)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.VISUAL))">Visual Approach</option>
+        </select>
     </div>
 </div>
 
 <hr />
 
-<button type="button" class="btn btn-success">Guardar</button>
+<button type="button" id="btnSaveFlight" class="btn btn-success">Guardar</button>
 
 <hr />
 

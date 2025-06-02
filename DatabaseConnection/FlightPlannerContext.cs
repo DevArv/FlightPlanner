@@ -1,8 +1,9 @@
-using Npgsql;
+using FlightPlanner.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightPlanner.DatabaseConnection;
 
-public static class FlightPlannerContext
+public class FlightPlannerContext : DbContext
 {
     private static readonly IConfiguration _Configuration;
 
@@ -11,12 +12,15 @@ public static class FlightPlannerContext
         _Configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
             .Build();
     }
     
-    public static NpgsqlConnection GetConnection()
+    protected override void OnConfiguring(DbContextOptionsBuilder OptionsBuilder)
     {
         var connectionString = _Configuration.GetConnectionString(name: "DefaultConnection");
-        return new NpgsqlConnection(connectionString);
+        OptionsBuilder.UseNpgsql(connectionString);
     }
+    
+    public DbSet<Planner> FlightPlanner { get; set; }
 }
