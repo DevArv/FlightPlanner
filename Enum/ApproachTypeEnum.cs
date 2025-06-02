@@ -6,4 +6,5 @@ public enum ApproachTypeEnum
     ILS = 10,
     RNAV = 20,
     VOR = 30,
+    VISUAL = 40,
 }
