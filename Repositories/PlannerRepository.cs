@@ -1,4 +1,5 @@
 using FlightPlanner.DatabaseConnection;
+using FlightPlanner.Enums;
 using FlightPlanner.Models;
 using FlightPlanner.ViewModels;
 
@@ -10,10 +11,16 @@ public class PlannerRepository
     {
         //Required fields validation
         if (string.IsNullOrWhiteSpace(Obj.ICAODeparture))
-            throw new ApplicationException("El campo ICAO de salida es obligatorio.");
+            throw new ApplicationException("El campo ICAO de salida es requerido.");
         
         if (string.IsNullOrWhiteSpace(Obj.ICAOArrival))
-            throw new ApplicationException("El campo ICAO de llegada es obligatorio.");
+            throw new ApplicationException("El campo ICAO de llegada es requerido.");
+        
+        if (Obj.AircraftModel == AircraftModelEnum.DEFAULT)
+            throw new ApplicationException("El modelo de Avión es requerido.");
+        
+        if (Obj.FlightType == FlightTypesEnum.DEFAULT)
+            throw new ApplicationException("El tipo de vuelo es requerido.");
 
         return Task.FromResult(true);
     }
@@ -41,7 +48,12 @@ public class PlannerRepository
             ArrivalRunwayMinimumAltitude = Record.ArrivalRunwayMinimumAltitude,
             LocalizerFrequency = Record.LocalizerFrequency,
             LocalizerVectorName = Record.LocalizerVectorName,
-            ApproachType = Record.ApproachType
+            ApproachType = Record.ApproachType,
+            AircraftModel = Record.AircraftModel,
+            FlightType = Record.FlightType,
+            ArrivalRunwayLength = Record.ArrivalRunwayLength,
+            AltitudeFeet = Record.AltitudeFeet,
+            LocalizerVectorAltitude = Record.LocalizerVectorAltitude
         };
     }
 
@@ -71,7 +83,13 @@ public class PlannerRepository
                 LocalizerFrequency = ViewModel.LocalizerFrequency,
                 LocalizerVectorName = ViewModel.LocalizerVectorName,
                 ApproachType = ViewModel.ApproachType,
-                FullFlightName = $"{ViewModel.ICAODeparture} -> {ViewModel.ICAOArrival}"
+                AircraftModel = ViewModel.AircraftModel,
+                FlightType = ViewModel.FlightType,
+                ArrivalRunwayLength = ViewModel.ArrivalRunwayLength,
+                AltitudeFeet = ViewModel.AltitudeFeet,
+                LocalizerVectorAltitude = ViewModel.LocalizerVectorAltitude,
+                
+                FullFlightName = $"{ViewModel.ICAODeparture} -> {ViewModel.ICAOArrival}",
             };
 
             context.FlightPlanner.Add(planner);

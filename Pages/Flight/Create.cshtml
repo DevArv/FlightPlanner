@@ -21,6 +21,24 @@
         <label for="@nameof(Model.Record.Date)" class="form-label">Fecha de agenda</label>
         <input type="date" class="form-control" id="@nameof(Model.Record.Date)" value="@Model.Record.Date.ToString(Constants.Global.DATETIME_FORMAT)"/>
     </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.AircraftModel)" class="form-label">Modelo de Avión</label>
+        <select class="form-select" style="background-color: lightyellow;" id="@nameof(Model.Record.AircraftModel)" name="@Model.Record.AircraftModel">
+            <option value="@((int)AircraftModelEnum.DEFAULT)" selected="@((Model.Record.AircraftModel == AircraftModelEnum.DEFAULT))"></option>
+            <option value="@((int)AircraftModelEnum.CESSNA_CITATION_LONGITUDE)" selected="@((Model.Record.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE))">Cessna Citation Longitude</option>
+        </select>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.FlightType)" class="form-label">Tipo de Vuelo</label>
+        <select class="form-select" style="background-color: lightyellow;" id="@nameof(Model.Record.FlightType)" name="@Model.Record.FlightType">
+            <option value="@((int)FlightTypesEnum.DEFAULT)" selected="@((Model.Record.FlightType == FlightTypesEnum.DEFAULT))"></option>
+            <option value="@((int)FlightTypesEnum.SHORT_FLIGHT)" selected="@((Model.Record.FlightType == FlightTypesEnum.SHORT_FLIGHT))">Vuelo Corto</option>
+            <option value="@((int)FlightTypesEnum.NORMAL_FLIGHT)" selected="@((Model.Record.FlightType == FlightTypesEnum.NORMAL_FLIGHT))">Vuelo Mediano Alcance</option>
+            <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.Record.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud</option>
+        </select>
+    </div>
 </div>
 
 <hr />
@@ -51,7 +69,7 @@
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.Record.TransitionAltitudeDeparture)" class="form-label">Altitud de transición</label>
+        <label for="@nameof(Model.Record.TransitionAltitudeDeparture)" class="form-label">Altitud de Transición</label>
         <input type="number" class="form-control" id="@nameof(Model.Record.TransitionAltitudeDeparture)" value="@Model.Record.TransitionAltitudeDeparture"/>
     </div>
 </div>
@@ -84,17 +102,17 @@
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.Record.TransitionAltitudeArrival)" class="form-label">Altitud de transición</label>
+        <label for="@nameof(Model.Record.TransitionAltitudeArrival)" class="form-label">Altitud de Transición</label>
         <input type="number" class="form-control" id="@nameof(Model.Record.TransitionAltitudeArrival)" value="@Model.Record.TransitionAltitudeArrival"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.Record.ArrivalRunwayElevation)" class="form-label">Elevación de pista</label>
+        <label for="@nameof(Model.Record.ArrivalRunwayElevation)" class="form-label">Elevación de Pista</label>
         <input type="number" class="form-control" id="@nameof(Model.Record.ArrivalRunwayElevation)" value="@Model.Record.ArrivalRunwayElevation"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.Record.ArrivalRunwayMinimumAltitude)" class="form-label">Altitud minima de aproximación</label>
+        <label for="@nameof(Model.Record.ArrivalRunwayMinimumAltitude)" class="form-label">Altitud Minima de Aproximación</label>
         <input type="number" class="form-control" id="@nameof(Model.Record.ArrivalRunwayMinimumAltitude)" value="@Model.Record.ArrivalRunwayMinimumAltitude"/>
     </div>
 
@@ -104,12 +122,27 @@
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.Record.LocalizerVectorName)" class="form-label">Vector final ruedas de aterrizaje</label>
+        <label for="@nameof(Model.Record.LocalizerVectorName)" class="form-label">Vector Final Ruedas de Aterrizaje</label>
         <input type="text" class="form-control" id="@nameof(Model.Record.LocalizerVectorName)" value="@Model.Record.LocalizerVectorName"/>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.LocalizerVectorAltitude)" class="form-label">Altitud Vector Localizador</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.LocalizerVectorAltitude)" value="@Model.Record.LocalizerVectorAltitude"/>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.ArrivalRunwayLength)" class="form-label">Largo de Pista de Llegada</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.ArrivalRunwayLength)" value="@Model.Record.ArrivalRunwayLength"/>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Record.AltitudeFeet)" class="form-label">Altitud Crucero</label>
+        <input type="number" class="form-control" id="@nameof(Model.Record.AltitudeFeet)" value="@Model.Record.AltitudeFeet"/>
     </div>
 
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.Record.ApproachType)" class="form-label">Tipo de aterrizaje</label>
+        <label for="@nameof(Model.Record.ApproachType)" class="form-label">Tipo de Aterrizaje</label>
         <select class="form-select" id="@nameof(Model.Record.ApproachType)" name="@Model.Record.ApproachType">
             <option value="@((int)ApproachTypeEnum.DEFAULT)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.DEFAULT))"></option>
             <option value="@((int)ApproachTypeEnum.ILS)" selected="@((Model.Record.ApproachType == ApproachTypeEnum.ILS))">ILS (Instrument Landing System)</option>

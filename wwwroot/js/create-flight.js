@@ -1,6 +1,14 @@
 "use strict";
 var flight_create;
 (function (flight_create) {
+    function getIntValue(id) {
+        const value = document.getElementById(id).value;
+        return value === "" ? null : parseInt(value);
+    }
+    function getFloatValue(id) {
+        const value = document.getElementById(id).value;
+        return value === "" ? null : parseFloat(value);
+    }
     function save() {
         const rawDate = document.getElementById("Date").value;
         const parsedDate = new Date(`${rawDate}T00:00:00`);
@@ -9,19 +17,24 @@ var flight_create;
             Date: dateIso,
             ICAODeparture: document.getElementById("ICAODeparture").value,
             DepartureAirportName: document.getElementById("DepartureAirportName").value,
-            BaroPressureDeparture: parseFloat(document.getElementById("BaroPressureDeparture").value),
-            TransitionAltitudeDeparture: parseInt(document.getElementById("TransitionAltitudeDeparture").value),
+            BaroPressureDeparture: getFloatValue("BaroPressureDeparture"),
+            TransitionAltitudeDeparture: getIntValue("TransitionAltitudeDeparture"),
             ICAOArrival: document.getElementById("ICAOArrival").value,
-            ArrivalAirportName: document.getElementById("ArrivalAirportName").value,
-            BaroPressureArrival: parseFloat(document.getElementById("BaroPressureArrival").value),
-            TransitionAltitudeArrival: parseInt(document.getElementById("TransitionAltitudeArrival").value),
-            ArrivalRunwayElevation: parseInt(document.getElementById("ArrivalRunwayElevation").value),
-            ArrivalRunwayMinimumAltitude: parseInt(document.getElementById("ArrivalRunwayMinimumAltitude").value),
-            LocalizerFrequency: parseInt(document.getElementById("LocalizerFrequency").value),
-            LocalizerVectorName: document.getElementById("LocalizerVectorName").value,
-            ApproachType: parseInt(document.getElementById("ApproachType").value),
-            DepartureRunway: parseInt(document.getElementById("DepartureRunway").value),
-            ArrivalRunway: parseInt(document.getElementById("ArrivalRunway").value),
+            ArrivalAirportName: document.getElementById("ArrivalAirportName").value || null,
+            BaroPressureArrival: getFloatValue("BaroPressureArrival"),
+            TransitionAltitudeArrival: getIntValue("TransitionAltitudeArrival"),
+            ArrivalRunwayElevation: getIntValue("ArrivalRunwayElevation"),
+            ArrivalRunwayMinimumAltitude: getIntValue("ArrivalRunwayMinimumAltitude"),
+            LocalizerFrequency: getIntValue("LocalizerFrequency"),
+            LocalizerVectorName: document.getElementById("LocalizerVectorName").value || null,
+            ApproachType: getIntValue("ApproachType"),
+            DepartureRunway: getIntValue("DepartureRunway"),
+            ArrivalRunway: getIntValue("ArrivalRunway"),
+            AircraftModel: getIntValue("AircraftModel"),
+            FlightType: getIntValue("FlightType"),
+            ArrivalRunwayLength: getIntValue("ArrivalRunwayLength"),
+            LocalizerVectorAltitude: getIntValue("LocalizerVectorAltitude"),
+            AltitudeFeet: getIntValue("AltitudeFeet"),
         };
         fetch("/Flight/Create?handler=Save", {
             method: "POST",
