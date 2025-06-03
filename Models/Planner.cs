@@ -15,7 +15,7 @@ public class Planner
     
     public string ICAOArrival { get; set; } = "";
 
-    public string FullFlightName { get; set; }
+    public string FullFlightName { get; set; } = "";
     
     public string DepartureAirportName { get; set; } = "";
     
@@ -33,21 +33,23 @@ public class Planner
     
     public int ArrivalRunway { get; set; } = 0;
     
-    // public int AltitudeFeet { get; set; } = 0;
+    public int AltitudeFeet { get; set; } = 0;
     
     public int ArrivalRunwayElevation { get; set; } = 0;
     
     public int ArrivalRunwayMinimumAltitude { get; set; } = 0;
     
-    // public int ArrivalRunwayLength { get; set; } = 0;
+    public int ArrivalRunwayLength { get; set; } = 0;
     
     public decimal LocalizerFrequency { get; set; } = 0;
     
     public string LocalizerVectorName { get; set; } = "";
     
-    // public int LocalizarVectorAltitude { get; set; } = 0;
+    public int LocalizerVectorAltitude { get; set; } = 0;
     
     public ApproachTypeEnum ApproachType { get; set; } = ApproachTypeEnum.DEFAULT;
     
-    // public FlightTypesEnum FlightType { get; set; } = FlightTypesEnum.DEFAULT;
+    public FlightTypesEnum FlightType { get; set; } = FlightTypesEnum.DEFAULT;
+    
+    public AircraftModelEnum AircraftModel { get; set; } = AircraftModelEnum.DEFAULT;
 }

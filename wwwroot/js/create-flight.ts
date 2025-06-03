@@ -1,27 +1,43 @@
 namespace flight_create {
+    function getIntValue(id: string): number | null {
+        const value = (document.getElementById(id) as HTMLInputElement | HTMLSelectElement).value;
+        return value === "" ? null : parseInt(value);
+    }
+
+    function getFloatValue(id: string): number | null {
+        const value = (document.getElementById(id) as HTMLInputElement).value;
+        return value === "" ? null : parseFloat(value);
+    }
+    
     export function save(): void {
         const rawDate = (document.getElementById("Date") as HTMLInputElement).value;
         const parsedDate = new Date(`${rawDate}T00:00:00`);
         const dateIso = parsedDate.toISOString();
-        
+
         const RECORD = {
             Date: dateIso,
             ICAODeparture: (document.getElementById("ICAODeparture") as HTMLInputElement).value,
             DepartureAirportName: (document.getElementById("DepartureAirportName") as HTMLInputElement).value,
-            BaroPressureDeparture: parseFloat((document.getElementById("BaroPressureDeparture") as HTMLInputElement).value),
-            TransitionAltitudeDeparture: parseInt((document.getElementById("TransitionAltitudeDeparture") as HTMLInputElement).value),
+            BaroPressureDeparture: getFloatValue("BaroPressureDeparture"),
+            TransitionAltitudeDeparture: getIntValue("TransitionAltitudeDeparture"),
             ICAOArrival: (document.getElementById("ICAOArrival") as HTMLInputElement).value,
-            ArrivalAirportName: (document.getElementById("ArrivalAirportName") as HTMLInputElement).value,
-            BaroPressureArrival: parseFloat((document.getElementById("BaroPressureArrival") as HTMLInputElement).value),
-            TransitionAltitudeArrival: parseInt((document.getElementById("TransitionAltitudeArrival") as HTMLInputElement).value),
-            ArrivalRunwayElevation: parseInt((document.getElementById("ArrivalRunwayElevation") as HTMLInputElement).value),
-            ArrivalRunwayMinimumAltitude: parseInt((document.getElementById("ArrivalRunwayMinimumAltitude") as HTMLInputElement).value),
-            LocalizerFrequency: parseInt((document.getElementById("LocalizerFrequency") as HTMLInputElement).value),
-            LocalizerVectorName: (document.getElementById("LocalizerVectorName") as HTMLInputElement).value,
-            ApproachType: parseInt((document.getElementById("ApproachType") as HTMLSelectElement).value),
-            DepartureRunway: parseInt((document.getElementById("DepartureRunway") as HTMLInputElement).value),
-            ArrivalRunway: parseInt((document.getElementById("ArrivalRunway") as HTMLInputElement).value),
+            ArrivalAirportName: (document.getElementById("ArrivalAirportName") as HTMLInputElement).value || null,
+            BaroPressureArrival: getFloatValue("BaroPressureArrival"),
+            TransitionAltitudeArrival: getIntValue("TransitionAltitudeArrival"),
+            ArrivalRunwayElevation: getIntValue("ArrivalRunwayElevation"),
+            ArrivalRunwayMinimumAltitude: getIntValue("ArrivalRunwayMinimumAltitude"),
+            LocalizerFrequency: getIntValue("LocalizerFrequency"),
+            LocalizerVectorName: (document.getElementById("LocalizerVectorName") as HTMLInputElement).value || null,
+            ApproachType: getIntValue("ApproachType"),
+            DepartureRunway: getIntValue("DepartureRunway"),
+            ArrivalRunway: getIntValue("ArrivalRunway"),
+            AircraftModel: getIntValue("AircraftModel"),
+            FlightType: getIntValue("FlightType"),
+            ArrivalRunwayLength: getIntValue("ArrivalRunwayLength"),
+            LocalizerVectorAltitude: getIntValue("LocalizerVectorAltitude"),
+            AltitudeFeet: getIntValue("AltitudeFeet"),
         };
+
 
         fetch("/Flight/Create?handler=Save", {
             method: "POST",

@@ -18,7 +18,12 @@ public class FlightPlannerSimpleViewModel
     public int TransitionAltitudeArrival { get; set; }
     public int ArrivalRunwayElevation { get; set; }
     public int ArrivalRunwayMinimumAltitude { get; set; }
+    public int ArrivalRunwayLength { get; set; }
+    public int AltitudeFeet { get; set; }
+    public int LocalizerVectorAltitude { get; set; }
     public decimal LocalizerFrequency { get; set; }
     public string LocalizerVectorName { get; set; }
     public ApproachTypeEnum ApproachType { get; set; }
+    public AircraftModelEnum AircraftModel { get; set; }
+    public FlightTypesEnum FlightType { get; set; }
 }
