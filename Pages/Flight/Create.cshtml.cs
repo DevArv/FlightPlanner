@@ -29,7 +29,9 @@ public class CreateModel : PageModel
                 return BadRequest("La validación falló.");
 
             var plannerID = await repo.SaveFlightPlanAsync(Flight);
-            return new JsonResult(new { success = true, id = plannerID });
+            // The front-end expects the identifier in a property named "ID".
+            // Use the same casing here to avoid mismatches.
+            return new JsonResult(new { success = true, ID = plannerID });
         }
         catch (ApplicationException aex)
         {
