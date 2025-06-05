@@ -56,7 +56,7 @@ var flight_create;
                 return;
             }
             alert("Plan de vuelo guardado correctamente.");
-            window.location.href = `/Flight/Details/${data.flightId}`;
+            window.location.href = `/Flight/Details?ID=${data.ID}`;
         })
             .catch(error => {
             alert("Error al guardar el plan de vuelo.");
