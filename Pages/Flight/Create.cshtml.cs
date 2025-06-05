@@ -29,7 +29,7 @@ public class CreateModel : PageModel
                 return BadRequest("La validación falló.");
 
             var plannerID = await repo.SaveFlightPlanAsync(Flight);
-            return new JsonResult(new { success = true, id = plannerID });
+            return new JsonResult(new { success = true, ID = plannerID });
         }
         catch (ApplicationException aex)
         {
