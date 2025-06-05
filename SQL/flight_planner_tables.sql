@@ -19,5 +19,15 @@ CREATE TABLE "FlightPlanner" (
 	"LocalizerVectorName" VARCHAR(50) NOT NULL,
 	"ApproachType" INTEGER NOT NULL
 )
+              
+CREATE TABLE "FlightSpecs" (
+    "ID" UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    "PlannerID" UUID NOT NULL,
+    "NauticalMiles" INTEGER NOT NULL,
+    "CruiseSpeedKnots" INTEGER NOT NULL,
+    "FlightEstimatedHourTime" INTEGER NOT NULL,
+    "FlightEstimatedMinutesTime" INTEGER NOT NULL,
+    CONSTRAINT fk_planner FOREIGN KEY ("PlannerID") REFERENCES "FlightPlanner"("ID") ON DELETE CASCADE
+)
                
 ";

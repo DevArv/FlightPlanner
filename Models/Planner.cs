@@ -21,31 +21,31 @@ public class Planner
     
     public string ArrivalAirportName { get; set; } = "";
 
-    public decimal BaroPressureDeparture { get; set; } = 0;
+    public decimal BaroPressureDeparture { get; set; }
     
-    public decimal BaroPressureArrival { get; set; } = 0;
+    public decimal BaroPressureArrival { get; set; }
     
-    public int TransitionAltitudeDeparture { get; set; } = 0;
+    public int TransitionAltitudeDeparture { get; set; }
     
-    public int TransitionAltitudeArrival { get; set; } = 0;
+    public int TransitionAltitudeArrival { get; set; }
     
-    public int DepartureRunway { get; set; } = 0;
+    public int DepartureRunway { get; set; }
     
-    public int ArrivalRunway { get; set; } = 0;
+    public int ArrivalRunway { get; set; }
     
-    public int AltitudeFeet { get; set; } = 0;
+    public int AltitudeFeet { get; set; }
     
-    public int ArrivalRunwayElevation { get; set; } = 0;
+    public int ArrivalRunwayElevation { get; set; }
     
-    public int ArrivalRunwayMinimumAltitude { get; set; } = 0;
+    public int ArrivalRunwayMinimumAltitude { get; set; }
     
-    public int ArrivalRunwayLength { get; set; } = 0;
+    public int ArrivalRunwayLength { get; set; }
     
-    public decimal LocalizerFrequency { get; set; } = 0;
+    public decimal LocalizerFrequency { get; set; }
     
     public string LocalizerVectorName { get; set; } = "";
     
-    public int LocalizerVectorAltitude { get; set; } = 0;
+    public int LocalizerVectorAltitude { get; set; }
     
     public ApproachTypeEnum ApproachType { get; set; } = ApproachTypeEnum.DEFAULT;
     

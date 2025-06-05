@@ -16,6 +16,9 @@ public class PlannerRepository
         if (string.IsNullOrWhiteSpace(Obj.ICAOArrival))
             throw new ApplicationException("El campo ICAO de llegada es requerido.");
         
+        if (Obj.FlightSpecs.NauticalMiles == null)
+            throw new ApplicationException("Las Millas Náuticas deben ser mayores a cero.");
+        
         if (Obj.AircraftModel == AircraftModelEnum.DEFAULT)
             throw new ApplicationException("El modelo de Avión es requerido.");
         
@@ -23,38 +26,6 @@ public class PlannerRepository
             throw new ApplicationException("El tipo de vuelo es requerido.");
 
         return Task.FromResult(true);
-    }
-    
-    public FlightPlannerSimpleViewModel MapToSimpleViewModel(Planner Record)
-    {
-        if (Record == null)
-            throw new ApplicationException("Plan de vuelo no encontrado.");
-
-        return new FlightPlannerSimpleViewModel
-        {
-            ID = Record.ID,
-            Date = Record.Date,
-            ICAODeparture = Record.ICAODeparture,
-            DepartureAirportName = Record.DepartureAirportName,
-            BaroPressureDeparture = Record.BaroPressureDeparture,
-            TransitionAltitudeDeparture = Record.TransitionAltitudeDeparture,
-            DepartureRunway = Record.DepartureRunway,
-            ICAOArrival = Record.ICAOArrival,
-            ArrivalAirportName = Record.ArrivalAirportName,
-            ArrivalRunway = Record.ArrivalRunway,
-            BaroPressureArrival = Record.BaroPressureArrival,
-            TransitionAltitudeArrival = Record.TransitionAltitudeArrival,
-            ArrivalRunwayElevation = Record.ArrivalRunwayElevation,
-            ArrivalRunwayMinimumAltitude = Record.ArrivalRunwayMinimumAltitude,
-            LocalizerFrequency = Record.LocalizerFrequency,
-            LocalizerVectorName = Record.LocalizerVectorName,
-            ApproachType = Record.ApproachType,
-            AircraftModel = Record.AircraftModel,
-            FlightType = Record.FlightType,
-            ArrivalRunwayLength = Record.ArrivalRunwayLength,
-            AltitudeFeet = Record.AltitudeFeet,
-            LocalizerVectorAltitude = Record.LocalizerVectorAltitude
-        };
     }
 
     public async Task<Guid> SaveFlightPlanAsync(FlightPlannerSimpleViewModel ViewModel)
@@ -94,7 +65,26 @@ public class PlannerRepository
 
             context.FlightPlanner.Add(planner);
             await context.SaveChangesAsync();
-            transaction.Commit();
+
+            var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
+            var speed = ViewModel.FlightSpecs?.CruiseSpeedKnots ?? 1;
+            
+            decimal hoursDecimal = (decimal)nauticalMiles / speed;
+            decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
+            int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
+
+            var flightSpecs = new FlightSpecs
+            {
+                PlannerID = planner.ID,
+                NauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0,
+                CruiseSpeedKnots = ViewModel.FlightSpecs?.CruiseSpeedKnots ?? 0,
+                FlightEstimatedHourTime = flightEstimatedHourTime,
+                FlightEstimatedMinutesTime = flightEstimatedMinutesTime
+            };
+            
+            context.FlightSpecs.Add(flightSpecs);
+            await context.SaveChangesAsync();
+            await transaction.CommitAsync();
             
             return planner.ID;
         }

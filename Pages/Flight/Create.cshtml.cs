@@ -8,6 +8,7 @@ namespace FlightPlanner.Pages.Flight;
 [IgnoreAntiforgeryToken]
 public class CreateModel : PageModel
 {
+    [BindProperty]
     public FlightPlannerSimpleViewModel Record { get; set; } = new();
     
     public IActionResult OnGet()
