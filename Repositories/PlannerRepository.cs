@@ -2,6 +2,7 @@ using FlightPlanner.DatabaseConnection;
 using FlightPlanner.Enums;
 using FlightPlanner.Models;
 using FlightPlanner.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightPlanner.Repositories;
 
@@ -93,5 +94,55 @@ public class PlannerRepository
             await transaction.RollbackAsync();
             throw new ApplicationException($"Error al guardar el plan de vuelo", ex);
         }
+    }
+
+    public async Task<FlightPlannerDetailsViewModel> GetFlightPlanAsync(Guid ID)
+    {
+        await using var context = new FlightPlannerContext();
+        
+        var planner = await context.FlightPlanner.AsNoTracking()
+            .FirstOrDefaultAsync(p => p.ID == ID);
+
+        if (planner == null)
+            throw new ApplicationException("El plan de vuelo no existe o ha sido eliminado.");
+        
+        var specs = await context.FlightSpecs.AsNoTracking()
+            .FirstOrDefaultAsync(s => s.PlannerID == planner.ID);
+
+        return new FlightPlannerDetailsViewModel
+        {
+            ID = planner.ID,
+            Date = planner.Date,
+            ICAODeparture = planner.ICAODeparture,
+            DepartureAirportName = planner.DepartureAirportName,
+            BaroPressureDeparture = planner.BaroPressureDeparture,
+            TransitionAltitudeDeparture = planner.TransitionAltitudeDeparture,
+            DepartureRunway = planner.DepartureRunway,
+            ICAOArrival = planner.ICAOArrival,
+            ArrivalAirportName = planner.ArrivalAirportName,
+            ArrivalRunway = planner.ArrivalRunway,
+            BaroPressureArrival = planner.BaroPressureArrival,
+            TransitionAltitudeArrival = planner.TransitionAltitudeArrival,
+            ArrivalRunwayElevation = planner.ArrivalRunwayElevation,
+            ArrivalRunwayMinimumAltitude = planner.ArrivalRunwayMinimumAltitude,
+            LocalizerFrequency = planner.LocalizerFrequency,
+            LocalizerVectorName = planner.LocalizerVectorName,
+            ApproachType = planner.ApproachType,
+            AircraftModel = planner.AircraftModel,
+            FlightType = planner.FlightType,
+            ArrivalRunwayLength = planner.ArrivalRunwayLength,
+            AltitudeFeet = planner.AltitudeFeet,
+            LocalizerVectorAltitude = planner.LocalizerVectorAltitude,
+            FullFlightName = planner.FullFlightName,
+            FlightSpecs = specs == null
+                ? new FlightSpecsDetailsViewModel()
+                : new FlightSpecsDetailsViewModel()
+                {
+                    NauticalMiles = specs.NauticalMiles,
+                    CruiseSpeedKnots = specs.CruiseSpeedKnots,
+                    FlightEstimatedHourTime = specs.FlightEstimatedHourTime,
+                    FlightEstimatedMinutesTime = specs.FlightEstimatedMinutesTime
+                }
+        };
     }
 }

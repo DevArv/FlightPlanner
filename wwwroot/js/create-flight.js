@@ -25,7 +25,7 @@ var flight_create;
             TransitionAltitudeArrival: getIntValue("TransitionAltitudeArrival"),
             ArrivalRunwayElevation: getIntValue("ArrivalRunwayElevation"),
             ArrivalRunwayMinimumAltitude: getIntValue("ArrivalRunwayMinimumAltitude"),
-            LocalizerFrequency: getIntValue("LocalizerFrequency"),
+            LocalizerFrequency: getFloatValue("LocalizerFrequency"),
             LocalizerVectorName: document.getElementById("LocalizerVectorName").value || null,
             ApproachType: getIntValue("ApproachType"),
             DepartureRunway: getIntValue("DepartureRunway"),
@@ -56,7 +56,7 @@ var flight_create;
                 return;
             }
             alert("Plan de vuelo guardado correctamente.");
-            // window.location.href = "/Index"; //TODO: Redirigir a la página de inicio
+            window.location.href = `/Flight/Details/${data.flightId}`;
         })
             .catch(error => {
             alert("Error al guardar el plan de vuelo.");
