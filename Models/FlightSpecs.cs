@@ -2,36 +2,43 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlightPlanner.Models;
 
+//TODO: Probar si esto es realmente necesario..
+[Table("FlightSpecs")]
 public class FlightSpecs
 {
-    public int NauticalMiles { get; set; } = 0;
+    public Guid ID { get; set; }
     
-    public decimal FuelRequired { get; set; } = 0;
+    public Guid PlannerID { get; set; }
     
-    public int CruiseSpeedKnots { get; set; } = 0;
+    [ForeignKey("PlannerID")]
+    public Planner Planner { get; set; }
     
-    public int AverageFuelConsumption { get; set; } = 0;
+    public int? NauticalMiles { get; set; }
     
-    public int BasicFuel { get; set; } = 0;
+    //public decimal FuelRequired { get; set; }
     
-    public decimal TotalFuel { get; set; } = 0;
+    public int? CruiseSpeedKnots { get; set; }
     
-    public int ReserveFuel { get; set; } = 0;
+    //public int AverageFuelConsumption { get; set; }
     
-    public int EmergencyFuel { get; set; } = 0;
+    //public int BasicFuel { get; set; }
     
-    [NotMapped]
-    public decimal TotalFuelGal { get; set; } = 0;
+    //public decimal TotalFuel { get; set; }
     
-    [NotMapped]
-    public decimal ReserveFuelGal { get; set; } = 0;
+    //public int ReserveFuel { get; set; }
     
-    [NotMapped]
-    public decimal EmergencyFuelGal { get; set; } = 0;
+    //public int EmergencyFuel { get; set; }
     
-    [NotMapped]
-    public decimal FlightEstimatedHourTime { get; set; } = 0;
+    //[NotMapped]
+    //public decimal TotalFuelGal { get; set; }
     
-    [NotMapped]
-    public int FlightEstimatedMinutesTime { get; set; } = 0;
+    //[NotMapped]
+    //public decimal ReserveFuelGal { get; set; }
+    
+    //[NotMapped]
+    //public decimal EmergencyFuelGal { get; set; }
+    
+    public decimal FlightEstimatedHourTime { get; set; }
+    
+    public int FlightEstimatedMinutesTime { get; set; }
 }

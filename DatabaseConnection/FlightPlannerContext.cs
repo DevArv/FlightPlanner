@@ -23,4 +23,5 @@ public class FlightPlannerContext : DbContext
     }
     
     public DbSet<Planner> FlightPlanner { get; set; }
+    public DbSet<FlightSpecs> FlightSpecs { get; set; }
 }

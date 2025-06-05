@@ -26,4 +26,11 @@ public class FlightPlannerSimpleViewModel
     public ApproachTypeEnum ApproachType { get; set; }
     public AircraftModelEnum AircraftModel { get; set; }
     public FlightTypesEnum FlightType { get; set; }
+    public FlightSpecsViewModel FlightSpecs { get; set; } = new();
+}
+
+public class FlightSpecsViewModel
+{
+    public int? NauticalMiles { get; set; }
+    public int? CruiseSpeedKnots { get; set; }
 }
