@@ -17,7 +17,7 @@ public class PlannerRepository
             throw new ApplicationException("El campo ICAO de llegada es requerido.");
         
         if (Obj.FlightSpecs.NauticalMiles == null)
-            throw new ApplicationException("Las millas náuticas deben ser mayores a cero.");
+            throw new ApplicationException("Las Millas Náuticas deben ser mayores a cero.");
         
         if (Obj.AircraftModel == AircraftModelEnum.DEFAULT)
             throw new ApplicationException("El modelo de Avión es requerido.");
