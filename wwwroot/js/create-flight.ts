@@ -26,7 +26,7 @@ namespace flight_create {
             TransitionAltitudeArrival: getIntValue("TransitionAltitudeArrival"),
             ArrivalRunwayElevation: getIntValue("ArrivalRunwayElevation"),
             ArrivalRunwayMinimumAltitude: getIntValue("ArrivalRunwayMinimumAltitude"),
-            LocalizerFrequency: getIntValue("LocalizerFrequency"),
+            LocalizerFrequency: getFloatValue("LocalizerFrequency"),
             LocalizerVectorName: (document.getElementById("LocalizerVectorName") as HTMLInputElement).value || null,
             ApproachType: getIntValue("ApproachType"),
             DepartureRunway: getIntValue("DepartureRunway"),
@@ -42,7 +42,6 @@ namespace flight_create {
                 CruiseSpeedKnots: getIntValue("CruiseSpeedKnots")
             }
         };
-
 
         fetch("/Flight/Create?handler=Save", {
             method: "POST",
@@ -60,7 +59,7 @@ namespace flight_create {
             }
             
             alert("Plan de vuelo guardado correctamente.");
-            // window.location.href = "/Index"; //TODO: Redirigir a la página de inicio
+            window.location.href = `/Flight/Details?ID=${data.ID}`;
         })
         .catch(error => {
             alert("Error al guardar el plan de vuelo.");

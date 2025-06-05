@@ -34,3 +34,15 @@ public class FlightSpecsViewModel
     public int? NauticalMiles { get; set; }
     public int? CruiseSpeedKnots { get; set; }
 }
+
+public class FlightSpecsDetailsViewModel : FlightSpecsViewModel
+{
+    public decimal FlightEstimatedHourTime { get; set; }
+    public int FlightEstimatedMinutesTime { get; set; }
+}
+
+public class FlightPlannerDetailsViewModel : FlightPlannerSimpleViewModel
+{
+    public string FullFlightName { get; set; } = "";
+    public FlightSpecsDetailsViewModel FlightSpecs { get; set; } = new();
+}
