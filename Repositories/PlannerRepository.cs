@@ -17,8 +17,11 @@ public class PlannerRepository
         if (string.IsNullOrWhiteSpace(Obj.ICAOArrival))
             throw new ApplicationException("El campo ICAO de llegada es requerido.");
         
-        if (Obj.FlightSpecs.NauticalMiles == null)
+        if (Obj.FlightSpecs.NauticalMiles == null || Obj.FlightSpecs.NauticalMiles <= 0)
             throw new ApplicationException("Las Millas Náuticas deben ser mayores a cero.");
+        
+        if (Obj.FlightSpecs.CruiseSpeedKnots == null || Obj.FlightSpecs.CruiseSpeedKnots <= 0)
+            throw new ApplicationException("La Velocidad Crucero deben ser mayores a cero.");
         
         if (Obj.AircraftModel == AircraftModelEnum.DEFAULT)
             throw new ApplicationException("El modelo de Avión es requerido.");
@@ -100,49 +103,47 @@ public class PlannerRepository
     {
         await using var context = new FlightPlannerContext();
         
-        var planner = await context.FlightPlanner.AsNoTracking()
-            .FirstOrDefaultAsync(p => p.ID == ID);
-
-        if (planner == null)
-            throw new ApplicationException("El plan de vuelo no existe o ha sido eliminado.");
-        
-        var specs = await context.FlightSpecs.AsNoTracking()
-            .FirstOrDefaultAsync(s => s.PlannerID == planner.ID);
-
-        return new FlightPlannerDetailsViewModel
-        {
-            ID = planner.ID,
-            Date = planner.Date,
-            ICAODeparture = planner.ICAODeparture,
-            DepartureAirportName = planner.DepartureAirportName,
-            BaroPressureDeparture = planner.BaroPressureDeparture,
-            TransitionAltitudeDeparture = planner.TransitionAltitudeDeparture,
-            DepartureRunway = planner.DepartureRunway,
-            ICAOArrival = planner.ICAOArrival,
-            ArrivalAirportName = planner.ArrivalAirportName,
-            ArrivalRunway = planner.ArrivalRunway,
-            BaroPressureArrival = planner.BaroPressureArrival,
-            TransitionAltitudeArrival = planner.TransitionAltitudeArrival,
-            ArrivalRunwayElevation = planner.ArrivalRunwayElevation,
-            ArrivalRunwayMinimumAltitude = planner.ArrivalRunwayMinimumAltitude,
-            LocalizerFrequency = planner.LocalizerFrequency,
-            LocalizerVectorName = planner.LocalizerVectorName,
-            ApproachType = planner.ApproachType,
-            AircraftModel = planner.AircraftModel,
-            FlightType = planner.FlightType,
-            ArrivalRunwayLength = planner.ArrivalRunwayLength,
-            AltitudeFeet = planner.AltitudeFeet,
-            LocalizerVectorAltitude = planner.LocalizerVectorAltitude,
-            FullFlightName = planner.FullFlightName,
-            FlightSpecs = specs == null
-                ? new FlightSpecsDetailsViewModel()
-                : new FlightSpecsDetailsViewModel()
+        var query = await (from p in context.FlightPlanner.AsNoTracking()
+                join s in context.FlightSpecs.AsNoTracking() on p.ID equals s.PlannerID into plannerGroup
+                from s in plannerGroup.DefaultIfEmpty()
+                where p.ID == ID
+                select new FlightPlannerDetailsViewModel
                 {
-                    NauticalMiles = specs.NauticalMiles,
-                    CruiseSpeedKnots = specs.CruiseSpeedKnots,
-                    FlightEstimatedHourTime = specs.FlightEstimatedHourTime,
-                    FlightEstimatedMinutesTime = specs.FlightEstimatedMinutesTime
-                }
-        };
+                    ID = p.ID,
+                    Date = p.Date,
+                    ICAODeparture = p.ICAODeparture,
+                    DepartureAirportName = p.DepartureAirportName,
+                    BaroPressureDeparture = p.BaroPressureDeparture,
+                    TransitionAltitudeDeparture = p.TransitionAltitudeDeparture,
+                    DepartureRunway = p.DepartureRunway,
+                    ICAOArrival = p.ICAOArrival,
+                    ArrivalAirportName = p.ArrivalAirportName,
+                    ArrivalRunway = p.ArrivalRunway,
+                    BaroPressureArrival = p.BaroPressureArrival,
+                    TransitionAltitudeArrival = p.TransitionAltitudeArrival,
+                    ArrivalRunwayElevation = p.ArrivalRunwayElevation,
+                    ArrivalRunwayMinimumAltitude = p.ArrivalRunwayMinimumAltitude,
+                    LocalizerFrequency = p.LocalizerFrequency,
+                    LocalizerVectorName = p.LocalizerVectorName,
+                    ApproachType = p.ApproachType,
+                    AircraftModel = p.AircraftModel,
+                    FlightType = p.FlightType,
+                    ArrivalRunwayLength = p.ArrivalRunwayLength,
+                    AltitudeFeet = p.AltitudeFeet,
+                    LocalizerVectorAltitude = p.LocalizerVectorAltitude,
+                    FullFlightName = p.FullFlightName,
+                    FlightSpecs = s == null ? new FlightSpecsDetailsViewModel() : new FlightSpecsDetailsViewModel
+                    {
+                        NauticalMiles = s.NauticalMiles,
+                        CruiseSpeedKnots = s.CruiseSpeedKnots,
+                        FlightEstimatedHourTime = s.FlightEstimatedHourTime,
+                        FlightEstimatedMinutesTime = s.FlightEstimatedMinutesTime
+                    }
+                }).FirstOrDefaultAsync();
+
+        if (query == null)
+            throw new ApplicationException("El plan de vuelo no existe o ha sido eliminado.");
+
+        return query;
     }
 }

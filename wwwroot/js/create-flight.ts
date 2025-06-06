@@ -57,12 +57,17 @@ namespace flight_create {
                 alert(data.message);
                 return;
             }
+
+            // Guardamos el ID como atributo en el botón
+            const btn = document.getElementById("btnSaveFlight");
+            if (btn) {
+                btn.setAttribute("data-id", data.id);
+            }
             
-            alert("Plan de vuelo guardado correctamente.");
-            window.location.href = `/Flight/Details?ID=${data.ID}`;
+            window.location.href = `/Flight/Details?ID=${encodeURIComponent(data.id)}`;
         })
         .catch(error => {
-            alert("Error al guardar el plan de vuelo.");
+            alert(`Error al guardar el plan de vuelo: ${error.message}`);
         });
     }
     

@@ -8,7 +8,7 @@
 
 @section Scripts
 {
-    <script src="~/js/create-flight.js"></script>
+    <script src="~/js/create-flight.js?v=2"></script>
 }
 
 <h1>Nuevo vuelo</h1>
@@ -166,7 +166,7 @@
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.Record.FlightSpecs.CruiseSpeedKnots)" class="form-label">Velocidad Crucero Recomendada</label>
-        <input type="number" class="form-control" id="@nameof(Model.Record.FlightSpecs.CruiseSpeedKnots)" value="@Model.Record.FlightSpecs?.CruiseSpeedKnots"/>
+        <input type="number" class="form-control" style="background-color: lightyellow;" id="@nameof(Model.Record.FlightSpecs.CruiseSpeedKnots)" value="@Model.Record.FlightSpecs?.CruiseSpeedKnots"/>
     </div>
 </div>
 

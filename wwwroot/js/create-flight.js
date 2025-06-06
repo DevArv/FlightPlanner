@@ -55,11 +55,15 @@ var flight_create;
                 alert(data.message);
                 return;
             }
-            alert("Plan de vuelo guardado correctamente.");
-            window.location.href = `/Flight/Details?ID=${data.ID}`;
+            // Guardamos el ID como atributo en el botón
+            const btn = document.getElementById("btnSaveFlight");
+            if (btn) {
+                btn.setAttribute("data-id", data.id);
+            }
+            window.location.href = `/Flight/Details?ID=${encodeURIComponent(data.id)}`;
         })
             .catch(error => {
-            alert("Error al guardar el plan de vuelo.");
+            alert(`Error al guardar el plan de vuelo: ${error.message}`);
         });
     }
     flight_create.save = save;
