@@ -2,8 +2,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlightPlanner.Models;
 
-//TODO: Probar si esto es realmente necesario..
-[Table("FlightSpecs")]
 public class FlightSpecs
 {
     public Guid ID { get; set; }
@@ -11,7 +9,7 @@ public class FlightSpecs
     public Guid PlannerID { get; set; }
     
     [ForeignKey("PlannerID")]
-    public Planner Planner { get; set; }
+    public Planner? Planner { get; set; }
     
     public int? NauticalMiles { get; set; }
     
