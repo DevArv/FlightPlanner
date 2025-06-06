@@ -39,9 +39,12 @@ public class PlannerRepository
         
         try
         {
+            // Generate a new ID when creating the record if none was supplied
+            var plannerID = ViewModel.ID == Guid.Empty ? Guid.NewGuid() : ViewModel.ID;
+
             var planner = new Planner
             {
-                ID = ViewModel.ID,
+                ID = plannerID,
                 Date = ViewModel.Date,
                 ICAODeparture = ViewModel.ICAODeparture,
                 DepartureAirportName = ViewModel.DepartureAirportName,
