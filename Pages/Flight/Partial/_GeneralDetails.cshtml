@@ -1,0 +1,32 @@
+@using FlightPlanner.Enums
+@model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.Date)" class="form-label">Fecha de agenda</label>
+        <input type="date" class="form-control" id="@nameof(Model.Date)" value="@Model.Date.ToString(Constants.Global.DATETIME_FORMAT)" readonly="readonly" />
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.FullFlightName)" class="form-label">Vuelo Programado</label>
+        <input type="text" class="form-control" id="@nameof(Model.FullFlightName)" value="@Model.FullFlightName" readonly="readonly" />
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.AircraftModel)" class="form-label">Modelo de Avión</label>
+        <select class="form-select" id="@nameof(Model.AircraftModel)" disabled="disabled" name="@Model.AircraftModel">
+            <option value="@((int)AircraftModelEnum.DEFAULT)" selected="@((Model.AircraftModel == AircraftModelEnum.DEFAULT))"></option>
+            <option value="@((int)AircraftModelEnum.CESSNA_CITATION_LONGITUDE)" selected="@((Model.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE))">Cessna Citation Longitude</option>
+        </select>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.FlightType)" class="form-label">Tipo de Vuelo</label>
+        <select class="form-select" id="@nameof(Model.FlightType)" disabled="disabled" name="@Model.FlightType">
+            <option value="@((int)FlightTypesEnum.DEFAULT)" selected="@((Model.FlightType == FlightTypesEnum.DEFAULT))"></option>
+            <option value="@((int)FlightTypesEnum.SHORT_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.SHORT_FLIGHT))">Vuelo Corto</option>
+            <option value="@((int)FlightTypesEnum.NORMAL_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.NORMAL_FLIGHT))">Vuelo Mediano Alcance</option>
+            <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud</option>
+        </select>
+    </div>
+</div>
