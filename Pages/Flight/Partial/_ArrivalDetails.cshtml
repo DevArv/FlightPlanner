@@ -1,0 +1,70 @@
+@using FlightPlanner.Enums
+@model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ICAOArrival)" class="form-label">ICAO</label>
+        <input type="text" class="form-control" id="@nameof(Model.ICAOArrival)" value="@Model.ICAOArrival" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ArrivalAirportName)" class="form-label">Nombre Aeropuerto</label>
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalAirportName)" value="@Model.ArrivalAirportName" readonly="readonly" />
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ArrivalRunway)" class="form-label">Pista de Llegada</label>
+        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunway)" value="@Model.ArrivalRunway" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.BaroPressureArrival)" class="form-label">BARO</label>
+        <input type="number" class="form-control" id="@nameof(Model.BaroPressureArrival)" value="@Model.BaroPressureArrival" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.TransitionAltitudeArrival)" class="form-label">Altitud de Transición</label>
+        <input type="number" class="form-control" id="@nameof(Model.TransitionAltitudeArrival)" value="@Model.TransitionAltitudeArrival" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ArrivalRunwayElevation)" class="form-label">Elevación de Pista</label>
+        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayElevation)" value="@Model.ArrivalRunwayElevation" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ArrivalRunwayMinimumAltitude)" class="form-label">Altitud Minima de Aproximación</label>
+        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayMinimumAltitude)" value="@Model..ArrivalRunwayMinimumAltitude" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.LocalizerFrequency)" class="form-label">Localizador</label>
+        <input type="number" class="form-control" id="@nameof(Model.LocalizerFrequency)" value="@Model.LocalizerFrequency" readonly="readonly" />
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.LocalizerVectorName)" class="form-label">Vector Final Ruedas de Aterrizaje</label>
+        <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorName)" value="@Model.LocalizerVectorName" readonly="readonly" />
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.LocalizerVectorAltitude)" class="form-label">Altitud Vector Localizador</label>
+        <input type="number" class="form-control" id="@nameof(Model.LocalizerVectorAltitude)" value="@Model.LocalizerVectorAltitude" readonly="readonly" />
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ArrivalRunwayLength)" class="form-label">Largo de Pista de Llegada</label>
+        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayLength)" value="@Model.ArrivalRunwayLength" readonly="readonly" />
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <label for="@nameof(Model.ApproachType)" class="form-label">Tipo de Aterrizaje</label>
+        <select class="form-select" id="@nameof(Model.ApproachType)" disabled="disabled" name="@Model.ApproachType">
+            <option value="@((int)ApproachTypeEnum.DEFAULT)" selected="@((Model.ApproachType == ApproachTypeEnum.DEFAULT))"></option>
+            <option value="@((int)ApproachTypeEnum.ILS)" selected="@((Model.ApproachType == ApproachTypeEnum.ILS))">ILS (Instrument Landing System)</option>
+            <option value="@((int)ApproachTypeEnum.RNAV)" selected="@((Model.ApproachType == ApproachTypeEnum.RNAV))">RNAV (Area Navigation)</option>
+            <option value="@((int)ApproachTypeEnum.VOR)" selected="@((Model.ApproachType == ApproachTypeEnum.VOR))">VOR Approach</option>
+            <option value="@((int)ApproachTypeEnum.VISUAL)" selected="@((Model.ApproachType == ApproachTypeEnum.VISUAL))">Visual Approach</option>
+        </select>
+    </div>
+</div>
