@@ -149,4 +149,24 @@ public class PlannerRepository
 
         return query;
     }
+
+    public async Task<List<FlightPlannerDetailsViewModel>> GetTableFlightPlansAsync()
+    {
+        await using var context = new FlightPlannerContext();
+        
+        var query = await (from p in context.FlightPlanner.AsNoTracking()
+                orderby p.Date descending
+                select new FlightPlannerDetailsViewModel
+                {
+                    ID = p.ID,
+                    Date = p.Date,
+                    FullFlightName = p.FullFlightName,
+                    DepartureAirportName = p.DepartureAirportName,
+                    ArrivalAirportName = p.ArrivalAirportName,
+                    DepartureRunway = p.DepartureRunway,
+                    ArrivalRunway = p.ArrivalRunway
+                }).ToListAsync();
+
+        return query;
+    }
 }
