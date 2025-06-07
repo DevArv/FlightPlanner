@@ -1,3 +1,4 @@
+using FlightPlanner.Constants;
 using FlightPlanner.DatabaseConnection;
 using FlightPlanner.Enums;
 using FlightPlanner.Models;
@@ -80,13 +81,67 @@ public class PlannerRepository
             decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
 
+            int averageFuel = 0;
+            int reserveFuel = 0;
+            decimal reserveFuelGal = 0;
+            int emergencyFuel = 0;
+            decimal emergencyFuelGal = 0;
+            decimal basicFuel = 0;
+            decimal totalFuel = 0;
+            decimal totalFuelGal = 0;
+            
+            if (ViewModel.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT &&
+                ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+            {
+                averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
+                reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
+                reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+                emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
+                emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+                basicFuel = averageFuel * flightEstimatedHourTime;
+                totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
+                totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            }
+            else if (ViewModel.FlightType == FlightTypesEnum.NORMAL_FLIGHT &&
+                     ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+            {
+                averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
+                reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
+                reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+                emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
+                emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+                basicFuel = averageFuel * flightEstimatedHourTime;
+                totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
+                totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            }
+            else if (ViewModel.FlightType == FlightTypesEnum.SHORT_FLIGHT &&
+                     ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+            {
+                averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
+                reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
+                reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+                emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
+                emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+                basicFuel = averageFuel * flightEstimatedHourTime;
+                totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
+                totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            }
+
             var flightSpecs = new FlightSpecs
             {
                 PlannerID = planner.ID,
                 NauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0,
                 CruiseSpeedKnots = ViewModel.FlightSpecs?.CruiseSpeedKnots ?? 0,
                 FlightEstimatedHourTime = flightEstimatedHourTime,
-                FlightEstimatedMinutesTime = flightEstimatedMinutesTime
+                FlightEstimatedMinutesTime = flightEstimatedMinutesTime,
+                BasicFuel = basicFuel,
+                AverageFuelConsumption = averageFuel,
+                ReserveFuel = reserveFuel,
+                ReserveFuelGal = reserveFuelGal,
+                EmergencyFuel = emergencyFuel,
+                EmergencyFuelGal = emergencyFuelGal,
+                TotalFuel = totalFuel,
+                TotalFuelGal = totalFuelGal
             };
             
             context.FlightSpecs.Add(flightSpecs);
@@ -140,7 +195,15 @@ public class PlannerRepository
                         NauticalMiles = s.NauticalMiles,
                         CruiseSpeedKnots = s.CruiseSpeedKnots,
                         FlightEstimatedHourTime = s.FlightEstimatedHourTime,
-                        FlightEstimatedMinutesTime = s.FlightEstimatedMinutesTime
+                        FlightEstimatedMinutesTime = s.FlightEstimatedMinutesTime,
+                        BasicFuel = s.BasicFuel,
+                        AverageFuelConsumption = s.AverageFuelConsumption,
+                        ReserveFuel = s.ReserveFuel,
+                        ReserveFuelGal = s.ReserveFuelGal,
+                        EmergencyFuel = s.EmergencyFuel,
+                        EmergencyFuelGal = s.EmergencyFuelGal,
+                        TotalFuel = s.TotalFuel,
+                        TotalFuelGal = s.TotalFuelGal
                     }
                 }).FirstOrDefaultAsync();
 

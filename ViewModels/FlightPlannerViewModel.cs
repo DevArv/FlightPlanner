@@ -39,6 +39,14 @@ public class FlightSpecsDetailsViewModel : FlightSpecsViewModel
 {
     public decimal FlightEstimatedHourTime { get; set; }
     public int FlightEstimatedMinutesTime { get; set; }
+    public int AverageFuelConsumption { get; set; }
+    public decimal? BasicFuel { get; set; }
+    public int ReserveFuel { get; set; }
+    public decimal ReserveFuelGal { get; set; }
+    public decimal EmergencyFuel { get; set; }
+    public decimal EmergencyFuelGal { get; set; }
+    public decimal TotalFuel { get; set; }
+    public decimal TotalFuelGal { get; set; }
 }
 
 public class FlightPlannerDetailsViewModel : FlightPlannerSimpleViewModel

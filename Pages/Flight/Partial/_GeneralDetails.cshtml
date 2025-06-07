@@ -24,9 +24,9 @@
         <label for="@nameof(Model.FlightType)" class="form-label">Tipo de Vuelo</label>
         <select class="form-select" id="@nameof(Model.FlightType)" disabled="disabled" name="@Model.FlightType">
             <option value="@((int)FlightTypesEnum.DEFAULT)" selected="@((Model.FlightType == FlightTypesEnum.DEFAULT))"></option>
-            <option value="@((int)FlightTypesEnum.SHORT_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.SHORT_FLIGHT))">Vuelo Corto</option>
-            <option value="@((int)FlightTypesEnum.NORMAL_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.NORMAL_FLIGHT))">Vuelo Mediano Alcance</option>
-            <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud</option>
+            <option value="@((int)FlightTypesEnum.SHORT_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.SHORT_FLIGHT))">Vuelo Corto ( < 350 NM )</option>
+            <option value="@((int)FlightTypesEnum.NORMAL_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.NORMAL_FLIGHT))">Vuelo Mediano Alcance ( 351 - 1499 NM )</option>
+            <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud ( > 1500 NM )</option>
         </select>
     </div>
 </div>
