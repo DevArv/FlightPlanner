@@ -6,7 +6,17 @@
     ViewData["Title"] = "Detalle del vuelo";
 }
 
+@section Scripts
+{
+    <script src="~/js/delete-flight.js?v=2" asp-append-version="true"></script>
+}
+
 <h1>Detalle del vuelo</h1>
+
+<hr />
+
+@Html.FpListButton()
+@Html.FpDeleteButton(OnClick: $"flight_details.remove('{Model.Record.ID}')")
 
 <hr />
 

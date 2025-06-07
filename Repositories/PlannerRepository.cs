@@ -169,4 +169,29 @@ public class PlannerRepository
 
         return query;
     }
+
+    public async Task DeleteFlightPlanAsync(Guid ID)
+    {
+        await using var context = new FlightPlannerContext();
+        await using var transaction = await context.Database.BeginTransactionAsync();
+
+        try
+        {
+            var planner = await context.FlightPlanner.FirstOrDefaultAsync(p => p.ID == ID);
+            if (planner == null)
+                throw new ApplicationException("El plan de vuelo no existe o ha sido eliminado.");
+
+            var specs = await context.FlightSpecs.Where(s => s.PlannerID == ID).ToListAsync();
+            context.FlightSpecs.RemoveRange(specs);
+            context.FlightPlanner.Remove(planner);
+            
+            await context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw new ApplicationException($"Error al eliminar el plan de vuelo: {ex.Message}");
+        }
+    }
 }

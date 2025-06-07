@@ -56,7 +56,7 @@ var flight_create;
                 return;
             }
             // Guardamos el ID como atributo en el botón
-            const btn = document.getElementById("btnSaveFlight");
+            const btn = document.getElementById("btnSave");
             if (btn) {
                 btn.setAttribute("data-id", data.id);
             }
@@ -67,8 +67,4 @@ var flight_create;
         });
     }
     flight_create.save = save;
-    document.addEventListener("DOMContentLoaded", () => {
-        const SAVE_BUTTON = document.getElementById("btnSaveFlight");
-        SAVE_BUTTON === null || SAVE_BUTTON === void 0 ? void 0 : SAVE_BUTTON.addEventListener("click", () => save());
-    });
 })(flight_create || (flight_create = {}));

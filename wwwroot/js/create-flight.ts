@@ -59,7 +59,7 @@ namespace flight_create {
             }
 
             // Guardamos el ID como atributo en el botón
-            const btn = document.getElementById("btnSaveFlight");
+            const btn = document.getElementById("btnSave");
             if (btn) {
                 btn.setAttribute("data-id", data.id);
             }
@@ -70,9 +70,4 @@ namespace flight_create {
             alert(`Error al guardar el plan de vuelo: ${error.message}`);
         });
     }
-    
-    document.addEventListener("DOMContentLoaded", () => {
-        const SAVE_BUTTON = document.getElementById("btnSaveFlight");
-        SAVE_BUTTON?.addEventListener("click", () => save());
-    })
 }
