@@ -8,7 +8,7 @@
 
 @section Scripts
 {
-    <script src="~/js/create-flight.js?v=2"></script>
+    <script src="~/js/create-flight.js?v=2" asp-append-version="true"></script>
 }
 
 <h1>Nuevo vuelo</h1>
@@ -172,7 +172,7 @@
 
 <hr />
 
-<button type="button" id="btnSaveFlight" class="btn btn-success">Guardar</button>
+@Html.FpSaveButton(OnClick: "flight_create.save()")
 
 <hr />
 
