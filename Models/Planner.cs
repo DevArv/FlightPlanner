@@ -30,8 +30,6 @@ public class Planner
     
     public int? ArrivalRunway { get; set; }
     
-    public int? AltitudeFeet { get; set; }
-    
     public int? ArrivalRunwayElevation { get; set; }
     
     public int? ArrivalRunwayMinimumAltitude { get; set; }

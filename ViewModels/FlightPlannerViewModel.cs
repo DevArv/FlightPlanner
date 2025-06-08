@@ -19,7 +19,6 @@ public class FlightPlannerSimpleViewModel
     public int? ArrivalRunwayElevation { get; set; }
     public int? ArrivalRunwayMinimumAltitude { get; set; }
     public int? ArrivalRunwayLength { get; set; }
-    public int? AltitudeFeet { get; set; }
     public int? LocalizerVectorAltitude { get; set; }
     public decimal? LocalizerFrequency { get; set; }
     public string? LocalizerVectorName { get; set; }
@@ -47,6 +46,7 @@ public class FlightSpecsDetailsViewModel : FlightSpecsViewModel
     public decimal EmergencyFuelGal { get; set; }
     public decimal TotalFuel { get; set; }
     public decimal TotalFuelGal { get; set; }
+    public int? AltitudeFeet { get; set; }
 }
 
 public class FlightPlannerDetailsViewModel : FlightPlannerSimpleViewModel

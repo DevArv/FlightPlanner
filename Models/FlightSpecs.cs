@@ -34,4 +34,6 @@ public class FlightSpecs
     public decimal FlightEstimatedHourTime { get; set; }
     
     public int FlightEstimatedMinutesTime { get; set; }
+    
+    public int? AltitudeFeet { get; set; }
 }
