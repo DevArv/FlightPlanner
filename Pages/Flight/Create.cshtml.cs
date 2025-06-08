@@ -35,9 +35,9 @@ public class CreateModel : PageModel
         {
             return new JsonResult(new { success = false, message = aex.Message });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return new JsonResult(new { success = false, message = "Ocurrió un error inesperado al guardar el plan de vuelo.", ex });
+            return new JsonResult(new { success = false, message = "Ocurrió un error inesperado al guardar el plan de vuelo." });
         }
     }
 }
