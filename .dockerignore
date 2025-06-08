@@ -1,0 +1,4 @@
+bin
+obj
+**/*.ts
+node_modules
