@@ -1,0 +1,11 @@
+databases:
+  - name: flightplanner-db
+
+services:
+  - type: web
+    name: flightplanner
+    env: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: ConnectionStrings__DefaultConnection
+        fromDatabase: flightplanner-db
