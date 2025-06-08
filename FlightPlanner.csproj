@@ -12,6 +12,16 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot/js/**/*.ts" />
+  </ItemGroup>
+
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\create-flight.ts" />
     <TypeScriptCompile Include="wwwroot\js\delete-flight.ts" />

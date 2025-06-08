@@ -1,20 +1,25 @@
 version: '3.8'
 services:
-  db:
-    image: postgres:16
+  postgres:
+    image: postgres:15
     environment:
-      POSTGRES_USER: flightplanner
-      POSTGRES_PASSWORD: flightplanner
-      POSTGRES_DB: flightplanner
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secretpassword
+      POSTGRES_DB: FlightPlanner
+    ports:
+      - "5432:5432"
     volumes:
-      - db-data:/var/lib/postgresql/data
-  web:
+      - pgdata:/var/lib/postgresql/data
+
+  flightplanner:
     build: .
     ports:
       - "8080:8080"
     environment:
-      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=flightplanner;Username=flightplanner;Password=flightplanner"
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=FlightPlanner;Username=postgres;Password=secretpassword
     depends_on:
-      - db
+      - postgres
+
 volumes:
-  db-data:
+  pgdata:
