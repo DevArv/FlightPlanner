@@ -10,6 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Npgsql" Version="9.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <!-- MSBuild integration for TypeScript -->
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.0.4" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -18,17 +20,16 @@
   </PropertyGroup>
 
 
+  <PropertyGroup>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+  </PropertyGroup>
+
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot/js/**/*.ts" />
   </ItemGroup>
 
-  <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\js\create-flight.ts" />
-    <TypeScriptCompile Include="wwwroot\js\delete-flight.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\js\create-flight.js" />
-  </ItemGroup>
+  <Target Name="CompileTypeScript" BeforeTargets="Build">
+    <Exec Command="npm run build" />
+  </Target>
 
 </Project>
