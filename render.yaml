@@ -1,9 +1,0 @@
-services:
-  - type: web
-    name: flightplanner
-    runtime: dotnet
-    repo: https://github.com/DevArv/FlightPlanner
-    buildCommand: dotnet publish -c Release
-    startCommand: dotnet bin/Release/net8.0/FlightPlanner.dll
-    plan: free
-    region: oregon
