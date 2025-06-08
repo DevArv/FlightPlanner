@@ -1,3 +1,4 @@
+using FlightPlanner.Constants;
 using FlightPlanner.DatabaseConnection;
 using FlightPlanner.Enums;
 using FlightPlanner.Models;
@@ -19,9 +20,6 @@ public class PlannerRepository
         
         if (Obj.FlightSpecs.NauticalMiles == null || Obj.FlightSpecs.NauticalMiles <= 0)
             throw new ApplicationException("Las Millas Náuticas deben ser mayores a cero.");
-        
-        if (Obj.FlightSpecs.CruiseSpeedKnots == null || Obj.FlightSpecs.CruiseSpeedKnots <= 0)
-            throw new ApplicationException("La Velocidad Crucero deben ser mayores a cero.");
         
         if (Obj.AircraftModel == AircraftModelEnum.DEFAULT)
             throw new ApplicationException("El modelo de Avión es requerido.");
@@ -64,7 +62,6 @@ public class PlannerRepository
                 AircraftModel = ViewModel.AircraftModel,
                 FlightType = ViewModel.FlightType,
                 ArrivalRunwayLength = ViewModel.ArrivalRunwayLength,
-                AltitudeFeet = ViewModel.AltitudeFeet,
                 LocalizerVectorAltitude = ViewModel.LocalizerVectorAltitude,
                 
                 FullFlightName = $"{ViewModel.ICAODeparture} -> {ViewModel.ICAOArrival}",
@@ -74,19 +71,69 @@ public class PlannerRepository
             await context.SaveChangesAsync();
 
             var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
-            var speed = ViewModel.FlightSpecs?.CruiseSpeedKnots ?? 1;
+            int speed = 0;
+            int averageFuel = 0;
+            int reserveFuel = 0;
+            int emergencyFuel = 0;
+            int altitudeFeet = 0;
+
+            if (ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+            {
+                switch (ViewModel.FlightType)
+                {
+                    case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                        altitudeFeet = GlobalFormulas.CESSNACL_HA_CRUISE_ALTITUDE;
+                        speed = GlobalFormulas.CESSNACL_HA_CRUISE_SPEED;
+                        averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
+                        reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
+                        emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
+                        break;
+                    
+                    case FlightTypesEnum.NORMAL_FLIGHT:
+                        altitudeFeet = GlobalFormulas.CESSNACL_MA_CRUISE_ALTITUDE;
+                        speed = GlobalFormulas.CESSNACL_MA_CRUISE_SPEED;
+                        averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
+                        reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
+                        emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
+                        break;
+                    
+                    case FlightTypesEnum.SHORT_FLIGHT:
+                        altitudeFeet = GlobalFormulas.CESSNACL_LA_CRUISE_ALTITUDE;
+                        speed = GlobalFormulas.CESSNACL_LA_CRUISE_SPEED;
+                        averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
+                        reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
+                        emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
+                        break;
+                }
+            }
             
             decimal hoursDecimal = (decimal)nauticalMiles / speed;
             decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
+            
+            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            decimal emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            
+            decimal basicFuel = averageFuel * flightEstimatedHourTime;
+            decimal totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
+            decimal totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
 
             var flightSpecs = new FlightSpecs
             {
                 PlannerID = planner.ID,
-                NauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0,
-                CruiseSpeedKnots = ViewModel.FlightSpecs?.CruiseSpeedKnots ?? 0,
+                NauticalMiles = nauticalMiles,
+                CruiseSpeedKnots = speed,
                 FlightEstimatedHourTime = flightEstimatedHourTime,
-                FlightEstimatedMinutesTime = flightEstimatedMinutesTime
+                FlightEstimatedMinutesTime = flightEstimatedMinutesTime,
+                BasicFuel = basicFuel,
+                AverageFuelConsumption = averageFuel,
+                ReserveFuel = reserveFuel,
+                ReserveFuelGal = reserveFuelGal,
+                EmergencyFuel = emergencyFuel,
+                EmergencyFuelGal = emergencyFuelGal,
+                TotalFuel = totalFuel,
+                TotalFuelGal = totalFuelGal,
+                AltitudeFeet = altitudeFeet,
             };
             
             context.FlightSpecs.Add(flightSpecs);
@@ -132,7 +179,6 @@ public class PlannerRepository
                     AircraftModel = p.AircraftModel,
                     FlightType = p.FlightType,
                     ArrivalRunwayLength = p.ArrivalRunwayLength,
-                    AltitudeFeet = p.AltitudeFeet,
                     LocalizerVectorAltitude = p.LocalizerVectorAltitude,
                     FullFlightName = p.FullFlightName,
                     FlightSpecs = s == null ? new FlightSpecsDetailsViewModel() : new FlightSpecsDetailsViewModel
@@ -140,7 +186,16 @@ public class PlannerRepository
                         NauticalMiles = s.NauticalMiles,
                         CruiseSpeedKnots = s.CruiseSpeedKnots,
                         FlightEstimatedHourTime = s.FlightEstimatedHourTime,
-                        FlightEstimatedMinutesTime = s.FlightEstimatedMinutesTime
+                        FlightEstimatedMinutesTime = s.FlightEstimatedMinutesTime,
+                        BasicFuel = s.BasicFuel,
+                        AverageFuelConsumption = s.AverageFuelConsumption,
+                        ReserveFuel = s.ReserveFuel,
+                        ReserveFuelGal = s.ReserveFuelGal,
+                        EmergencyFuel = s.EmergencyFuel,
+                        EmergencyFuelGal = s.EmergencyFuelGal,
+                        TotalFuel = s.TotalFuel,
+                        TotalFuelGal = s.TotalFuelGal,
+                        AltitudeFeet = s.AltitudeFeet
                     }
                 }).FirstOrDefaultAsync();
 

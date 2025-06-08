@@ -35,11 +35,9 @@ namespace flight_create {
             FlightType: getIntValue("FlightType"),
             ArrivalRunwayLength: getIntValue("ArrivalRunwayLength"),
             LocalizerVectorAltitude: getIntValue("LocalizerVectorAltitude"),
-            AltitudeFeet: getIntValue("AltitudeFeet"),
             
             FlightSpecs: {
-                NauticalMiles: getIntValue("NauticalMiles"),
-                CruiseSpeedKnots: getIntValue("CruiseSpeedKnots")
+                NauticalMiles: getIntValue("NauticalMiles")
             }
         };
 

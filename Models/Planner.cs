@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using FlightPlanner.Enums;
 
 namespace FlightPlanner.Models;
@@ -30,8 +29,6 @@ public class Planner
     public int? DepartureRunway { get; set; }
     
     public int? ArrivalRunway { get; set; }
-    
-    public int? AltitudeFeet { get; set; }
     
     public int? ArrivalRunwayElevation { get; set; }
     
