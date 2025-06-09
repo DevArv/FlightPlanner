@@ -39,11 +39,19 @@ public class Details : PageModel
         }
         catch (ApplicationException aex)
         {
-            return new JsonResult(new { success = false, message = aex.Message });
+            return new JsonResult(new
+            {
+                success = false, 
+                message = aex.Message
+            });
         }
         catch (Exception)
         {
-            return new JsonResult(new { success = false, message = "Ocurrió un error inesperado al eliminar el plan de vuelo" });
+            return new JsonResult(new
+            {
+                success = false, 
+                message = "Ocurrió un error inesperado al eliminar el plan de vuelo."
+            });
         }
     }
 }
