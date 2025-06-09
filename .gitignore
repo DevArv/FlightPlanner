@@ -650,3 +650,4 @@ fabric.properties
 appsettings.json
 /wwwroot/js/*.js
 !/wwwroot/js/site.js
+docker-compose.yml

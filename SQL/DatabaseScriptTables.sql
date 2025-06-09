@@ -16,7 +16,7 @@ CREATE TABLE "FlightPlanner" (
     "TransitionAltitudeArrival" INTEGER NULL,
     "ArrivalRunwayElevation" INTEGER NULL,
     "ArrivalRunwayMinimumAltitude" INTEGER NULL,
-    "LocalizerFrequency" INTEGER NULL,
+    "LocalizerFrequency" NUMERIC NULL,
     "LocalizerVectorName" VARCHAR(50) NULL,
     "ApproachType" INTEGER NULL
 )
