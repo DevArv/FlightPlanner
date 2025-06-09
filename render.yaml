@@ -8,4 +8,4 @@ services:
     dockerfilePath: ./Dockerfile
     envVars:
       - key: ConnectionStrings__DefaultConnection
-        fromDatabase: flightplanner-db
+        value: Host=dpg-d12slgmmcj7s73fnsgfg-a;Port=5432;Database=flightplanner_db;Username=flightplanner_db_user;Password=KVTWPiBRZd9zo4bR8pRdLgcgdxu4KvdA
