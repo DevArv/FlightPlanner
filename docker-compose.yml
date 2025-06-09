@@ -17,7 +17,7 @@ services:
       - "8080:8080"
     environment:
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Host=host.docker.internal;Port=5432;Database=FlightPlanner;Username=postgres;Password=secretpassword
+      - ConnectionStrings__DefaultConnection=
     depends_on:
       - postgres
 
