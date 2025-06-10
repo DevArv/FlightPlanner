@@ -8,11 +8,20 @@ ENV ASPNETCORE_URLS=http://+:80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia el archivo del proyecto y restaura
-COPY ["FlightPlanner.csproj", "./"]
+# Instala Node.js para compilar TypeScript
+RUN apt-get update && \
+    apt-get install -y nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copia los archivos de NPM y restaura paquetes
+COPY package*.json ./
+RUN npm ci
+
+# Copia el archivo del proyecto y restaura paquetes de .NET
+COPY FlightPlanner.csproj ./
 RUN dotnet restore
 
-# Copia todo el contenido del proyecto
+# Copia el resto del código fuente
 COPY . .
 
 # Publica la app
