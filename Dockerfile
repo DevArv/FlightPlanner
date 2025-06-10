@@ -4,8 +4,8 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["FlightPlanner/FlightPlanner.csproj", "FlightPlanner/"]
-RUN dotnet restore "FlightPlanner/FlightPlanner.csproj"
+COPY ["FlightPlanner.csproj", "./"]
+RUN dotnet restore "FlightPlanner.csproj"
 COPY . .
 WORKDIR "/src/FlightPlanner"
 RUN dotnet build "FlightPlanner.csproj" -c Release -o /app/build
