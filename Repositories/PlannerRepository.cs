@@ -106,7 +106,7 @@ public class PlannerRepository
                         break;
                 }
             }
-            
+
             decimal hoursDecimal = (decimal)nauticalMiles / speed;
             decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);

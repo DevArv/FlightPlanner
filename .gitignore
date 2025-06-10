@@ -648,3 +648,6 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/csharp,jetbrains,aspnetcore,dotnetcore
 
 appsettings.json
+/wwwroot/js/*.js
+!/wwwroot/js/site.js
+docker-compose.yml

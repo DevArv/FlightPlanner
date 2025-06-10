@@ -23,21 +23,33 @@ public class CreateModel : PageModel
         try
         {
             var repo = new PlannerRepository();
-            bool isValid = await repo.ValidateAsync(Flight);
+            bool isValid = await repo.ValidateAsync(Obj: Flight);
 
             if (isValid == false)
                 return BadRequest("La validación falló.");
 
-            var ID = await repo.SaveFlightPlanAsync(Flight);
-            return new JsonResult(new { success = true, ID = ID });
+            var ID = await repo.SaveFlightPlanAsync(ViewModel: Flight);
+            return new JsonResult(new
+            {
+                success = true, 
+                ID = ID
+            });
         }
         catch (ApplicationException aex)
         {
-            return new JsonResult(new { success = false, message = aex.Message });
+            return new JsonResult(new
+            {
+                success = false, 
+                message = aex.Message
+            });
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            return new JsonResult(new { success = false, message = "Ocurrió un error inesperado al guardar el plan de vuelo.", ex });
+            return new JsonResult(new
+            {
+                success = false, 
+                message = "Ocurrió un error inesperado al guardar el plan de vuelo."
+            });
         }
     }
 }
