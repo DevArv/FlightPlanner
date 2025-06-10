@@ -1,29 +1,19 @@
-# Etapa base
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 10000
-ENV ASPNETCORE_URLS=http://+:10000
+EXPOSE 80
 
-# Etapa build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-
-# Copia el archivo del proyecto y restaura
-COPY ["FlightPlanner.csproj", "./"]
-RUN dotnet restore
-
-# Copia todo el contenido del proyecto
+COPY ["FlightPlanner/FlightPlanner.csproj", "FlightPlanner/"]
+RUN dotnet restore "FlightPlanner/FlightPlanner.csproj"
 COPY . .
+WORKDIR "/src/FlightPlanner"
+RUN dotnet build "FlightPlanner.csproj" -c Release -o /app/build
 
-# Publica la app
-RUN dotnet publish -c Release -o /app/publish
+FROM build AS publish
+RUN dotnet publish "FlightPlanner.csproj" -c Release -o /app/publish
 
-# Etapa final
 FROM base AS final
 WORKDIR /app
-
-# Copia los archivos publicados
-COPY --from=build /app/publish .
-
-# Usa el entrypoint
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "FlightPlanner.dll"]
