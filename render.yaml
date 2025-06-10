@@ -1,13 +1,13 @@
 databases:
-  - name: FlightPlanner-db
+  - name: flightplanner-db
 
 services:
   - type: web
-    name: FlightPlanner-app
+    name: flightplanner-app
     env: docker
     dockerfilePath: ./Dockerfile
     envVars:
       - key: ConnectionStrings__DefaultConnection
         fromDatabase:
-          name: FlightPlanner-db
+          name: flightplanner-db
           property: connectionString
