@@ -1,11 +1,13 @@
 databases:
-  - name: flightplanner-db
+  - name: FlightPlanner-db
 
 services:
   - type: web
-    name: flightplanner
+    name: FlightPlanner-app
     env: docker
     dockerfilePath: ./Dockerfile
     envVars:
       - key: ConnectionStrings__DefaultConnection
-        value: Host=dpg-d12slgmmcj7s73fnsgfg-a;Port=5432;Database=flightplanner_db;Username=flightplanner_db_user;Password=KVTWPiBRZd9zo4bR8pRdLgcgdxu4KvdA
+        fromDatabase:
+          name: FlightPlanner-db
+          property: connectionString
