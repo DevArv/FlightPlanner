@@ -1,57 +1,62 @@
-﻿@page
-@using FlightPlanner.Constants
-@model IndexModel
-@{
-    ViewData["Title"] = "Inicio";
-}
+﻿@* @page *@
+@* @using FlightPlanner.Constants *@
+@* @model IndexModel *@
+@* @{ *@
+@*     ViewData["Title"] = "Inicio"; *@
+@* } *@
+@* *@
+@* <h1>Vuelos Programados</h1> *@
+@* *@
+@* @if (!string.IsNullOrWhiteSpace(Model.Error)) *@
+@* { *@
+@*     <div class="alert alert-danger" role="alert">@Model.Error</div> *@
+@* } *@
+@* *@
+@* <input type="text" id="searchInput" class="form-control col-md-12" placeholder="Buscar..." /> *@
+@* *@
+@* <table class="table table-striped" id="myTable"> *@
+@*     <thead> *@
+@*     <tr> *@
+@*         <th>Fecha</th> *@
+@*         <th>Vuelo</th> *@
+@*         <th>Aeropuerto de Salida</th> *@
+@*         <th>Aeropuerto de Llegada</th> *@
+@*         <th>Pista de Salida</th> *@
+@*         <th>Pista de Llegada</th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     <tbody> *@
+@*     @foreach (var flight in Model.Flights) *@
+@*     { *@
+@*         <tr> *@
+@*             <td>@flight.Date.ToString(Global.DATETIME_FORMAT)</td> *@
+@*             <td><a asp-page="/Flight/Details" asp-route-ID="@flight.ID">@flight.FullFlightName</a></td> *@
+@*             <td>@flight.DepartureAirportName</td> *@
+@*             <td>@flight.ArrivalAirportName</td> *@
+@*             <td>@flight.DepartureRunway</td> *@
+@*             <td>@flight.ArrivalRunway</td> *@
+@*         </tr> *@
+@*     } *@
+@*     </tbody> *@
+@* </table> *@
+@* *@
+@* @section Scripts *@
+@* { *@
+@*     <script> *@
+@*         document.addEventListener('DOMContentLoaded', () => { *@
+@*             const SEARCH_INPUT = document.getElementById('searchInput'); *@
+@*             SEARCH_INPUT.addEventListener('input', () => { *@
+@*                 const TERM = SEARCH_INPUT.value.toLowerCase(); *@
+@*                 document.querySelectorAll('#myTable tbody tr').forEach(row => { *@
+@*                     const TEXT = row.textContent.toLowerCase(); *@
+@*                     row.style.display = TEXT.includes(TERM) ? '' : 'none'; *@
+@*                 }) *@
+@*             }) *@
+@*         }) *@
+@*     </script> *@
+@* } *@
 
-<h1>Vuelos Programados</h1>
-
-@if (!string.IsNullOrWhiteSpace(Model.Error))
-{
-    <div class="alert alert-danger" role="alert">@Model.Error</div>
-}
-
-<input type="text" id="searchInput" class="form-control col-md-12" placeholder="Buscar..." />
-
-<table class="table table-striped" id="myTable">
-    <thead>
-    <tr>
-        <th>Fecha</th>
-        <th>Vuelo</th>
-        <th>Aeropuerto de Salida</th>
-        <th>Aeropuerto de Llegada</th>
-        <th>Pista de Salida</th>
-        <th>Pista de Llegada</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var flight in Model.Flights)
-    {
-        <tr>
-            <td>@flight.Date.ToString(Global.DATETIME_FORMAT)</td>
-            <td><a asp-page="/Flight/Details" asp-route-ID="@flight.ID">@flight.FullFlightName</a></td>
-            <td>@flight.DepartureAirportName</td>
-            <td>@flight.ArrivalAirportName</td>
-            <td>@flight.DepartureRunway</td>
-            <td>@flight.ArrivalRunway</td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-@section Scripts
-{
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const SEARCH_INPUT = document.getElementById('searchInput');
-            SEARCH_INPUT.addEventListener('input', () => {
-                const TERM = SEARCH_INPUT.value.toLowerCase();
-                document.querySelectorAll('#myTable tbody tr').forEach(row => {
-                    const TEXT = row.textContent.toLowerCase();
-                    row.style.display = TEXT.includes(TERM) ? '' : 'none';
-                })
-            })
-        })
-    </script>
-}
+@page
+<div>
+    Hola mundo !
+</div>
