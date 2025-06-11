@@ -29,6 +29,7 @@ RUN dotnet publish -c Release -o /app/publish
 # Etapa final
 FROM base AS final
 WORKDIR /app
+EXPOSE 80
 
 # Copia los archivos publicados
 COPY --from=build /app/publish .
