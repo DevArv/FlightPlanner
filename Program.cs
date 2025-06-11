@@ -3,7 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-//
+//Expose the application on port 80 - this is useful for running in a container
 builder.WebHost.UseUrls("http://+80");
 
 var app = builder.Build();
