@@ -2,7 +2,12 @@ services:
   - type: web
     name: flightplanner
     env: docker
+    plan: free
+    repo: https://github.com/DevArv/FlightPlanner
+    branch: production
+    dockerContext: .
     dockerfilePath: ./Dockerfile
+    healthCheckPath: /
     envVars:
-      - key: ConnectionStrings__DefaultConnection
-        fromDatabase: flightplanner-db
+      -key: ASPNETCORE_URLS
+      value: http://0.0.0.0:80
