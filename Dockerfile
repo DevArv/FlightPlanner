@@ -22,14 +22,17 @@ RUN dotnet restore
 
 # Copia el resto del código fuente
 COPY . .
+WORKDIR "/src/FlightPlanner"
+RUN dotnet build "FlightPlanner.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Publica la app
-RUN dotnet publish -c Release -o /app/publish
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "FlightPlanner.csproj ./" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Etapa final
 FROM base AS final
 WORKDIR /app
-EXPOSE 80
 
 # Copia los archivos publicados
 COPY --from=build /app/publish .
