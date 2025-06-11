@@ -10,7 +10,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["FlightPlanner/FlightPlanner.csproj", "FlightPlanner/"]
+COPY ["FlightPlanner.csproj", "FlightPlanner/"]
 RUN dotnet restore "./FlightPlanner/FlightPlanner.csproj"
 COPY . .
 WORKDIR "/src/FlightPlanner"
@@ -25,4 +25,4 @@ RUN dotnet publish "./FlightPlanner.csproj" -c $BUILD_CONFIGURATION -o /app/publ
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SimpleChatRazor.dll"]
+ENTRYPOINT ["dotnet", "FlightPlanner.dll"]
