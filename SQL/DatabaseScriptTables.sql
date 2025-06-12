@@ -26,7 +26,7 @@ CREATE TABLE "FlightSpecs" (
     "PlannerID" UUID NOT NULL,
     "NauticalMiles" INTEGER NOT NULL,
     "CruiseSpeedKnots" INTEGER NOT NULL,
-    "FlightEstimatedHourTime" INTEGER NULL,
+    "FlightEstimatedHourTime" NUMERIC NULL,
     "FlightEstimatedMinutesTime" INTEGER  NULL,
     CONSTRAINT fk_planner FOREIGN KEY ("PlannerID") REFERENCES "FlightPlanner"("ID") ON DELETE CASCADE
 )
