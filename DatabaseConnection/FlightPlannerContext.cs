@@ -13,8 +13,6 @@ public class FlightPlannerContext : DbContext
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
-            // Allow environment variables (e.g. from docker-compose) to override
-            // settings such as the database connection string.
             .AddEnvironmentVariables()
             .Build();
     }
