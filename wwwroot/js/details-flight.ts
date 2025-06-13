@@ -25,4 +25,8 @@ namespace flight_details {
             alert(`Error al eliminar el plan de vuelo: ${error.message}`);
         });
     }
+    
+    export function edit(ID: string): void {
+        window.location.href = `/Flight/Edit?ID=${encodeURIComponent(ID)}`;
+    }
 }

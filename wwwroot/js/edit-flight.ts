@@ -1,4 +1,4 @@
-namespace flight_create {
+namespace flight_edit {
     function getIntValue(id: string): number | null {
         const value = (document.getElementById(id) as HTMLInputElement | HTMLSelectElement).value;
         return value === "" ? null : parseInt(value);
@@ -8,13 +8,13 @@ namespace flight_create {
         const value = (document.getElementById(id) as HTMLInputElement).value;
         return value === "" ? null : parseFloat(value);
     }
-    
+
     export function save(): void {
         const rawDate = (document.getElementById("Date") as HTMLInputElement).value;
         const parsedDate = new Date(`${rawDate}T00:00:00`);
         const dateIso = parsedDate.toISOString();
-
         const RECORD = {
+            ID: (document.getElementById("ID") as HTMLInputElement).value,
             Date: dateIso,
             ICAODeparture: (document.getElementById("ICAODeparture") as HTMLInputElement).value,
             DepartureAirportName: (document.getElementById("DepartureAirportName") as HTMLInputElement).value,
@@ -40,14 +40,14 @@ namespace flight_create {
             }
         };
 
-        fetch("/Flight/Create?handler=Save", {
+        fetch("/Flight/Edit?handler=Save", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(RECORD)
         })
         .then(response => {
-        if (!response.ok) throw new Error("Error en la respuesta");
-        return response.json();
+            if (!response.ok) throw new Error("Error en la respuesta");
+            return response.json();
         })
         .then(data => {
             if (!data.success) {
