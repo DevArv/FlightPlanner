@@ -45,4 +45,20 @@ public static class ButtonHelperExtensions
         button.InnerHtml.Append("Eliminar");
         return button;
     }
+    
+    public static IHtmlContent FpEditButton(this IHtmlHelper HTMLHelper, string ID = "btnEdit", string OnClick = "")
+    {
+        var button = new TagBuilder(tagName: "button");
+        button.Attributes["type"] = "button";
+        button.Attributes["id"] = ID;
+
+        if (!string.IsNullOrWhiteSpace(OnClick))
+        {
+            button.Attributes["onclick"] = OnClick;
+        }
+        
+        button.AddCssClass("btn btn-primary");
+        button.InnerHtml.Append("Editar");
+        return button;
+    }
 }
