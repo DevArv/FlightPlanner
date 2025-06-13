@@ -1,21 +1,21 @@
 namespace flight_edit {
     function getIntValue(id: string): number | null {
-        const value = (document.getElementById(id) as HTMLInputElement | HTMLSelectElement).value;
-        return value === "" ? null : parseInt(value);
+        const VALUE = (document.getElementById(id) as HTMLInputElement | HTMLSelectElement).value;
+        return VALUE === "" ? null : parseInt(VALUE);
     }
 
     function getFloatValue(id: string): number | null {
-        const value = (document.getElementById(id) as HTMLInputElement).value;
-        return value === "" ? null : parseFloat(value);
+        const VALUE = (document.getElementById(id) as HTMLInputElement).value;
+        return VALUE === "" ? null : parseFloat(VALUE);
     }
 
     export function save(): void {
-        const rawDate = (document.getElementById("Date") as HTMLInputElement).value;
-        const parsedDate = new Date(`${rawDate}T00:00:00`);
-        const dateIso = parsedDate.toISOString();
+        const RAW_DATE = (document.getElementById("Date") as HTMLInputElement).value;
+        const PARSED_DATE = new Date(`${RAW_DATE}T00:00:00`);
+        const DATE_ISO = PARSED_DATE.toISOString();
         const RECORD = {
             ID: (document.getElementById("ID") as HTMLInputElement).value,
-            Date: dateIso,
+            Date: DATE_ISO,
             ICAODeparture: (document.getElementById("ICAODeparture") as HTMLInputElement).value,
             DepartureAirportName: (document.getElementById("DepartureAirportName") as HTMLInputElement).value,
             BaroPressureDeparture: getFloatValue("BaroPressureDeparture"),
@@ -56,9 +56,9 @@ namespace flight_edit {
             }
 
             // Guardamos el ID como atributo en el botón
-            const btn = document.getElementById("btnSave");
-            if (btn) {
-                btn.setAttribute("data-id", data.id);
+            const BTN = document.getElementById("btnSave");
+            if (BTN) {
+                BTN.setAttribute("data-id", data.id);
             }
             
             window.location.href = `/Flight/Details?ID=${encodeURIComponent(data.id)}`;
