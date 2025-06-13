@@ -249,4 +249,119 @@ public class PlannerRepository
             throw new ApplicationException($"Error al eliminar el plan de vuelo: {ex.Message}");
         }
     }
+
+    public async Task UpdateFlightPlanAsync(FlightPlannerSimpleViewModel ViewModel)
+    {
+        await using var context = new FlightPlannerContext();
+        await using var transaction = await context.Database.BeginTransactionAsync();
+
+        try
+        {
+            var planner = await context.FlightPlanner.FirstOrDefaultAsync(p => p.ID == ViewModel.ID);
+            if (planner == null)
+                throw new ApplicationException("El plan de vuelo no existe o ha sido eliminado.");
+            
+            planner.Date = ViewModel.Date;
+            planner.ICAODeparture = ViewModel.ICAODeparture;
+            planner.DepartureAirportName = ViewModel.DepartureAirportName;
+            planner.BaroPressureDeparture = ViewModel.BaroPressureDeparture;
+            planner.TransitionAltitudeDeparture = ViewModel.TransitionAltitudeDeparture;
+            planner.DepartureRunway = ViewModel.DepartureRunway;
+            planner.ICAOArrival = ViewModel.ICAOArrival;
+            planner.ArrivalAirportName = ViewModel.ArrivalAirportName;
+            planner.ArrivalRunway = ViewModel.ArrivalRunway;
+            planner.BaroPressureArrival = ViewModel.BaroPressureArrival;
+            planner.TransitionAltitudeArrival = ViewModel.TransitionAltitudeArrival;
+            planner.ArrivalRunwayElevation = ViewModel.ArrivalRunwayElevation;
+            planner.ArrivalRunwayMinimumAltitude = ViewModel.ArrivalRunwayMinimumAltitude;
+            planner.LocalizerFrequency = ViewModel.LocalizerFrequency;
+            planner.LocalizerVectorName = ViewModel.LocalizerVectorName;
+            planner.ApproachType = ViewModel.ApproachType;
+            planner.AircraftModel = ViewModel.AircraftModel;
+            planner.FlightType = ViewModel.FlightType;
+            planner.ArrivalRunwayLength = ViewModel.ArrivalRunwayLength;
+            planner.LocalizerVectorAltitude = ViewModel.LocalizerVectorAltitude;
+
+            planner.FullFlightName = $"{ViewModel.ICAODeparture} -> {ViewModel.ICAOArrival}";
+            
+            await context.SaveChangesAsync();
+            
+            var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
+            int speed = 0;
+            int averageFuel = 0;
+            int reserveFuel = 0;
+            int emergencyFuel = 0;
+            int altitudeFeet = 0;
+
+            if (ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+            {
+                switch (ViewModel.FlightType)
+                {
+                    case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                        altitudeFeet = GlobalFormulas.CESSNACL_HA_CRUISE_ALTITUDE;
+                        speed = GlobalFormulas.CESSNACL_HA_CRUISE_SPEED;
+                        averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
+                        reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
+                        emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
+                        break;
+
+                    case FlightTypesEnum.NORMAL_FLIGHT:
+                        altitudeFeet = GlobalFormulas.CESSNACL_MA_CRUISE_ALTITUDE;
+                        speed = GlobalFormulas.CESSNACL_MA_CRUISE_SPEED;
+                        averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
+                        reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
+                        emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
+                        break;
+
+                    case FlightTypesEnum.SHORT_FLIGHT:
+                        altitudeFeet = GlobalFormulas.CESSNACL_LA_CRUISE_ALTITUDE;
+                        speed = GlobalFormulas.CESSNACL_LA_CRUISE_SPEED;
+                        averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
+                        reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
+                        emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
+                        break;
+                }
+            }
+
+            decimal hoursDecimal = (decimal)nauticalMiles / speed;
+            decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
+            int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
+
+            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            decimal emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+
+            decimal basicFuel = averageFuel * flightEstimatedHourTime;
+            decimal totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
+            decimal totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+
+            var specs = await context.FlightSpecs.FirstOrDefaultAsync(s => s.PlannerID == planner.ID);
+            if (specs == null)
+            {
+                specs = new FlightSpecs { PlannerID = planner.ID };
+                context.FlightSpecs.Add(specs);
+            }
+
+            specs.NauticalMiles = nauticalMiles;
+            specs.CruiseSpeedKnots = speed;
+            specs.FlightEstimatedHourTime = flightEstimatedHourTime;
+            specs.FlightEstimatedMinutesTime = flightEstimatedMinutesTime;
+            specs.BasicFuel = basicFuel;
+            specs.AverageFuelConsumption = averageFuel;
+            specs.ReserveFuel = reserveFuel;
+            specs.ReserveFuelGal = reserveFuelGal;
+            specs.EmergencyFuel = emergencyFuel;
+            specs.EmergencyFuelGal = emergencyFuelGal;
+            specs.TotalFuel = totalFuel;
+            specs.TotalFuelGal = totalFuelGal;
+            specs.AltitudeFeet = altitudeFeet;
+
+            await context.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw new ApplicationException($"Error al actualizar el plan de vuelo: {ex.Message}", ex);
+        }
+    }
 }

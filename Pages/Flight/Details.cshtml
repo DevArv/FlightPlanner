@@ -1,6 +1,5 @@
 @page
-@using FlightPlanner.Enums
-@model FlightPlanner.Pages.Flight.Details
+@model Details
 
 @{
     ViewData["Title"] = "Detalle del vuelo";
@@ -17,6 +16,7 @@
 <hr />
 
 @Html.FpListButton()
+@Html.FpEditButton(OnClick: $"flight_details.edit('{Model.Record.ID}')")
 @Html.FpDeleteButton(OnClick: $"flight_details.remove('{Model.Record.ID}')")
 
 <hr />

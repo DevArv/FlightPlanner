@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace FlightPlanner.Pages.Flight;
 
 [IgnoreAntiforgeryToken]
-public class CreateModel : PageModel
+public class Create : PageModel
 {
     [BindProperty]
     public FlightPlannerSimpleViewModel Record { get; set; } = new();

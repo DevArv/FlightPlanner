@@ -1,26 +1,24 @@
 @page
-@model Create
+@model Edit
 
 @{
-    ViewData["Title"] = "Nuevo vuelo";
+    ViewData["Title"] = "Editar vuelo";
     Layout = "_Layout";
 }
 
 @section Scripts
 {
-    <script src="~/js/create-flight.js?v=2" asp-append-version="true"></script>
+    <script src="~/js/edit-flight.js?v=2" asp-append-version="true"></script>
 }
 
-<h1>Nuevo vuelo</h1>
+<h1>Editar vuelo</h1>
 
-<hr />
-
-<partial name="Partial/_GeneralCreate" model="Model.Record" />
+<input type="hidden" id="ID" value="@Model.Record.ID" />
 
 <hr />
 
 <div class="alert alert-primary" role="alert">
-    Datos del aeropuerto de salida.
+    Datos del vuelo de salida.
 </div>
 
 <partial name="Partial/_DepartureCreate" model="Model.Record" />
@@ -28,7 +26,7 @@
 <hr />
 
 <div class="alert alert-primary" role="alert">
-    Datos del aeropuerto de llegada.
+    Datos del vuelo de llegada.
 </div>
 
 <partial name="Partial/_ArrivalCreate" model="Model.Record" />
@@ -43,6 +41,6 @@
 
 <hr />
 
-@Html.FpSaveButton(OnClick: "flight_create.save()")
+@Html.FpSaveButton(OnClick: "flight_edit.save()")
 
 <hr />
