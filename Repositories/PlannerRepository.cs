@@ -63,6 +63,7 @@ public class PlannerRepository
                 FlightType = ViewModel.FlightType,
                 ArrivalRunwayLength = ViewModel.ArrivalRunwayLength,
                 LocalizerVectorAltitude = ViewModel.LocalizerVectorAltitude,
+                IsCompleted = ViewModel.IsCompleted,
                 
                 FullFlightName = $"{ViewModel.ICAODeparture} -> {ViewModel.ICAOArrival}",
             };
@@ -181,6 +182,7 @@ public class PlannerRepository
                     ArrivalRunwayLength = p.ArrivalRunwayLength,
                     LocalizerVectorAltitude = p.LocalizerVectorAltitude,
                     FullFlightName = p.FullFlightName,
+                    IsCompleted = p.IsCompleted,
                     FlightSpecs = s == null ? new FlightSpecsDetailsViewModel() : new FlightSpecsDetailsViewModel
                     {
                         NauticalMiles = s.NauticalMiles,
@@ -281,6 +283,7 @@ public class PlannerRepository
             planner.FlightType = ViewModel.FlightType;
             planner.ArrivalRunwayLength = ViewModel.ArrivalRunwayLength;
             planner.LocalizerVectorAltitude = ViewModel.LocalizerVectorAltitude;
+            planner.IsCompleted = ViewModel.IsCompleted;
 
             planner.FullFlightName = $"{ViewModel.ICAODeparture} -> {ViewModel.ICAOArrival}";
             

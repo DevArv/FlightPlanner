@@ -39,6 +39,7 @@ public class Edit : PageModel
                 FlightType = planner.FlightType,
                 ArrivalRunwayLength = planner.ArrivalRunwayLength,
                 LocalizerVectorAltitude = planner.LocalizerVectorAltitude,
+                IsCompleted = planner.IsCompleted,
                 FlightSpecs = new FlightSpecsViewModel
                 {
                     NauticalMiles = planner.FlightSpecs.NauticalMiles,

@@ -24,4 +24,14 @@
             <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud ( > 1500 NM )</option>
         </select>
     </div>
+    
+    @if (Model.ID != Guid.Empty)
+    {
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="@nameof(Model.IsCompleted)" @(Model.IsCompleted ? "checked" : "") />
+                <label class="form-check-label" for="@nameof(Model.IsCompleted)">Vuelo Completado</label>
+            </div>
+        </div>
+    }
 </div>
