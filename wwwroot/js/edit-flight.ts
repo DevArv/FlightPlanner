@@ -9,6 +9,10 @@ namespace flight_edit {
         return VALUE === "" ? null : parseFloat(VALUE);
     }
 
+    function getBoolValue(id: string): boolean {
+        return (document.getElementById(id) as HTMLInputElement).checked;
+    }
+
     export function save(): void {
         const RAW_DATE = (document.getElementById("Date") as HTMLInputElement).value;
         const PARSED_DATE = new Date(`${RAW_DATE}T00:00:00`);
@@ -21,13 +25,13 @@ namespace flight_edit {
             BaroPressureDeparture: getFloatValue("BaroPressureDeparture"),
             TransitionAltitudeDeparture: getIntValue("TransitionAltitudeDeparture"),
             ICAOArrival: (document.getElementById("ICAOArrival") as HTMLInputElement).value,
-            ArrivalAirportName: (document.getElementById("ArrivalAirportName") as HTMLInputElement).value || null,
+            ArrivalAirportName: (document.getElementById("ArrivalAirportName") as HTMLInputElement).value,
             BaroPressureArrival: getFloatValue("BaroPressureArrival"),
             TransitionAltitudeArrival: getIntValue("TransitionAltitudeArrival"),
             ArrivalRunwayElevation: getIntValue("ArrivalRunwayElevation"),
             ArrivalRunwayMinimumAltitude: getIntValue("ArrivalRunwayMinimumAltitude"),
             LocalizerFrequency: getFloatValue("LocalizerFrequency"),
-            LocalizerVectorName: (document.getElementById("LocalizerVectorName") as HTMLInputElement).value || null,
+            LocalizerVectorName: (document.getElementById("LocalizerVectorName") as HTMLInputElement).value,
             ApproachType: getIntValue("ApproachType"),
             DepartureRunway: getIntValue("DepartureRunway"),
             ArrivalRunway: getIntValue("ArrivalRunway"),
@@ -35,6 +39,7 @@ namespace flight_edit {
             FlightType: getIntValue("FlightType"),
             ArrivalRunwayLength: getIntValue("ArrivalRunwayLength"),
             LocalizerVectorAltitude: getIntValue("LocalizerVectorAltitude"),
+            IsCompleted: getBoolValue("IsCompleted"),
             FlightSpecs: {
                 NauticalMiles: getIntValue("NauticalMiles")
             }

@@ -26,6 +26,8 @@ public class FlightPlannerSimpleViewModel
     public AircraftModelEnum AircraftModel { get; set; }
     public FlightTypesEnum FlightType { get; set; }
     public FlightSpecsViewModel FlightSpecs { get; set; } = new();
+    
+    public bool IsCompleted { get; set; }
 }
 
 public class FlightSpecsViewModel

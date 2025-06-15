@@ -42,6 +42,8 @@ public class Planner
     
     public int? LocalizerVectorAltitude { get; set; }
     
+    public bool IsCompleted { get; set; }
+    
     public ApproachTypeEnum ApproachType { get; set; } = ApproachTypeEnum.DEFAULT;
     
     public FlightTypesEnum FlightType { get; set; } = FlightTypesEnum.DEFAULT;
