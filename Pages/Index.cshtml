@@ -29,7 +29,7 @@
     @foreach (var flight in Model.Flights)
     {
         <tr>
-            <td>@flight.Date.ToString(Global.DATETIME_FORMAT)</td>
+            <td>@flight.Date.ToString(Global.DATETIME_FORMAT_V2)</td>
             <td><a asp-page="/Flight/Details" asp-route-ID="@flight.ID">@flight.FullFlightName</a></td>
             <td>@flight.DepartureAirportName</td>
             <td>@flight.ArrivalAirportName</td>
