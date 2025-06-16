@@ -4,6 +4,17 @@
 
 <div class="row">
     <div class="col-md-3 mb-3">
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="@nameof(Model.IsCompleted)" @(Model.IsCompleted ? "checked" : "") disabled="disabled" />
+            <label class="form-check-label" for="@nameof(Model.IsCompleted)">Vuelo Completado</label>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-3 mb-3">
         <label for="@nameof(Model.Date)" class="form-label">Fecha de agenda</label>
         <input type="text" class="form-control" id="@nameof(Model.Date)" value="@Model.Date.ToString(Global.DATETIME_FORMAT_V2)" disabled="disabled" />
     </div>
@@ -29,12 +40,5 @@
             <option value="@((int)FlightTypesEnum.NORMAL_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.NORMAL_FLIGHT))">Vuelo Mediano Alcance ( 351 - 1499 NM )</option>
             <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud ( > 1500 NM )</option>
         </select>
-    </div>
-    
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="@nameof(Model.IsCompleted)" @(Model.IsCompleted ? "checked" : "") disabled="disabled" />
-            <label class="form-check-label" for="@nameof(Model.IsCompleted)">Vuelo Completado</label>
-        </div>
     </div>
 </div>
