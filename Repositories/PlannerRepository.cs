@@ -72,41 +72,16 @@ public class PlannerRepository
             await context.SaveChangesAsync();
 
             var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
-            int speed = 0;
-            int averageFuel = 0;
-            int reserveFuel = 0;
-            int emergencyFuel = 0;
-            int altitudeFeet = 0;
 
-            if (ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
-            {
-                switch (ViewModel.FlightType)
-                {
-                    case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
-                        altitudeFeet = GlobalFormulas.CESSNACL_HA_CRUISE_ALTITUDE;
-                        speed = GlobalFormulas.CESSNACL_HA_CRUISE_SPEED;
-                        averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
-                        reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
-                        emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
-                        break;
-                    
-                    case FlightTypesEnum.NORMAL_FLIGHT:
-                        altitudeFeet = GlobalFormulas.CESSNACL_MA_CRUISE_ALTITUDE;
-                        speed = GlobalFormulas.CESSNACL_MA_CRUISE_SPEED;
-                        averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
-                        reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
-                        emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
-                        break;
-                    
-                    case FlightTypesEnum.SHORT_FLIGHT:
-                        altitudeFeet = GlobalFormulas.CESSNACL_LA_CRUISE_ALTITUDE;
-                        speed = GlobalFormulas.CESSNACL_LA_CRUISE_SPEED;
-                        averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
-                        reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
-                        emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
-                        break;
-                }
-            }
+            //Get aircraft configuration based on model and flight type
+            var config = GetAircraftConfig(
+                AircraftModel: ViewModel.AircraftModel, 
+                FlightType: ViewModel.FlightType);
+            int speed = config.Speed;
+            int averageFuel = config.AverageFuel;
+            int reserveFuel = config.ReserveFuel;
+            int emergencyFuel = config.EmergencyFuel;
+            int altitudeFeet = config.AltitudeFeet;
 
             decimal hoursDecimal = (decimal)nauticalMiles / speed;
             decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
@@ -290,41 +265,16 @@ public class PlannerRepository
             await context.SaveChangesAsync();
             
             var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
-            int speed = 0;
-            int averageFuel = 0;
-            int reserveFuel = 0;
-            int emergencyFuel = 0;
-            int altitudeFeet = 0;
-
-            if (ViewModel.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
-            {
-                switch (ViewModel.FlightType)
-                {
-                    case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
-                        altitudeFeet = GlobalFormulas.CESSNACL_HA_CRUISE_ALTITUDE;
-                        speed = GlobalFormulas.CESSNACL_HA_CRUISE_SPEED;
-                        averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
-                        reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
-                        emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
-                        break;
-
-                    case FlightTypesEnum.NORMAL_FLIGHT:
-                        altitudeFeet = GlobalFormulas.CESSNACL_MA_CRUISE_ALTITUDE;
-                        speed = GlobalFormulas.CESSNACL_MA_CRUISE_SPEED;
-                        averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
-                        reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
-                        emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
-                        break;
-
-                    case FlightTypesEnum.SHORT_FLIGHT:
-                        altitudeFeet = GlobalFormulas.CESSNACL_LA_CRUISE_ALTITUDE;
-                        speed = GlobalFormulas.CESSNACL_LA_CRUISE_SPEED;
-                        averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
-                        reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
-                        emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
-                        break;
-                }
-            }
+            
+            //Get aircraft configuration based on model and flight type
+            var config = GetAircraftConfig(
+                AircraftModel: ViewModel.AircraftModel, 
+                FlightType: ViewModel.FlightType);
+            int speed = config.Speed;
+            int averageFuel = config.AverageFuel;
+            int reserveFuel = config.ReserveFuel;
+            int emergencyFuel = config.EmergencyFuel;
+            int altitudeFeet = config.AltitudeFeet;
 
             decimal hoursDecimal = (decimal)nauticalMiles / speed;
             decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
@@ -366,5 +316,45 @@ public class PlannerRepository
             await transaction.RollbackAsync();
             throw new ApplicationException($"Error al actualizar el plan de vuelo: {ex.Message}", ex);
         }
+    }
+
+    private static (int Speed, int AverageFuel, int ReserveFuel, int EmergencyFuel, int AltitudeFeet) GetAircraftConfig(AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
+    {
+        int speed = 0;
+        int averageFuel = 0;
+        int reserveFuel = 0;
+        int emergencyFuel = 0;
+        int altitudeFeet = 0;
+
+        if (AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+        {
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNACL_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNACL_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNACL_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNACL_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNACL_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNACL_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
+                    break;
+            }
+        }
+        return (speed, averageFuel, reserveFuel, emergencyFuel, altitudeFeet);
     }
 }
