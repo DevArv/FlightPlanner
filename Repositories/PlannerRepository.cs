@@ -387,6 +387,35 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.EMBRAER_E195)
+        {
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.EMBRAER_E195_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.EMBRAER_E195_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.EMBRAER_E195_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.EMBRAER_E195_HA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.EMBRAER_E195_HA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.EMBRAER_E195_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.EMBRAER_E195_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.EMBRAER_E195_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.EMBRAER_E195_MA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.EMBRAER_E195_MA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.EMBRAER_E195_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.EMBRAER_E195_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.EMBRAER_E195_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.EMBRAER_E195_LA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.EMBRAER_E195_LA_EMERGENCY_FUEL;
+                    break;
+            }
+        }
         return (speed, averageFuel, reserveFuel, emergencyFuel, altitudeFeet);
     }
 }
