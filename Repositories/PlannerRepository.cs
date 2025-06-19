@@ -416,6 +416,35 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.AIRBUS_A320NEO)
+        {
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.AIRBUS_A320NEO_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.AIRBUS_A320NEO_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.AIRBUS_A320NEO_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.AIRBUS_A320NEO_HA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.AIRBUS_A320NEO_HA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.AIRBUS_A320NEO_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.AIRBUS_A320NEO_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.AIRBUS_A320NEO_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.AIRBUS_A320NEO_MA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.AIRBUS_A320NEO_MA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.AIRBUS_A320NEO_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.AIRBUS_A320NEO_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.AIRBUS_A320NEO_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.AIRBUS_A320NEO_LA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.AIRBUS_A320NEO_LA_EMERGENCY_FUEL;
+                    break;
+            }
+        }
         return (speed, averageFuel, reserveFuel, emergencyFuel, altitudeFeet);
     }
 }

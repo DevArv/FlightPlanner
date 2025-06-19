@@ -6,4 +6,5 @@ public enum AircraftModelEnum
     CESSNA_CITATION_LONGITUDE = 10,
     EMBRAER_E190 = 20,
     EMBRAER_E195 = 30,
+    AIRBUS_A320NEO = 40
 }
