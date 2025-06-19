@@ -24,9 +24,9 @@ public static class GlobalFormulas
     public static int CESSNACL_LA_CRUISE_ALTITUDE = 34000;
     
     //CESSNA CITATION LONGITUDE - CRUISE SPEED
-    public static int CESSNACL_HA_CRUISE_SPEED = 445;
-    public static int CESSNACL_MA_CRUISE_SPEED = 475;
-    public static int CESSNACL_LA_CRUISE_SPEED = 440;
+    public static int CESSNACL_HA_CRUISE_SPEED = 440;
+    public static int CESSNACL_MA_CRUISE_SPEED = 455;
+    public static int CESSNACL_LA_CRUISE_SPEED = 470;
     
     //EMBRAER E190 - FUEL CONSUMPTION
     public static int EMBRAER_E190_HA_AVERAGE_FUEL = 10000;
