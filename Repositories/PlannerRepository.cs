@@ -26,6 +26,9 @@ public class PlannerRepository
         
         if (Obj.FlightType == FlightTypesEnum.DEFAULT)
             throw new ApplicationException("El tipo de vuelo es requerido.");
+        
+        if (Obj.ApproachType == ApproachTypeEnum.ILS && Obj.LocalizerFrequency == null)
+            throw new ApplicationException("La frecuencia del Localizador es requerida para el tipo de aproximación ILS.");
 
         return Task.FromResult(true);
     }
@@ -352,6 +355,35 @@ public class PlannerRepository
                     averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
                     emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
+                    break;
+            }
+        }
+        else if (AircraftModel == AircraftModelEnum.EMBRAER_E190)
+        {
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.EMBRAER_E190_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.EMBRAER_E190_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.EMBRAER_E190_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.EMBRAER_E190_HA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.EMBRAER_E190_HA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.EMBRAER_E190_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.EMBRAER_E190_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.EMBRAER_E190_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.EMBRAER_E190_MA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.EMBRAER_E190_MA_EMERGENCY_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.EMBRAER_E190_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.EMBRAER_E190_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.EMBRAER_E190_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.EMBRAER_E190_LA_RESERVE_FUEL;
+                    emergencyFuel = GlobalFormulas.EMBRAER_E190_LA_EMERGENCY_FUEL;
                     break;
             }
         }
