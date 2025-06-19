@@ -73,4 +73,27 @@ public static class GlobalFormulas
     public static int EMBRAER_E195_HA_CRUISE_SPEED = 447;
     public static int EMBRAER_E195_MA_CRUISE_SPEED = 470;
     public static int EMBRAER_E195_LA_CRUISE_SPEED = 447;
+    
+    //AIRBUS A320NEO - FUEL CONSUMPTION
+    public static int AIRBUS_A320NEO_HA_AVERAGE_FUEL = 5500;
+    public static int AIRBUS_A320NEO_HA_RESERVE_FUEL = 1300;
+    public static int AIRBUS_A320NEO_HA_EMERGENCY_FUEL = 1000;
+    
+    public static int AIRBUS_A320NEO_MA_AVERAGE_FUEL = 5200;
+    public static int AIRBUS_A320NEO_MA_RESERVE_FUEL = 1000;
+    public static int AIRBUS_A320NEO_MA_EMERGENCY_FUEL = 800;
+    
+    public static int AIRBUS_A320NEO_LA_AVERAGE_FUEL = 4800;
+    public static int AIRBUS_A320NEO_LA_RESERVE_FUEL = 700;
+    public static int AIRBUS_A320NEO_LA_EMERGENCY_FUEL = 500;
+    
+    //AIRBUS A320NEO - CRUISE ALTITUDE
+    public static int AIRBUS_A320NEO_HA_CRUISE_ALTITUDE = 39000;
+    public static int AIRBUS_A320NEO_MA_CRUISE_ALTITUDE = 37000;
+    public static int AIRBUS_A320NEO_LA_CRUISE_ALTITUDE = 33000;
+    
+    //AIRBUS A320NEO - CRUISE SPEED
+    public static int AIRBUS_A320NEO_HA_CRUISE_SPEED = 480;
+    public static int AIRBUS_A320NEO_MA_CRUISE_SPEED = 470;
+    public static int AIRBUS_A320NEO_LA_CRUISE_SPEED = 450;
 }
