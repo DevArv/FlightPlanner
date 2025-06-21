@@ -5,6 +5,9 @@ public static class GlobalFormulas
     //DENSITY FUEL
     public static decimal DENSITY_FUEL_GAL = 6.695m; // 6.7 lbs per gallon
     
+    //TAXI AND HOLDING FUEL
+    public static int TAXI_HOLDING_FUEL = 200;
+    
     //CESSNA CITATION LONGITUDE - FUEL CONSUMPTION
     public static int CESSNACL_HA_AVERAGE_FUEL = 1850;
     public static int CESSNACL_HA_RESERVE_FUEL = 1200;
