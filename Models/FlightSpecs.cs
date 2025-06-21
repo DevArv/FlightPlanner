@@ -21,15 +21,11 @@ public class FlightSpecs
     
     public int ReserveFuel { get; set; }
     
-    public int EmergencyFuel { get; set; }
-    
     public decimal TotalFuel { get; set; }
     
     public decimal TotalFuelGal { get; set; }
     
     public decimal ReserveFuelGal { get; set; }
-    
-    public decimal EmergencyFuelGal { get; set; }
     
     public decimal FlightEstimatedHourTime { get; set; }
     
