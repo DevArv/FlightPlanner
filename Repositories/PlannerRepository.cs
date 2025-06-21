@@ -85,8 +85,7 @@ public class PlannerRepository
             int reserveFuel = config.ReserveFuel;
             int altitudeFeet = config.AltitudeFeet;
 
-            decimal hoursDecimal = (decimal)nauticalMiles / speed;
-            decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
+            decimal flightEstimatedHourTime = Math.Round((decimal)nauticalMiles / speed, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
             
             decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
@@ -272,8 +271,7 @@ public class PlannerRepository
             int reserveFuel = config.ReserveFuel;
             int altitudeFeet = config.AltitudeFeet;
 
-            decimal hoursDecimal = (decimal)nauticalMiles / speed;
-            decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
+            decimal flightEstimatedHourTime = Math.Round((decimal)nauticalMiles / speed, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
 
             decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
