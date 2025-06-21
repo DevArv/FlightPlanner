@@ -5,18 +5,18 @@ public static class GlobalFormulas
     //DENSITY FUEL
     public static decimal DENSITY_FUEL_GAL = 6.695m; // 6.7 lbs per gallon
     
+    //TAXI AND HOLDING FUEL
+    public static int TAXI_HOLDING_FUEL = 200;
+    
     //CESSNA CITATION LONGITUDE - FUEL CONSUMPTION
     public static int CESSNACL_HA_AVERAGE_FUEL = 1850;
     public static int CESSNACL_HA_RESERVE_FUEL = 1200;
-    public static int CESSNACL_HA_EMERGENCY_FUEL = 900;
     
     public static int CESSNACL_MA_AVERAGE_FUEL = 2000;
     public static int CESSNACL_MA_RESERVE_FUEL = 900;
-    public static int CESSNACL_MA_EMERGENCY_FUEL = 700;
     
     public static int CESSNACL_LA_AVERAGE_FUEL = 2200;
     public static int CESSNACL_LA_RESERVE_FUEL = 600;
-    public static int CESSNACL_LA_EMERGENCY_FUEL = 400;
     
     //CESSNA CITATION LONGITUDE - CRUISE ALTITUDE
     public static int CESSNACL_HA_CRUISE_ALTITUDE = 45000;
@@ -31,15 +31,12 @@ public static class GlobalFormulas
     //EMBRAER E190 - FUEL CONSUMPTION
     public static int EMBRAER_E190_HA_AVERAGE_FUEL = 2900;
     public static int EMBRAER_E190_HA_RESERVE_FUEL = 1200;
-    public static int EMBRAER_E190_HA_EMERGENCY_FUEL = 900;
     
     public static int EMBRAER_E190_MA_AVERAGE_FUEL = 2800;
     public static int EMBRAER_E190_MA_RESERVE_FUEL = 900;
-    public static int EMBRAER_E190_MA_EMERGENCY_FUEL = 700;
     
     public static int EMBRAER_E190_LA_AVERAGE_FUEL = 2600;
     public static int EMBRAER_E190_LA_RESERVE_FUEL = 600;
-    public static int EMBRAER_E190_LA_EMERGENCY_FUEL = 400;
     
     //EMBRAER E190 - CRUISE ALTITUDE
     public static int EMBRAER_E190_HA_CRUISE_ALTITUDE = 41000;
@@ -54,15 +51,12 @@ public static class GlobalFormulas
     //EMBRAER E195 - FUEL CONSUMPTION
     public static int EMBRAER_E195_HA_AVERAGE_FUEL = 3200;
     public static int EMBRAER_E195_HA_RESERVE_FUEL = 1300;
-    public static int EMBRAER_E195_HA_EMERGENCY_FUEL = 1000;
     
     public static int EMBRAER_E195_MA_AVERAGE_FUEL = 3000;
     public static int EMBRAER_E195_MA_RESERVE_FUEL = 950;
-    public static int EMBRAER_E195_MA_EMERGENCY_FUEL = 750;
     
     public static int EMBRAER_E195_LA_AVERAGE_FUEL = 2800;
     public static int EMBRAER_E195_LA_RESERVE_FUEL = 650;
-    public static int EMBRAER_E195_LA_EMERGENCY_FUEL = 450;
     
     //EMBRAER E195 - CRUISE ALTITUDE
     public static int EMBRAER_E195_HA_CRUISE_ALTITUDE = 39000;
@@ -77,15 +71,12 @@ public static class GlobalFormulas
     //AIRBUS A320NEO - FUEL CONSUMPTION
     public static int AIRBUS_A320NEO_HA_AVERAGE_FUEL = 5500;
     public static int AIRBUS_A320NEO_HA_RESERVE_FUEL = 1300;
-    public static int AIRBUS_A320NEO_HA_EMERGENCY_FUEL = 1000;
     
     public static int AIRBUS_A320NEO_MA_AVERAGE_FUEL = 5200;
     public static int AIRBUS_A320NEO_MA_RESERVE_FUEL = 1000;
-    public static int AIRBUS_A320NEO_MA_EMERGENCY_FUEL = 800;
     
     public static int AIRBUS_A320NEO_LA_AVERAGE_FUEL = 4800;
     public static int AIRBUS_A320NEO_LA_RESERVE_FUEL = 700;
-    public static int AIRBUS_A320NEO_LA_EMERGENCY_FUEL = 500;
     
     //AIRBUS A320NEO - CRUISE ALTITUDE
     public static int AIRBUS_A320NEO_HA_CRUISE_ALTITUDE = 39000;

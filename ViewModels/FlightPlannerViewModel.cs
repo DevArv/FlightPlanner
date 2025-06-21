@@ -44,8 +44,6 @@ public class FlightSpecsDetailsViewModel : FlightSpecsViewModel
     public decimal? BasicFuel { get; set; }
     public int ReserveFuel { get; set; }
     public decimal ReserveFuelGal { get; set; }
-    public decimal EmergencyFuel { get; set; }
-    public decimal EmergencyFuelGal { get; set; }
     public decimal TotalFuel { get; set; }
     public decimal TotalFuelGal { get; set; }
     public int? AltitudeFeet { get; set; }

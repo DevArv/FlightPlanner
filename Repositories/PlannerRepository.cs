@@ -83,19 +83,28 @@ public class PlannerRepository
             int speed = config.Speed;
             int averageFuel = config.AverageFuel;
             int reserveFuel = config.ReserveFuel;
-            int emergencyFuel = config.EmergencyFuel;
             int altitudeFeet = config.AltitudeFeet;
 
-            decimal hoursDecimal = (decimal)nauticalMiles / speed;
-            decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
+            decimal flightEstimatedHourTime = Math.Round((decimal)nauticalMiles / speed, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
             
-            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-            decimal emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-            
+            //Step #1: Calculate direct fuel consumption for the flight
             decimal basicFuel = averageFuel * flightEstimatedHourTime;
-            decimal totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
-            decimal totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            
+            //Step #2: Alternate Fuel (20 minutes).
+            double alternateFuel = Math.Round(averageFuel * 0.33);
+            
+            //Step #3: Contingency Fuel (15% of the total fuel).
+            double contingencyFuel = Math.Round((double)basicFuel * 0.15);
+            
+            //STEP #4: Taxi and Holding Fuel (200 lbs).
+            int taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
+            
+            //STEP #5: SUM all Fuel
+            double totalFuel = (double)basicFuel + alternateFuel + contingencyFuel + reserveFuel + taxiHoldingFuel;
+            
+            decimal totalFuelGal = Math.Round((decimal)totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
 
             var flightSpecs = new FlightSpecs
             {
@@ -108,9 +117,7 @@ public class PlannerRepository
                 AverageFuelConsumption = averageFuel,
                 ReserveFuel = reserveFuel,
                 ReserveFuelGal = reserveFuelGal,
-                EmergencyFuel = emergencyFuel,
-                EmergencyFuelGal = emergencyFuelGal,
-                TotalFuel = totalFuel,
+                TotalFuel = (decimal)totalFuel,
                 TotalFuelGal = totalFuelGal,
                 AltitudeFeet = altitudeFeet,
             };
@@ -171,8 +178,6 @@ public class PlannerRepository
                         AverageFuelConsumption = s.AverageFuelConsumption,
                         ReserveFuel = s.ReserveFuel,
                         ReserveFuelGal = s.ReserveFuelGal,
-                        EmergencyFuel = s.EmergencyFuel,
-                        EmergencyFuelGal = s.EmergencyFuelGal,
                         TotalFuel = s.TotalFuel,
                         TotalFuelGal = s.TotalFuelGal,
                         AltitudeFeet = s.AltitudeFeet
@@ -276,19 +281,28 @@ public class PlannerRepository
             int speed = config.Speed;
             int averageFuel = config.AverageFuel;
             int reserveFuel = config.ReserveFuel;
-            int emergencyFuel = config.EmergencyFuel;
             int altitudeFeet = config.AltitudeFeet;
 
-            decimal hoursDecimal = (decimal)nauticalMiles / speed;
-            decimal flightEstimatedHourTime = Math.Round(hoursDecimal, 2);
+            decimal flightEstimatedHourTime = Math.Round((decimal)nauticalMiles / speed, 2);
             int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
 
-            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-            decimal emergencyFuelGal = Math.Round(emergencyFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-
+            //Step #1: Calculate direct fuel consumption for the flight
             decimal basicFuel = averageFuel * flightEstimatedHourTime;
-            decimal totalFuel = Math.Round(basicFuel + emergencyFuel + reserveFuel, 2);
-            decimal totalFuelGal = Math.Round(totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            
+            //Step #2: Alternate Fuel (20 minutes).
+            double alternateFuel = Math.Round(averageFuel * 0.33);
+            
+            //Step #3: Contingency Fuel (15% of the total fuel).
+            double contingencyFuel = Math.Round((double)basicFuel * 0.15);
+            
+            //STEP #4: Taxi and Holding Fuel (200 lbs).
+            int taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
+            
+            //STEP #5: SUM all Fuel
+            double totalFuel = (double)basicFuel + alternateFuel + contingencyFuel + reserveFuel + taxiHoldingFuel;
+            
+            decimal totalFuelGal = Math.Round((decimal)totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
 
             var specs = await context.FlightSpecs.FirstOrDefaultAsync(s => s.PlannerID == planner.ID);
             if (specs == null)
@@ -305,9 +319,7 @@ public class PlannerRepository
             specs.AverageFuelConsumption = averageFuel;
             specs.ReserveFuel = reserveFuel;
             specs.ReserveFuelGal = reserveFuelGal;
-            specs.EmergencyFuel = emergencyFuel;
-            specs.EmergencyFuelGal = emergencyFuelGal;
-            specs.TotalFuel = totalFuel;
+            specs.TotalFuel = (decimal)totalFuel;
             specs.TotalFuelGal = totalFuelGal;
             specs.AltitudeFeet = altitudeFeet;
 
@@ -321,12 +333,11 @@ public class PlannerRepository
         }
     }
 
-    private static (int Speed, int AverageFuel, int ReserveFuel, int EmergencyFuel, int AltitudeFeet) GetAircraftConfig(AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
+    private static (int Speed, int AverageFuel, int ReserveFuel, int AltitudeFeet) GetAircraftConfig(AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
     {
         int speed = 0;
         int averageFuel = 0;
         int reserveFuel = 0;
-        int emergencyFuel = 0;
         int altitudeFeet = 0;
 
         if (AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
@@ -338,7 +349,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.CESSNACL_HA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.CESSNACL_HA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNACL_HA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.CESSNACL_HA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.NORMAL_FLIGHT:
@@ -346,7 +356,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.CESSNACL_MA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.CESSNACL_MA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNACL_MA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.CESSNACL_MA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.SHORT_FLIGHT:
@@ -354,7 +363,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.CESSNACL_LA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.CESSNACL_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNACL_LA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.CESSNACL_LA_EMERGENCY_FUEL;
                     break;
             }
         }
@@ -367,7 +375,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.EMBRAER_E190_HA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.EMBRAER_E190_HA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.EMBRAER_E190_HA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.EMBRAER_E190_HA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.NORMAL_FLIGHT:
@@ -375,7 +382,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.EMBRAER_E190_MA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.EMBRAER_E190_MA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.EMBRAER_E190_MA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.EMBRAER_E190_MA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.SHORT_FLIGHT:
@@ -383,7 +389,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.EMBRAER_E190_LA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.EMBRAER_E190_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.EMBRAER_E190_LA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.EMBRAER_E190_LA_EMERGENCY_FUEL;
                     break;
             }
         }
@@ -396,7 +401,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.EMBRAER_E195_HA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.EMBRAER_E195_HA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.EMBRAER_E195_HA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.EMBRAER_E195_HA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.NORMAL_FLIGHT:
@@ -404,7 +408,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.EMBRAER_E195_MA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.EMBRAER_E195_MA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.EMBRAER_E195_MA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.EMBRAER_E195_MA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.SHORT_FLIGHT:
@@ -412,7 +415,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.EMBRAER_E195_LA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.EMBRAER_E195_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.EMBRAER_E195_LA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.EMBRAER_E195_LA_EMERGENCY_FUEL;
                     break;
             }
         }
@@ -425,7 +427,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.AIRBUS_A320NEO_HA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.AIRBUS_A320NEO_HA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.AIRBUS_A320NEO_HA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.AIRBUS_A320NEO_HA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.NORMAL_FLIGHT:
@@ -433,7 +434,6 @@ public class PlannerRepository
                     speed = GlobalFormulas.AIRBUS_A320NEO_MA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.AIRBUS_A320NEO_MA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.AIRBUS_A320NEO_MA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.AIRBUS_A320NEO_MA_EMERGENCY_FUEL;
                     break;
                     
                 case FlightTypesEnum.SHORT_FLIGHT:
@@ -441,10 +441,9 @@ public class PlannerRepository
                     speed = GlobalFormulas.AIRBUS_A320NEO_LA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.AIRBUS_A320NEO_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.AIRBUS_A320NEO_LA_RESERVE_FUEL;
-                    emergencyFuel = GlobalFormulas.AIRBUS_A320NEO_LA_EMERGENCY_FUEL;
                     break;
             }
         }
-        return (speed, averageFuel, reserveFuel, emergencyFuel, altitudeFeet);
+        return (speed, averageFuel, reserveFuel, altitudeFeet);
     }
 }
