@@ -76,51 +76,12 @@ public class PlannerRepository
 
             var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
 
-            //Get aircraft configuration based on model and flight type
-            var config = GetAircraftConfig(
-                AircraftModel: ViewModel.AircraftModel, 
+            //Calculate flight specs
+            var flightSpecs = CalculateFlightSpecs(
+                PlannerID: planner.ID,
+                NauticalMiles: nauticalMiles,
+                AircraftModel: ViewModel.AircraftModel,
                 FlightType: ViewModel.FlightType);
-            int speed = config.Speed;
-            int averageFuel = config.AverageFuel;
-            int reserveFuel = config.ReserveFuel;
-            int altitudeFeet = config.AltitudeFeet;
-
-            decimal flightEstimatedHourTime = Math.Round((decimal)nauticalMiles / speed, 2);
-            int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
-            
-            //Step #1: Calculate direct fuel consumption for the flight
-            decimal basicFuel = averageFuel * flightEstimatedHourTime;
-            
-            //Step #2: Alternate Fuel (20 minutes).
-            double alternateFuel = Math.Round(averageFuel * 0.33);
-            
-            //Step #3: Contingency Fuel (15% of the total fuel).
-            double contingencyFuel = Math.Round((double)basicFuel * 0.15);
-            
-            //STEP #4: Taxi and Holding Fuel (200 lbs).
-            int taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
-            
-            //STEP #5: SUM all Fuel
-            double totalFuel = (double)basicFuel + alternateFuel + contingencyFuel + reserveFuel + taxiHoldingFuel;
-            
-            decimal totalFuelGal = Math.Round((decimal)totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-
-            var flightSpecs = new FlightSpecs
-            {
-                PlannerID = planner.ID,
-                NauticalMiles = nauticalMiles,
-                CruiseSpeedKnots = speed,
-                FlightEstimatedHourTime = flightEstimatedHourTime,
-                FlightEstimatedMinutesTime = flightEstimatedMinutesTime,
-                BasicFuel = basicFuel,
-                AverageFuelConsumption = averageFuel,
-                ReserveFuel = reserveFuel,
-                ReserveFuelGal = reserveFuelGal,
-                TotalFuel = (decimal)totalFuel,
-                TotalFuelGal = totalFuelGal,
-                AltitudeFeet = altitudeFeet,
-            };
             
             context.FlightSpecs.Add(flightSpecs);
             await context.SaveChangesAsync();
@@ -274,54 +235,32 @@ public class PlannerRepository
             
             var nauticalMiles = ViewModel.FlightSpecs?.NauticalMiles ?? 0;
             
-            //Get aircraft configuration based on model and flight type
-            var config = GetAircraftConfig(
-                AircraftModel: ViewModel.AircraftModel, 
+            var newSpecs = CalculateFlightSpecs(
+                PlannerID: planner.ID,
+                NauticalMiles: nauticalMiles,
+                AircraftModel: ViewModel.AircraftModel,
                 FlightType: ViewModel.FlightType);
-            int speed = config.Speed;
-            int averageFuel = config.AverageFuel;
-            int reserveFuel = config.ReserveFuel;
-            int altitudeFeet = config.AltitudeFeet;
-
-            decimal flightEstimatedHourTime = Math.Round((decimal)nauticalMiles / speed, 2);
-            int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
-
-            //Step #1: Calculate direct fuel consumption for the flight
-            decimal basicFuel = averageFuel * flightEstimatedHourTime;
-            
-            //Step #2: Alternate Fuel (20 minutes).
-            double alternateFuel = Math.Round(averageFuel * 0.33);
-            
-            //Step #3: Contingency Fuel (15% of the total fuel).
-            double contingencyFuel = Math.Round((double)basicFuel * 0.15);
-            
-            //STEP #4: Taxi and Holding Fuel (200 lbs).
-            int taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
-            
-            //STEP #5: SUM all Fuel
-            double totalFuel = (double)basicFuel + alternateFuel + contingencyFuel + reserveFuel + taxiHoldingFuel;
-            
-            decimal totalFuelGal = Math.Round((decimal)totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
-            decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
 
             var specs = await context.FlightSpecs.FirstOrDefaultAsync(s => s.PlannerID == planner.ID);
             if (specs == null)
             {
-                specs = new FlightSpecs { PlannerID = planner.ID };
+                specs = newSpecs;
                 context.FlightSpecs.Add(specs);
             }
-
-            specs.NauticalMiles = nauticalMiles;
-            specs.CruiseSpeedKnots = speed;
-            specs.FlightEstimatedHourTime = flightEstimatedHourTime;
-            specs.FlightEstimatedMinutesTime = flightEstimatedMinutesTime;
-            specs.BasicFuel = basicFuel;
-            specs.AverageFuelConsumption = averageFuel;
-            specs.ReserveFuel = reserveFuel;
-            specs.ReserveFuelGal = reserveFuelGal;
-            specs.TotalFuel = (decimal)totalFuel;
-            specs.TotalFuelGal = totalFuelGal;
-            specs.AltitudeFeet = altitudeFeet;
+            else
+            {
+                specs.NauticalMiles = newSpecs.NauticalMiles;
+                specs.CruiseSpeedKnots = newSpecs.CruiseSpeedKnots;
+                specs.FlightEstimatedHourTime = newSpecs.FlightEstimatedHourTime;
+                specs.FlightEstimatedMinutesTime = newSpecs.FlightEstimatedMinutesTime;
+                specs.BasicFuel = newSpecs.BasicFuel;
+                specs.AverageFuelConsumption = newSpecs.AverageFuelConsumption;
+                specs.ReserveFuel = newSpecs.ReserveFuel;
+                specs.ReserveFuelGal = newSpecs.ReserveFuelGal;
+                specs.TotalFuel = newSpecs.TotalFuel;
+                specs.TotalFuelGal = newSpecs.TotalFuelGal;
+                specs.AltitudeFeet = newSpecs.AltitudeFeet;
+            }
 
             await context.SaveChangesAsync();
             await transaction.CommitAsync();
@@ -445,5 +384,44 @@ public class PlannerRepository
             }
         }
         return (speed, averageFuel, reserveFuel, altitudeFeet);
+    }
+    
+    private static FlightSpecs CalculateFlightSpecs(Guid PlannerID, int NauticalMiles, AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
+    {
+        var config = GetAircraftConfig(
+            AircraftModel: AircraftModel,
+            FlightType: FlightType);
+        int speed = config.Speed;
+        int averageFuel = config.AverageFuel;
+        int reserveFuel = config.ReserveFuel;
+        int altitudeFeet = config.AltitudeFeet;
+
+        decimal flightEstimatedHourTime = Math.Round((decimal)NauticalMiles / speed, 2);
+        int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
+
+        decimal basicFuel = averageFuel * flightEstimatedHourTime;
+        double alternateFuel = Math.Round(averageFuel * 0.33);
+        double contingencyFuel = Math.Round((double)basicFuel * 0.15);
+        int taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
+        double totalFuel = (double)basicFuel + alternateFuel + contingencyFuel + reserveFuel + taxiHoldingFuel;
+
+        decimal totalFuelGal = Math.Round((decimal)totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+        decimal reserveFuelGal = Math.Round(reserveFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
+
+        return new FlightSpecs
+        {
+            PlannerID = PlannerID,
+            NauticalMiles = NauticalMiles,
+            CruiseSpeedKnots = speed,
+            FlightEstimatedHourTime = flightEstimatedHourTime,
+            FlightEstimatedMinutesTime = flightEstimatedMinutesTime,
+            BasicFuel = basicFuel,
+            AverageFuelConsumption = averageFuel,
+            ReserveFuel = reserveFuel,
+            ReserveFuelGal = reserveFuelGal,
+            TotalFuel = (decimal)totalFuel,
+            TotalFuelGal = totalFuelGal,
+            AltitudeFeet = altitudeFeet
+        };
     }
 }
