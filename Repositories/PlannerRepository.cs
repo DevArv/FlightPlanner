@@ -383,6 +383,32 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.BOEING_737_MAX)
+        {
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.BOEING_737_MAX_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.BOEING_737_MAX_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.BOEING_737_MAX_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.BOEING_737_MAX_HA_RESERVE_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.BOEING_737_MAX_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.BOEING_737_MAX_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.BOEING_737_MAX_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.BOEING_737_MAX_MA_RESERVE_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.BOEING_737_MAX_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.BOEING_737_MAX_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.BOEING_737_MAX_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.BOEING_737_MAX_LA_RESERVE_FUEL;
+                    break;
+            }
+        }
         return (speed, averageFuel, reserveFuel, altitudeFeet);
     }
     
