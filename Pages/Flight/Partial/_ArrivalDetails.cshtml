@@ -1,3 +1,4 @@
+@using FlightPlanner.Constants
 @using FlightPlanner.Enums
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
@@ -24,17 +25,17 @@
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.TransitionAltitudeArrival)" class="form-label">Altitud de Transición</label>
-        <input type="number" class="form-control" id="@nameof(Model.TransitionAltitudeArrival)" value="@Model.TransitionAltitudeArrival" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.TransitionAltitudeArrival)" value="@Model.TransitionAltitudeArrival.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayElevation)" class="form-label">Elevación de Pista</label>
-        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayElevation)" value="@Model.ArrivalRunwayElevation" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayElevation)" value="@Model.ArrivalRunwayElevation.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayMinimumAltitude)" class="form-label">Altitud Minima de Aproximación</label>
-        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayMinimumAltitude)" value="@Model.ArrivalRunwayMinimumAltitude" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayMinimumAltitude)" value="@Model.ArrivalRunwayMinimumAltitude.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
 
     <div class="col-md-3 mb-3">
@@ -49,12 +50,12 @@
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.LocalizerVectorAltitude)" class="form-label">Altitud Vector Localizador</label>
-        <input type="number" class="form-control" id="@nameof(Model.LocalizerVectorAltitude)" value="@Model.LocalizerVectorAltitude" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorAltitude)" value="@Model.LocalizerVectorAltitude.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayLength)" class="form-label">Largo de Pista de Llegada</label>
-        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayLength)" value="@Model.ArrivalRunwayLength" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayLength)" value="@Model.ArrivalRunwayLength.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">

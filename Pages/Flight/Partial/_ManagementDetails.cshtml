@@ -1,14 +1,15 @@
+@using FlightPlanner.Constants
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
 <div class="row">
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.AltitudeFeet)" class="form-label">Altitud Crucero</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.AltitudeFeet)" value="@Model.FlightSpecs.AltitudeFeet" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.AltitudeFeet)" value="@Model.FlightSpecs.AltitudeFeet.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.NauticalMiles)" class="form-label">Distancia de Vuelo (NM)</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.NauticalMiles)" value="@Model.FlightSpecs?.NauticalMiles" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.NauticalMiles)" value="@Model.FlightSpecs?.NauticalMiles.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
@@ -27,32 +28,32 @@
     </div>
     
     <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.FlightSpecs.AverageFuelConsumption)" class="form-label">Consumo Promedio por Horas</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.AverageFuelConsumption)" value="@Model.FlightSpecs?.AverageFuelConsumption" disabled="disabled" />
+        <label for="@nameof(Model.FlightSpecs.AverageFuelConsumption)" class="form-label">Consumo Promedio por Horas</label>ß
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.AverageFuelConsumption)" value="@Model.FlightSpecs?.AverageFuelConsumption.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.BasicFuel)" class="form-label">Combustible Básico</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.BasicFuel)" value="@Model.FlightSpecs?.BasicFuel" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.BasicFuel)" value="@Model.FlightSpecs?.BasicFuel.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.ReserveFuel)" class="form-label">Combustible de Reserva (45 minutos)</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.ReserveFuel)" value="@Model.FlightSpecs?.ReserveFuel" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.ReserveFuel)" value="@Model.FlightSpecs?.ReserveFuel.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.ReserveFuelGal)" class="form-label">Combustible de Reserva Galones</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.ReserveFuelGal)" value="@Model.FlightSpecs?.ReserveFuelGal" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.ReserveFuelGal)" value="@Model.FlightSpecs?.ReserveFuelGal.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.TotalFuel)" class="form-label">Combustible Total</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.TotalFuel)" value="@Model.FlightSpecs?.TotalFuel" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.TotalFuel)" value="@Model.FlightSpecs?.TotalFuel.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.TotalFuelGal)" class="form-label">Combustible Total Galones</label>
-        <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.TotalFuelGal)" value="@Model.FlightSpecs?.TotalFuelGal" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.FlightSpecs.TotalFuelGal)" value="@Model.FlightSpecs?.TotalFuelGal.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
 </div>

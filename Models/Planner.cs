@@ -22,25 +22,25 @@ public class Planner
     
     public decimal? BaroPressureArrival { get; set; }
     
-    public int? TransitionAltitudeDeparture { get; set; }
+    public int TransitionAltitudeDeparture { get; set; }
     
-    public int? TransitionAltitudeArrival { get; set; }
+    public int TransitionAltitudeArrival { get; set; }
     
     public int? DepartureRunway { get; set; }
     
     public int? ArrivalRunway { get; set; }
     
-    public int? ArrivalRunwayElevation { get; set; }
+    public int ArrivalRunwayElevation { get; set; }
     
-    public int? ArrivalRunwayMinimumAltitude { get; set; }
+    public int ArrivalRunwayMinimumAltitude { get; set; }
     
-    public int? ArrivalRunwayLength { get; set; }
+    public int ArrivalRunwayLength { get; set; }
     
     public decimal? LocalizerFrequency { get; set; }
     
     public string? LocalizerVectorName { get; set; } = "";
     
-    public int? LocalizerVectorAltitude { get; set; }
+    public int LocalizerVectorAltitude { get; set; }
     
     public bool IsCompleted { get; set; }
     
