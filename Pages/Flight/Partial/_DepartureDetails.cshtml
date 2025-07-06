@@ -1,3 +1,4 @@
+@using FlightPlanner.Constants
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
 <div class="row">
@@ -23,6 +24,6 @@
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.TransitionAltitudeDeparture)" class="form-label">Altitud de Transición</label>
-        <input type="number" class="form-control" id="@nameof(Model.TransitionAltitudeDeparture)" value="@Model.TransitionAltitudeDeparture" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.TransitionAltitudeDeparture)" value="@Model.TransitionAltitudeDeparture.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
     </div>
 </div>

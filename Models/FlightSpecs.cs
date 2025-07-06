@@ -11,7 +11,7 @@ public class FlightSpecs
     [ForeignKey("PlannerID")]
     public Planner? Planner { get; set; }
     
-    public int? NauticalMiles { get; set; }
+    public int NauticalMiles { get; set; }
     
     public int? CruiseSpeedKnots { get; set; }
     
@@ -31,5 +31,5 @@ public class FlightSpecs
     
     public int FlightEstimatedMinutesTime { get; set; }
     
-    public int? AltitudeFeet { get; set; }
+    public int AltitudeFeet { get; set; }
 }
