@@ -3,7 +3,7 @@
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
 @{
-    var approachTypesOptions = Html.GetEnumSelectList<ApproachTypeEnum>();
+    var approachTypeOptions = Html.GetEnumSelectList<ApproachTypeEnum>();
 }
 
 <div class="row">
@@ -65,7 +65,7 @@
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ApproachType)" class="form-label">Tipo de Aterrizaje</label>
         <select name="@nameof(Model.ApproachType)" class="form-select" id="@nameof(Model.ApproachType)" disabled="disabled">
-            @foreach (var item in approachTypesOptions)
+            @foreach (var item in approachTypeOptions)
             {
                 <option value="@item.Value"
                         selected="@(item.Value == ((int)Model.ApproachType).ToString())">
