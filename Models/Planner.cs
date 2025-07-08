@@ -1,4 +1,4 @@
-using FlightPlanner.Enums;
+using FlightPlanner.Enum;
 
 namespace FlightPlanner.Models;
 

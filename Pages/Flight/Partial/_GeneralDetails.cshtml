@@ -1,6 +1,11 @@
 @using FlightPlanner.Constants
-@using FlightPlanner.Enums
+@using FlightPlanner.Enum
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
+
+@{
+    var aircraftModelOptions = Html.GetEnumSelectList<AircraftModelEnum>();
+    var flightTypeOptions = Html.GetEnumSelectList<FlightTypesEnum>();
+}
 
 <div class="row">
     <div class="col-md-3 mb-3">
@@ -27,22 +32,26 @@
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.AircraftModel)" class="form-label">Modelo de Avión</label>
         <select class="form-select" id="@nameof(Model.AircraftModel)" disabled="disabled" name="@Model.AircraftModel">
-            <option value="@((int)AircraftModelEnum.DEFAULT)" selected="@((Model.AircraftModel == AircraftModelEnum.DEFAULT))"></option>
-            <option value="@((int)AircraftModelEnum.CESSNA_CITATION_LONGITUDE)" selected="@((Model.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE))">Cessna Citation Longitude</option>
-            <option value="@((int)AircraftModelEnum.EMBRAER_E190)" selected="@((Model.AircraftModel == AircraftModelEnum.EMBRAER_E190))">Embraer E190</option>
-            <option value="@((int)AircraftModelEnum.EMBRAER_E195)" selected="@((Model.AircraftModel == AircraftModelEnum.EMBRAER_E195))">Embraer E195</option>
-            <option value="@((int)AircraftModelEnum.AIRBUS_A320NEO)" selected="@((Model.AircraftModel == AircraftModelEnum.AIRBUS_A320NEO))">Airbus A320 Neo</option>
-            <option value="@((int)AircraftModelEnum.BOEING_737_MAX)" selected="@((Model.AircraftModel == AircraftModelEnum.BOEING_737_MAX))">Boeing 737 Max</option>
+            @foreach (var item in aircraftModelOptions)
+            {
+                <option value="@item.Value"
+                        selected="@(item.Value == ((int)Model.AircraftModel).ToString())">
+                    @item.Text
+                </option>
+            }
         </select>
     </div>
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightType)" class="form-label">Tipo de Vuelo</label>
         <select class="form-select" id="@nameof(Model.FlightType)" disabled="disabled" name="@Model.FlightType">
-            <option value="@((int)FlightTypesEnum.DEFAULT)" selected="@((Model.FlightType == FlightTypesEnum.DEFAULT))"></option>
-            <option value="@((int)FlightTypesEnum.SHORT_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.SHORT_FLIGHT))">Vuelo Corto ( < 350 NM )</option>
-            <option value="@((int)FlightTypesEnum.NORMAL_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.NORMAL_FLIGHT))">Vuelo Mediano Alcance ( 351 - 1499 NM )</option>
-            <option value="@((int)FlightTypesEnum.HIGH_ALTITUDE_FLIGHT)" selected="@((Model.FlightType == FlightTypesEnum.HIGH_ALTITUDE_FLIGHT))">Vuelo Alta Altitud ( > 1500 NM )</option>
+            @foreach (var item in flightTypeOptions)
+            {
+                <option value="@item.Value"
+                        selected="@(item.Value == ((int)Model.FlightType).ToString())">
+                    @item.Text
+                </option>
+            }
         </select>
     </div>
 </div>

@@ -1,6 +1,6 @@
 using FlightPlanner.Constants;
 using FlightPlanner.DatabaseConnection;
-using FlightPlanner.Enums;
+using FlightPlanner.Enum;
 using FlightPlanner.Models;
 using FlightPlanner.ViewModels;
 using Microsoft.EntityFrameworkCore;

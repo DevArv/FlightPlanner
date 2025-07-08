@@ -12,5 +12,5 @@ public static class Global
     //Software defaults values
     public static string DATETIME_FORMAT = "yyyy-MM-dd";
     public static string DATETIME_FORMAT_V2 = "dd MMM yyyy";
-    public static string FP_FORMAT_NUMBER = "#,0.00";
+    public static string FP_FORMAT_NUMBER = "#,##0.00";
 }
