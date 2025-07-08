@@ -1,6 +1,10 @@
 @using FlightPlanner.Constants
-@using FlightPlanner.Enums
+@using FlightPlanner.Enum
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
+
+@{
+    var approachTypeOptions = Html.GetEnumSelectList<ApproachTypeEnum>();
+}
 
 <div class="row">
     <div class="col-md-3 mb-3">
@@ -60,12 +64,14 @@
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ApproachType)" class="form-label">Tipo de Aterrizaje</label>
-        <select class="form-select" id="@nameof(Model.ApproachType)" disabled="disabled" name="@Model.ApproachType">
-            <option value="@((int)ApproachTypeEnum.DEFAULT)" selected="@((Model.ApproachType == ApproachTypeEnum.DEFAULT))"></option>
-            <option value="@((int)ApproachTypeEnum.ILS)" selected="@((Model.ApproachType == ApproachTypeEnum.ILS))">ILS (Instrument Landing System)</option>
-            <option value="@((int)ApproachTypeEnum.RNAV)" selected="@((Model.ApproachType == ApproachTypeEnum.RNAV))">RNAV (Area Navigation)</option>
-            <option value="@((int)ApproachTypeEnum.VOR)" selected="@((Model.ApproachType == ApproachTypeEnum.VOR))">VOR Approach</option>
-            <option value="@((int)ApproachTypeEnum.VISUAL)" selected="@((Model.ApproachType == ApproachTypeEnum.VISUAL))">Visual Approach</option>
+        <select name="@nameof(Model.ApproachType)" class="form-select" id="@nameof(Model.ApproachType)" disabled="disabled">
+            @foreach (var item in approachTypeOptions)
+            {
+                <option value="@item.Value"
+                        selected="@(item.Value == ((int)Model.ApproachType).ToString())">
+                    @item.Text
+                </option>
+            }
         </select>
     </div>
 </div>
