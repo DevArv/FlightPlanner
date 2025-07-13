@@ -107,4 +107,24 @@ public static class GlobalFormulas
     public static int BOEING_737_MAX_HA_CRUISE_SPEED = 460;
     public static int BOEING_737_MAX_MA_CRUISE_SPEED = 450;
     public static int BOEING_737_MAX_LA_CRUISE_SPEED = 430;
+    
+    //CESSNA S172 - FUEL CONSUMPTION
+    public static int CESSNA_S172_HA_AVERAGE_FUEL = 39;
+    public static int CESSNA_S172_HA_RESERVE_FUEL = 48;
+    
+    public static int CESSNA_S172_MA_AVERAGE_FUEL = 45;
+    public static int CESSNA_S172_MA_RESERVE_FUEL = 36;
+    
+    public static int CESSNA_S172_LA_AVERAGE_FUEL = 51;
+    public static int CESSNA_S172_LA_RESERVE_FUEL = 24;
+    
+    //CESSNA S172 - CRUISE ALTITUDE
+    public static int CESSNA_S172_HA_CRUISE_ALTITUDE = 10500;
+    public static int CESSNA_S172_MA_CRUISE_ALTITUDE = 7500;
+    public static int CESSNA_S172_LA_CRUISE_ALTITUDE = 3500;
+    
+    //CESSNA S172 - CRUISE SPEED
+    public static int CESSNA_S172_HA_CRUISE_SPEED = 113;
+    public static int CESSNA_S172_MA_CRUISE_SPEED = 118;
+    public static int CESSNA_S172_LA_CRUISE_SPEED = 124;
 }
