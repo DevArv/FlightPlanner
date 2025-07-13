@@ -409,6 +409,39 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
+        {
+            /*
+             Este avión tiene un caso muy particular respecto a las distancias
+             de vuelo:
+             Largo Alcance: 450 - 640 NM
+             Mediano Alcance: 250 - 450 NM
+             Corto Alcance: 100 - 250 NM
+             */
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNA_S172_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNA_S172_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNA_S172_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNA_S172_HA_RESERVE_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNA_S172_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNA_S172_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNA_S172_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNA_S172_MA_RESERVE_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNA_S172_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNA_S172_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNA_S172_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNA_S172_LA_RESERVE_FUEL;
+                    break;
+            }
+        }
         return (speed, averageFuel, reserveFuel, altitudeFeet);
     }
     
