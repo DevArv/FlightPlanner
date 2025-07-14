@@ -127,4 +127,24 @@ public static class GlobalFormulas
     public static int CESSNA_S172_HA_CRUISE_SPEED = 113;
     public static int CESSNA_S172_MA_CRUISE_SPEED = 118;
     public static int CESSNA_S172_LA_CRUISE_SPEED = 124;
+    
+    //DIAMOND DA40 NG - FUEL CONSUMPTION
+    public static int DIAMOND_DA40_HA_AVERAGE_FUEL = 29;
+    public static int DIAMOND_DA40_HA_RESERVE_FUEL = 44;
+    
+    public static int DIAMOND_DA40_MA_AVERAGE_FUEL = 32;
+    public static int DIAMOND_DA40_MA_RESERVE_FUEL = 33;
+    
+    public static int DIAMOND_DA40_LA_AVERAGE_FUEL = 36;
+    public static int DIAMOND_DA40_LA_RESERVE_FUEL = 22;
+    
+    //DIAMOND DA40 NG - CRUISE ALTITUDE
+    public static int DIAMOND_DA40_HA_CRUISE_ALTITUDE = 12000;
+    public static int DIAMOND_DA40_MA_CRUISE_ALTITUDE = 8000;
+    public static int DIAMOND_DA40_LA_CRUISE_ALTITUDE = 4500;
+    
+    //DIAMOND DA40 NG - CRUISE SPEED
+    public static int DIAMOND_DA40_HA_CRUISE_SPEED = 150;
+    public static int DIAMOND_DA40_MA_CRUISE_SPEED = 145;
+    public static int DIAMOND_DA40_LA_CRUISE_SPEED = 135;
 }

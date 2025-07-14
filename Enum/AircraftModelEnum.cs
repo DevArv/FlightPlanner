@@ -24,4 +24,7 @@ public enum AircraftModelEnum
     
     [Display(Name = "Cessna S172 Skyhawk")]
     CESSNA_S172_SKYHAWK = 60,
+    
+    [Display(Name = "Diamond DA40 NG")]
+    DIAMOND_DA40 = 70,
 }

@@ -442,6 +442,39 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.DIAMOND_DA40)
+        {
+            /*
+             Este avión tiene un caso muy particular respecto a las distancias
+             de vuelo:
+             Largo Alcance: 940 NM
+             Mediano Alcance: 600 NM
+             Corto Alcance: 280 NM
+             */
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.DIAMOND_DA40_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.DIAMOND_DA40_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.DIAMOND_DA40_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.DIAMOND_DA40_HA_RESERVE_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.DIAMOND_DA40_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.DIAMOND_DA40_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.DIAMOND_DA40_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.DIAMOND_DA40_MA_RESERVE_FUEL;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.DIAMOND_DA40_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.DIAMOND_DA40_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.DIAMOND_DA40_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.DIAMOND_DA40_LA_RESERVE_FUEL;
+                    break;
+            }
+        }
         return (speed, averageFuel, reserveFuel, altitudeFeet);
     }
     
