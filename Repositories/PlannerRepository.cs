@@ -447,9 +447,9 @@ public class PlannerRepository
             /*
              Este avión tiene un caso muy particular respecto a las distancias
              de vuelo:
-             Largo Alcance: 940 NM
-             Mediano Alcance: 600 NM
-             Corto Alcance: 280 NM
+             Largo Alcance: 720 NM
+             Mediano Alcance: 480 NM
+             Corto Alcance: 250 NM
              */
             switch (FlightType)
             {
@@ -494,7 +494,18 @@ public class PlannerRepository
         decimal basicFuel = averageFuel * flightEstimatedHourTime;
         double alternateFuel = Math.Round(averageFuel * 0.33);
         double contingencyFuel = Math.Round((double)basicFuel * 0.15);
-        int taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
+
+        int taxiHoldingFuel;
+        if (AircraftModel == AircraftModelEnum.DIAMOND_DA40 ||
+            AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
+        {
+            taxiHoldingFuel = GlobalFormulas.SMALL_PLANES_TAXI_HOLDING_FUEL;
+        }
+        else
+        {
+            taxiHoldingFuel = GlobalFormulas.TAXI_HOLDING_FUEL;
+        }
+        
         double totalFuel = (double)basicFuel + alternateFuel + contingencyFuel + reserveFuel + taxiHoldingFuel;
 
         decimal totalFuelGal = Math.Round((decimal)totalFuel / GlobalFormulas.DENSITY_FUEL_GAL, 2);
