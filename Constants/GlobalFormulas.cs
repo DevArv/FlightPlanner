@@ -7,6 +7,7 @@ public static class GlobalFormulas
     
     //TAXI AND HOLDING FUEL
     public static int TAXI_HOLDING_FUEL = 200;
+    public static int SMALL_PLANES_TAXI_HOLDING_FUEL = 4;
     
     //CESSNA CITATION LONGITUDE - FUEL CONSUMPTION
     public static int CESSNACL_HA_AVERAGE_FUEL = 1850;
