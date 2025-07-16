@@ -27,7 +27,8 @@ public class PlannerRepository
         if (Obj.FlightType == FlightTypesEnum.DEFAULT)
             throw new ApplicationException("El tipo de vuelo es requerido.");
         
-        if (Obj.ApproachType == ApproachTypeEnum.ILS && Obj.LocalizerFrequency <= 0)
+        if (Obj.ApproachType == ApproachTypeEnum.ILS && 
+            (!Obj.LocalizerFrequency.HasValue || Obj.LocalizerFrequency <= 0))
             throw new ApplicationException("La frecuencia del Localizador es requerida para el tipo de aproximación ILS.");
 
         return true;
