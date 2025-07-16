@@ -9,7 +9,7 @@ namespace FlightPlanner.Repositories;
 
 public class PlannerRepository
 {
-    public Task<bool> ValidateAsync(FlightPlannerSimpleViewModel Obj)
+    public bool Validate(FlightPlannerSimpleViewModel Obj)
     {
         //Required fields validation
         if (string.IsNullOrWhiteSpace(Obj.ICAODeparture))
@@ -27,10 +27,11 @@ public class PlannerRepository
         if (Obj.FlightType == FlightTypesEnum.DEFAULT)
             throw new ApplicationException("El tipo de vuelo es requerido.");
         
-        if (Obj.ApproachType == ApproachTypeEnum.ILS && Obj.LocalizerFrequency == null)
+        if (Obj.ApproachType == ApproachTypeEnum.ILS && 
+            (!Obj.LocalizerFrequency.HasValue || Obj.LocalizerFrequency <= 0))
             throw new ApplicationException("La frecuencia del Localizador es requerida para el tipo de aproximación ILS.");
 
-        return Task.FromResult(true);
+        return true;
     }
 
     public async Task<Guid> SaveFlightPlanAsync(FlightPlannerSimpleViewModel ViewModel)
@@ -496,10 +497,13 @@ public class PlannerRepository
         double contingencyFuel = Math.Round((double)basicFuel * 0.15);
 
         int taxiHoldingFuel;
-        if (AircraftModel == AircraftModelEnum.DIAMOND_DA40 ||
-            AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
+        if (AircraftModel == AircraftModelEnum.DIAMOND_DA40)
         {
-            taxiHoldingFuel = GlobalFormulas.SMALL_PLANES_TAXI_HOLDING_FUEL;
+            taxiHoldingFuel = GlobalFormulas.DIAMOND_DA40_TAXI_HOLDING_FUEL;
+        }
+        else if (AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
+        {
+            taxiHoldingFuel = GlobalFormulas.CESSNA_S172_TAXI_HOLDING_FUEL;
         }
         else
         {
