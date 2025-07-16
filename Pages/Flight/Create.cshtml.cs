@@ -23,7 +23,7 @@ public class Create : PageModel
         try
         {
             var repo = new PlannerRepository();
-            bool isValid = await repo.ValidateAsync(Obj: Flight);
+            bool isValid = repo.Validate(Obj: Flight);
 
             if (isValid == false)
                 return BadRequest("La validación falló.");
