@@ -1,4 +1,5 @@
 @using FlightPlanner.Constants
+@using FlightPlanner.Enum
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
 <div class="row">
@@ -16,6 +17,29 @@
         <label for="@nameof(Model.FlightSpecs.CruiseSpeedKnots)" class="form-label">Velocidad Crucero Recomendada</label>
         <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.CruiseSpeedKnots)" value="@Model.FlightSpecs?.CruiseSpeedKnots" disabled="disabled" />
     </div>
+    
+    @if (Model.AircraftModel == AircraftModelEnum.DIAMOND_DA40 || Model.AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
+    {
+        <div class="col-md-3 mb-3">
+            <label for="@nameof(Model.FlightSpecs.AscentRateFeetPerMinute)" class="form-label">Velocidad de Ascenso</label>
+            <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.AscentRateFeetPerMinute)" value="@Model.FlightSpecs?.AscentRateFeetPerMinute" disabled="disabled" />
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <label for="@nameof(Model.FlightSpecs.DescentRateFeetPerMinute)" class="form-label">Velocidad de Descenso</label>
+            <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.DescentRateFeetPerMinute)" value="@Model.FlightSpecs?.DescentRateFeetPerMinute" disabled="disabled" />
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <label for="@nameof(Model.FlightSpecs.FinalApproachSpeed)" class="form-label">Velocidad Aproximación Final</label>
+            <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.FinalApproachSpeed)" value="@Model.FlightSpecs?.FinalApproachSpeed" disabled="disabled" />
+        </div>
+        
+        <div class="col-md-3 mb-3">
+            <label for="@nameof(Model.FlightSpecs.DescentVerticalSpeed)" class="form-label">Velocidad Vertical</label>
+            <input type="number" class="form-control" id="@nameof(Model.FlightSpecs.DescentVerticalSpeed)" value="@Model.FlightSpecs?.DescentVerticalSpeed" disabled="disabled" />
+        </div>
+    }
     
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.FlightSpecs.FlightEstimatedHourTime)" class="form-label">Tiempo Estimado de Vuelo (Horas)</label>

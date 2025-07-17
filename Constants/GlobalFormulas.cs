@@ -130,6 +130,12 @@ public static class GlobalFormulas
     public static int CESSNA_S172_MA_CRUISE_SPEED = 118;
     public static int CESSNA_S172_LA_CRUISE_SPEED = 124;
     
+    //CESSNA S172 - SPEED CONFIGURATIONS
+    public static int CESSNA_S172_ASCENT_RATE = 75;
+    public static int CESSNA_S172_DESCENT_RATE = 90;
+    public static int CESSNA_S172_FINAL_APPROACH_SPEED = 65;
+    public static int CESSNA_S172_DESCENT_VERTICAL_SPEED = 500;
+    
     //DIAMOND DA40 NG - FUEL CONSUMPTION
     public static int DIAMOND_DA40_HA_AVERAGE_FUEL = 29;
     public static int DIAMOND_DA40_HA_RESERVE_FUEL = 44;
@@ -149,4 +155,11 @@ public static class GlobalFormulas
     public static int DIAMOND_DA40_HA_CRUISE_SPEED = 150;
     public static int DIAMOND_DA40_MA_CRUISE_SPEED = 145;
     public static int DIAMOND_DA40_LA_CRUISE_SPEED = 135;
+    
+    //DIAMOND DA40 NG - SPEED CONFIGURATIONS
+    public static int DIAMOND_DA40_ASCENT_RATE = 90;
+    public static int DIAMOND_DA40_DESCENT_RATE = 110;
+    public static int DIAMOND_DA40_FINAL_APPROACH_SPEED = 75;
+    public static int DIAMOND_DA40_DESCENT_VERTICAL_SPEED = 700;
+    
 }

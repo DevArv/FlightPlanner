@@ -26,7 +26,6 @@ public class FlightPlannerSimpleViewModel
     public AircraftModelEnum AircraftModel { get; set; }
     public FlightTypesEnum FlightType { get; set; }
     public FlightSpecsViewModel FlightSpecs { get; set; } = new();
-    
     public bool IsCompleted { get; set; }
 }
 
@@ -47,6 +46,10 @@ public class FlightSpecsDetailsViewModel : FlightSpecsViewModel
     public decimal TotalFuel { get; set; }
     public decimal TotalFuelGal { get; set; }
     public int AltitudeFeet { get; set; }
+    public int AscentRateFeetPerMinute { get; set; }
+    public int DescentRateFeetPerMinute { get; set; }
+    public int FinalApproachSpeed { get; set; }
+    public int DescentVerticalSpeed { get; set; }
 }
 
 public class FlightPlannerDetailsViewModel : FlightPlannerSimpleViewModel
