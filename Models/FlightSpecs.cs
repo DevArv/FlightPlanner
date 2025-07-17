@@ -32,4 +32,12 @@ public class FlightSpecs
     public int FlightEstimatedMinutesTime { get; set; }
     
     public int AltitudeFeet { get; set; }
+    
+    public int AscentRateFeetPerMinute { get; set; }
+    
+    public int DescentRateFeetPerMinute { get; set; }
+    
+    public int FinalApproachSpeed { get; set; }
+    
+    public int DescentVerticalSpeed { get; set; }
 }

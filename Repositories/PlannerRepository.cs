@@ -142,7 +142,11 @@ public class PlannerRepository
                         ReserveFuelGal = s.ReserveFuelGal,
                         TotalFuel = s.TotalFuel,
                         TotalFuelGal = s.TotalFuelGal,
-                        AltitudeFeet = s.AltitudeFeet
+                        AltitudeFeet = s.AltitudeFeet,
+                        AscentRateFeetPerMinute = s.AscentRateFeetPerMinute,
+                        DescentRateFeetPerMinute = s.DescentRateFeetPerMinute,
+                        FinalApproachSpeed = s.FinalApproachSpeed,
+                        DescentVerticalSpeed = s.DescentVerticalSpeed
                     }
                 }).FirstOrDefaultAsync();
 
@@ -261,6 +265,10 @@ public class PlannerRepository
                 specs.TotalFuel = newSpecs.TotalFuel;
                 specs.TotalFuelGal = newSpecs.TotalFuelGal;
                 specs.AltitudeFeet = newSpecs.AltitudeFeet;
+                specs.AscentRateFeetPerMinute = newSpecs.AscentRateFeetPerMinute;
+                specs.DescentRateFeetPerMinute = newSpecs.DescentRateFeetPerMinute;
+                specs.FinalApproachSpeed = newSpecs.FinalApproachSpeed;
+                specs.DescentVerticalSpeed = newSpecs.DescentVerticalSpeed;
             }
 
             await context.SaveChangesAsync();
@@ -273,12 +281,16 @@ public class PlannerRepository
         }
     }
 
-    private static (int Speed, int AverageFuel, int ReserveFuel, int AltitudeFeet) GetAircraftConfig(AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
+    private static (int Speed, int AverageFuel, int ReserveFuel, int AltitudeFeet, int AscentRate, int DescentRate, int FinalApproachSpeed, int DescentVerticalSpeed) GetAircraftConfig(AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
     {
         int speed = 0;
         int averageFuel = 0;
         int reserveFuel = 0;
         int altitudeFeet = 0;
+        int ascentRate = 0;
+        int descentRate = 0;
+        int finalApproachSpeed = 0;
+        int descentVerticalSpeed = 0;
 
         if (AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
         {
@@ -426,6 +438,10 @@ public class PlannerRepository
                     speed = GlobalFormulas.CESSNA_S172_HA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.CESSNA_S172_HA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNA_S172_HA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.CESSNA_S172_ASCENT_RATE;
+                    descentRate = GlobalFormulas.CESSNA_S172_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.CESSNA_S172_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.CESSNA_S172_DESCENT_VERTICAL_SPEED;
                     break;
                     
                 case FlightTypesEnum.NORMAL_FLIGHT:
@@ -433,6 +449,10 @@ public class PlannerRepository
                     speed = GlobalFormulas.CESSNA_S172_MA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.CESSNA_S172_MA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNA_S172_MA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.CESSNA_S172_ASCENT_RATE;
+                    descentRate = GlobalFormulas.CESSNA_S172_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.CESSNA_S172_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.CESSNA_S172_DESCENT_VERTICAL_SPEED;
                     break;
                     
                 case FlightTypesEnum.SHORT_FLIGHT:
@@ -440,6 +460,10 @@ public class PlannerRepository
                     speed = GlobalFormulas.CESSNA_S172_LA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.CESSNA_S172_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.CESSNA_S172_LA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.CESSNA_S172_ASCENT_RATE;
+                    descentRate = GlobalFormulas.CESSNA_S172_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.CESSNA_S172_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.CESSNA_S172_DESCENT_VERTICAL_SPEED;
                     break;
             }
         }
@@ -459,6 +483,10 @@ public class PlannerRepository
                     speed = GlobalFormulas.DIAMOND_DA40_HA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.DIAMOND_DA40_HA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.DIAMOND_DA40_HA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.DIAMOND_DA40_ASCENT_RATE;
+                    descentRate = GlobalFormulas.DIAMOND_DA40_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.DIAMOND_DA40_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.DIAMOND_DA40_DESCENT_VERTICAL_SPEED;
                     break;
                     
                 case FlightTypesEnum.NORMAL_FLIGHT:
@@ -466,6 +494,10 @@ public class PlannerRepository
                     speed = GlobalFormulas.DIAMOND_DA40_MA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.DIAMOND_DA40_MA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.DIAMOND_DA40_MA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.DIAMOND_DA40_ASCENT_RATE;
+                    descentRate = GlobalFormulas.DIAMOND_DA40_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.DIAMOND_DA40_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.DIAMOND_DA40_DESCENT_VERTICAL_SPEED;
                     break;
                     
                 case FlightTypesEnum.SHORT_FLIGHT:
@@ -473,10 +505,23 @@ public class PlannerRepository
                     speed = GlobalFormulas.DIAMOND_DA40_LA_CRUISE_SPEED;
                     averageFuel = GlobalFormulas.DIAMOND_DA40_LA_AVERAGE_FUEL;
                     reserveFuel = GlobalFormulas.DIAMOND_DA40_LA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.DIAMOND_DA40_ASCENT_RATE;
+                    descentRate = GlobalFormulas.DIAMOND_DA40_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.DIAMOND_DA40_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.DIAMOND_DA40_DESCENT_VERTICAL_SPEED;
                     break;
             }
         }
-        return (speed, averageFuel, reserveFuel, altitudeFeet);
+
+        return (
+            Speed: speed,
+            AverageFuel: averageFuel,
+            ReserveFuel: reserveFuel,
+            AltitudeFeet: altitudeFeet,
+            AscentRate: ascentRate,
+            DescentRate: descentRate,
+            FinalApproachSpeed: finalApproachSpeed,
+            DescentVerticalSpeed: descentVerticalSpeed);
     }
     
     private static FlightSpecs CalculateFlightSpecs(Guid PlannerID, int NauticalMiles, AircraftModelEnum AircraftModel, FlightTypesEnum FlightType)
@@ -488,6 +533,10 @@ public class PlannerRepository
         int averageFuel = config.AverageFuel;
         int reserveFuel = config.ReserveFuel;
         int altitudeFeet = config.AltitudeFeet;
+        int ascentRate = config.AscentRate;
+        int descentRate = config.DescentRate;
+        int finalApproachSpeed = config.FinalApproachSpeed;
+        int descentVerticalSpeed = config.DescentVerticalSpeed;
 
         decimal flightEstimatedHourTime = Math.Round((decimal)NauticalMiles / speed, 2);
         int flightEstimatedMinutesTime = (int)(flightEstimatedHourTime * 60);
@@ -528,7 +577,11 @@ public class PlannerRepository
             ReserveFuelGal = reserveFuelGal,
             TotalFuel = (decimal)totalFuel,
             TotalFuelGal = totalFuelGal,
-            AltitudeFeet = altitudeFeet
+            AltitudeFeet = altitudeFeet,
+            AscentRateFeetPerMinute = ascentRate,
+            DescentRateFeetPerMinute = descentRate,
+            FinalApproachSpeed = finalApproachSpeed,
+            DescentVerticalSpeed = descentVerticalSpeed
         };
     }
 }
