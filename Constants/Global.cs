@@ -6,8 +6,8 @@ public static class Global
     public static string SOFTWARE_NAME = "FlightPlanner";
     
     //Software version
-    public static string VERSION = "1.0.00000017";
-    public static string VERSION_DATE = "JULY 15 2025";
+    public static string VERSION = "1.0.00000018";
+    public static string VERSION_DATE = "JULY 16 2025";
     
     //Software defaults values
     public static string DATETIME_FORMAT = "yyyy-MM-dd";
