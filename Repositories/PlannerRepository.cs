@@ -512,6 +512,51 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.DIAMOND_DA62)
+        {
+            /*
+             Este avión tiene un caso muy particular respecto a las distancias
+             de vuelo:
+             Largo Alcance: 1000 NM
+             Mediano Alcance: 400 NM
+             Corto Alcance: 150 NM
+             */
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.DIAMOND_DA62_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.DIAMOND_DA62_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.DIAMOND_DA62_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.DIAMOND_DA62_HA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.DIAMOND_DA62_ASCENT_RATE;
+                    descentRate = GlobalFormulas.DIAMOND_DA62_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.DIAMOND_DA62_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.DIAMOND_DA62_DESCENT_VERTICAL_SPEED;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.DIAMOND_DA62_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.DIAMOND_DA62_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.DIAMOND_DA62_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.DIAMOND_DA62_MA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.DIAMOND_DA62_ASCENT_RATE;
+                    descentRate = GlobalFormulas.DIAMOND_DA62_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.DIAMOND_DA62_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.DIAMOND_DA62_DESCENT_VERTICAL_SPEED;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.DIAMOND_DA62_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.DIAMOND_DA62_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.DIAMOND_DA62_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.DIAMOND_DA62_LA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.DIAMOND_DA62_ASCENT_RATE;
+                    descentRate = GlobalFormulas.DIAMOND_DA62_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.DIAMOND_DA62_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.DIAMOND_DA62_DESCENT_VERTICAL_SPEED;
+                    break;
+            }
+        }
 
         return (
             Speed: speed,
@@ -549,6 +594,10 @@ public class PlannerRepository
         if (AircraftModel == AircraftModelEnum.DIAMOND_DA40)
         {
             taxiHoldingFuel = GlobalFormulas.DIAMOND_DA40_TAXI_HOLDING_FUEL;
+        }
+        else if (AircraftModel == AircraftModelEnum.DIAMOND_DA62)
+        {
+            taxiHoldingFuel = GlobalFormulas.DIAMOND_DA62_TAXI_HOLDING_FUEL;
         }
         else if (AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
         {
