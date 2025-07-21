@@ -8,7 +8,7 @@ public static class GlobalFormulas
     //TAXI AND HOLDING FUEL
     public static int TAXI_HOLDING_FUEL = 200;
     public static int DIAMOND_DA40_TAXI_HOLDING_FUEL = 7;
-    public static int DIAMOND_DA62_TAXI_HOLDING_FUEL = 5;
+    public static int DIAMOND_DA62_TAXI_HOLDING_FUEL = 6;
     public static int CESSNA_S172_TAXI_HOLDING_FUEL = 1;
     
     //CESSNA CITATION LONGITUDE - FUEL CONSUMPTION
@@ -164,14 +164,14 @@ public static class GlobalFormulas
     public static int DIAMOND_DA40_DESCENT_VERTICAL_SPEED = 700;
     
     //DIAMOND DA62 - FUEL CONSUMPTION
-    public static int DIAMOND_DA62_HA_AVERAGE_FUEL = 70;
-    public static int DIAMOND_DA62_HA_RESERVE_FUEL = 60;
+    public static int DIAMOND_DA62_HA_AVERAGE_FUEL = 78;
+    public static int DIAMOND_DA62_HA_RESERVE_FUEL = 75;
     
-    public static int DIAMOND_DA62_MA_AVERAGE_FUEL = 65;
-    public static int DIAMOND_DA62_MA_RESERVE_FUEL = 45;
+    public static int DIAMOND_DA62_MA_AVERAGE_FUEL = 75;
+    public static int DIAMOND_DA62_MA_RESERVE_FUEL = 60;
     
-    public static int DIAMOND_DA62_LA_AVERAGE_FUEL = 60;
-    public static int DIAMOND_DA62_LA_RESERVE_FUEL = 30;
+    public static int DIAMOND_DA62_LA_AVERAGE_FUEL = 70;
+    public static int DIAMOND_DA62_LA_RESERVE_FUEL = 45;
     
     //DIAMOND DA62 - CRUISE ALTITUDE
     public static int DIAMOND_DA62_HA_CRUISE_ALTITUDE = 14000;
