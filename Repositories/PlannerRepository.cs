@@ -557,6 +557,51 @@ public class PlannerRepository
                     break;
             }
         }
+        else if (AircraftModel == AircraftModelEnum.CESSNA_C400)
+        {
+            /*
+             Este avión tiene un caso muy particular respecto a las distancias
+             de vuelo:
+             Largo Alcance: 1100 NM
+             Mediano Alcance: 400 NM
+             Corto Alcance: 150 NM
+             */
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNA_C400_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNA_C400_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNA_C400_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNA_C400_HA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.CESSNA_C400_ASCENT_RATE;
+                    descentRate = GlobalFormulas.CESSNA_C400_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.CESSNA_C400_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.CESSNA_C400_DESCENT_VERTICAL_SPEED;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNA_C400_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNA_C400_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNA_C400_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNA_C400_MA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.CESSNA_C400_ASCENT_RATE;
+                    descentRate = GlobalFormulas.CESSNA_C400_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.CESSNA_C400_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.CESSNA_C400_DESCENT_VERTICAL_SPEED;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.CESSNA_C400_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.CESSNA_C400_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.CESSNA_C400_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.CESSNA_C400_LA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.CESSNA_C400_ASCENT_RATE;
+                    descentRate = GlobalFormulas.CESSNA_C400_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.CESSNA_C400_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.CESSNA_C400_DESCENT_VERTICAL_SPEED;
+                    break;
+            }
+        }
 
         return (
             Speed: speed,
@@ -602,6 +647,10 @@ public class PlannerRepository
         else if (AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
         {
             taxiHoldingFuel = GlobalFormulas.CESSNA_S172_TAXI_HOLDING_FUEL;
+        }
+        else if (AircraftModel == AircraftModelEnum.CESSNA_C400)
+        {
+            taxiHoldingFuel = GlobalFormulas.CESSNA_C400_TAXI_HOLDING_FUEL;
         }
         else
         {

@@ -9,6 +9,7 @@ public static class GlobalFormulas
     public static int TAXI_HOLDING_FUEL = 200;
     public static int DIAMOND_DA40_TAXI_HOLDING_FUEL = 7;
     public static int DIAMOND_DA62_TAXI_HOLDING_FUEL = 6;
+    public static int CESSNA_C400_TAXI_HOLDING_FUEL = 5;
     public static int CESSNA_S172_TAXI_HOLDING_FUEL = 1;
     
     //CESSNA CITATION LONGITUDE - FUEL CONSUMPTION
@@ -188,5 +189,31 @@ public static class GlobalFormulas
     public static int DIAMOND_DA62_DESCENT_RATE = 120;
     public static int DIAMOND_DA62_FINAL_APPROACH_SPEED = 85;
     public static int DIAMOND_DA62_DESCENT_VERTICAL_SPEED = 600;
+    
+    //CESSNA C400 CORVALIS TT - FUEL CONSUMPTION
+    public static int CESSNA_C400_HA_AVERAGE_FUEL = 65;
+    public static int CESSNA_C400_HA_RESERVE_FUEL = 60;
+    
+    public static int CESSNA_C400_MA_AVERAGE_FUEL = 60;
+    public static int CESSNA_C400_MA_RESERVE_FUEL = 45;
+    
+    public static int CESSNA_C400_LA_AVERAGE_FUEL = 55;
+    public static int CESSNA_C400_LA_RESERVE_FUEL = 30;
+    
+    //CESSNA C400 CORVALIS TT - CRUISE ALTITUDE
+    public static int CESSNA_C400_HA_CRUISE_ALTITUDE = 17000;
+    public static int CESSNA_C400_MA_CRUISE_ALTITUDE = 10000;
+    public static int CESSNA_C400_LA_CRUISE_ALTITUDE = 6000;
+    
+    //CESSNA C400 CORVALIS TT - CRUISE SPEED
+    public static int CESSNA_C400_HA_CRUISE_SPEED = 210;
+    public static int CESSNA_C400_MA_CRUISE_SPEED = 190;
+    public static int CESSNA_C400_LA_CRUISE_SPEED = 170;
+    
+    //CESSNA C400 CORVALIS TT - SPEED CONFIGURATIONS
+    public static int CESSNA_C400_ASCENT_RATE = 110;
+    public static int CESSNA_C400_DESCENT_RATE = 120;
+    public static int CESSNA_C400_FINAL_APPROACH_SPEED = 80;
+    public static int CESSNA_C400_DESCENT_VERTICAL_SPEED = 600;
     
 }
