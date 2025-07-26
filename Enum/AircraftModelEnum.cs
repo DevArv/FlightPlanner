@@ -32,5 +32,8 @@ public enum AircraftModelEnum
     DIAMOND_DA62 = 80,
     
     [Display(Name = "Cessna C400 Corvalis TT")]
-    CESSNA_C400 = 90
+    CESSNA_C400 = 90,
+    
+    [Display(Name = "Pipistrel Virus SW121")]
+    PIPISTREL_VIRUS = 100
 }
