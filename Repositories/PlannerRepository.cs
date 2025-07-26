@@ -425,11 +425,11 @@ public class PlannerRepository
         else if (AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
         {
             /*
-             Este avión tiene un caso muy particular respecto a las distancias
-             de vuelo:
-             Largo Alcance: 450 - 640 NM
-             Mediano Alcance: 250 - 450 NM
-             Corto Alcance: 100 - 250 NM
+                 Este avión tiene un caso muy particular respecto a las distancias
+                 de vuelo:
+                 Largo Alcance: 450 - 640 NM
+                 Mediano Alcance: 250 - 450 NM
+                 Corto Alcance: 100 - 250 NM
              */
             switch (FlightType)
             {
@@ -470,11 +470,11 @@ public class PlannerRepository
         else if (AircraftModel == AircraftModelEnum.DIAMOND_DA40)
         {
             /*
-             Este avión tiene un caso muy particular respecto a las distancias
-             de vuelo:
-             Largo Alcance: 720 NM
-             Mediano Alcance: 480 NM
-             Corto Alcance: 250 NM
+                 Este avión tiene un caso muy particular respecto a las distancias
+                 de vuelo:
+                 Largo Alcance: 720 NM
+                 Mediano Alcance: 480 NM
+                 Corto Alcance: 250 NM
              */
             switch (FlightType)
             {
@@ -515,11 +515,11 @@ public class PlannerRepository
         else if (AircraftModel == AircraftModelEnum.DIAMOND_DA62)
         {
             /*
-             Este avión tiene un caso muy particular respecto a las distancias
-             de vuelo:
-             Largo Alcance: 1000 NM
-             Mediano Alcance: 400 NM
-             Corto Alcance: 150 NM
+                 Este avión tiene un caso muy particular respecto a las distancias
+                 de vuelo:
+                 Largo Alcance: 1000 NM
+                 Mediano Alcance: 400 NM
+                 Corto Alcance: 150 NM
              */
             switch (FlightType)
             {
@@ -560,11 +560,11 @@ public class PlannerRepository
         else if (AircraftModel == AircraftModelEnum.CESSNA_C400)
         {
             /*
-             Este avión tiene un caso muy particular respecto a las distancias
-             de vuelo:
-             Largo Alcance: 1100 NM
-             Mediano Alcance: 400 NM
-             Corto Alcance: 150 NM
+                 Este avión tiene un caso muy particular respecto a las distancias
+                 de vuelo:
+                 Largo Alcance: 1100 NM
+                 Mediano Alcance: 400 NM
+                 Corto Alcance: 150 NM
              */
             switch (FlightType)
             {
@@ -599,6 +599,51 @@ public class PlannerRepository
                     descentRate = GlobalFormulas.CESSNA_C400_DESCENT_RATE;
                     finalApproachSpeed = GlobalFormulas.CESSNA_C400_FINAL_APPROACH_SPEED;
                     descentVerticalSpeed = GlobalFormulas.CESSNA_C400_DESCENT_VERTICAL_SPEED;
+                    break;
+            }
+        }
+        else if (AircraftModel == AircraftModelEnum.PIPISTREL_VIRUS)
+        {
+            /*
+                 Este avión tiene un caso muy particular respecto a las distancias
+                 de vuelo:
+                 Largo Alcance: 480 NM
+                 Mediano Alcance: 300 NM
+                 Corto Alcance: 120 NM
+             */
+            switch (FlightType)
+            {
+                case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
+                    altitudeFeet = GlobalFormulas.PIPISTREL_VIRUS_HA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.PIPISTREL_VIRUS_HA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.PIPISTREL_VIRUS_HA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.PIPISTREL_VIRUS_HA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.PIPISTREL_VIRUS_ASCENT_RATE;
+                    descentRate = GlobalFormulas.PIPISTREL_VIRUS_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.PIPISTREL_VIRUS_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.PIPISTREL_VIRUS_DESCENT_VERTICAL_SPEED;
+                    break;
+                    
+                case FlightTypesEnum.NORMAL_FLIGHT:
+                    altitudeFeet = GlobalFormulas.PIPISTREL_VIRUS_MA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.PIPISTREL_VIRUS_MA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.PIPISTREL_VIRUS_MA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.PIPISTREL_VIRUS_MA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.PIPISTREL_VIRUS_ASCENT_RATE;
+                    descentRate = GlobalFormulas.PIPISTREL_VIRUS_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.PIPISTREL_VIRUS_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.PIPISTREL_VIRUS_DESCENT_VERTICAL_SPEED;
+                    break;
+                    
+                case FlightTypesEnum.SHORT_FLIGHT:
+                    altitudeFeet = GlobalFormulas.PIPISTREL_VIRUS_LA_CRUISE_ALTITUDE;
+                    speed = GlobalFormulas.PIPISTREL_VIRUS_LA_CRUISE_SPEED;
+                    averageFuel = GlobalFormulas.PIPISTREL_VIRUS_LA_AVERAGE_FUEL;
+                    reserveFuel = GlobalFormulas.PIPISTREL_VIRUS_LA_RESERVE_FUEL;
+                    ascentRate = GlobalFormulas.PIPISTREL_VIRUS_ASCENT_RATE;
+                    descentRate = GlobalFormulas.PIPISTREL_VIRUS_DESCENT_RATE;
+                    finalApproachSpeed = GlobalFormulas.PIPISTREL_VIRUS_FINAL_APPROACH_SPEED;
+                    descentVerticalSpeed = GlobalFormulas.PIPISTREL_VIRUS_DESCENT_VERTICAL_SPEED;
                     break;
             }
         }
@@ -651,6 +696,10 @@ public class PlannerRepository
         else if (AircraftModel == AircraftModelEnum.CESSNA_C400)
         {
             taxiHoldingFuel = GlobalFormulas.CESSNA_C400_TAXI_HOLDING_FUEL;
+        }
+        else if (AircraftModel == AircraftModelEnum.PIPISTREL_VIRUS)
+        {
+            taxiHoldingFuel = GlobalFormulas.PIPISTREL_VIRUS_TAXI_HOLDING_FUEL;
         }
         else
         {

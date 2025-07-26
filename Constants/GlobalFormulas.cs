@@ -10,6 +10,7 @@ public static class GlobalFormulas
     public static int DIAMOND_DA40_TAXI_HOLDING_FUEL = 7;
     public static int DIAMOND_DA62_TAXI_HOLDING_FUEL = 6;
     public static int CESSNA_C400_TAXI_HOLDING_FUEL = 5;
+    public static int PIPISTREL_VIRUS_TAXI_HOLDING_FUEL = 2;
     public static int CESSNA_S172_TAXI_HOLDING_FUEL = 1;
     
     //CESSNA CITATION LONGITUDE - FUEL CONSUMPTION
@@ -215,5 +216,31 @@ public static class GlobalFormulas
     public static int CESSNA_C400_DESCENT_RATE = 120;
     public static int CESSNA_C400_FINAL_APPROACH_SPEED = 80;
     public static int CESSNA_C400_DESCENT_VERTICAL_SPEED = 600;
+    
+    //PIPISTREL VIRUS SW121 - FUEL CONSUMPTION
+    public static int PIPISTREL_VIRUS_HA_AVERAGE_FUEL = 18;
+    public static int PIPISTREL_VIRUS_HA_RESERVE_FUEL = 30;
+    
+    public static int PIPISTREL_VIRUS_MA_AVERAGE_FUEL = 20;
+    public static int PIPISTREL_VIRUS_MA_RESERVE_FUEL = 24;
+    
+    public static int PIPISTREL_VIRUS_LA_AVERAGE_FUEL = 21;
+    public static int PIPISTREL_VIRUS_LA_RESERVE_FUEL = 18;
+    
+    //PIPISTREL VIRUS SW121 - CRUISE ALTITUDE
+    public static int PIPISTREL_VIRUS_HA_CRUISE_ALTITUDE = 10000;
+    public static int PIPISTREL_VIRUS_MA_CRUISE_ALTITUDE = 7500;
+    public static int PIPISTREL_VIRUS_LA_CRUISE_ALTITUDE = 4500;
+    
+    //PIPISTREL VIRUS SW121 - CRUISE SPEED
+    public static int PIPISTREL_VIRUS_HA_CRUISE_SPEED = 112;
+    public static int PIPISTREL_VIRUS_MA_CRUISE_SPEED = 108;
+    public static int PIPISTREL_VIRUS_LA_CRUISE_SPEED = 104;
+    
+    //PIPISTREL VIRUS SW121 - SPEED CONFIGURATIONS
+    public static int PIPISTREL_VIRUS_ASCENT_RATE = 75;
+    public static int PIPISTREL_VIRUS_DESCENT_RATE = 90;
+    public static int PIPISTREL_VIRUS_FINAL_APPROACH_SPEED = 65;
+    public static int PIPISTREL_VIRUS_DESCENT_VERTICAL_SPEED = 500;
     
 }
