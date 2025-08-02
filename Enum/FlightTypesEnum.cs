@@ -7,12 +7,12 @@ public enum FlightTypesEnum
     [Display(Name = "")]
     DEFAULT = 0,
     
-    [Display(Name = "Vuelo Corto ( < 350 NM )")]
+    [Display(Name = "Vuelo Corto Alcance")]
     SHORT_FLIGHT = 10,
     
-    [Display(Name = "Vuelo Mediano Alcance ( 351 - 1499 NM )")]
+    [Display(Name = "Vuelo Mediano Alcance")]
     NORMAL_FLIGHT = 20,
     
-    [Display(Name = "Vuelo Alta Altitud ( > 1500 NM )")]
+    [Display(Name = "Vuelo Largo Alcance")]
     HIGH_ALTITUDE_FLIGHT = 30,
 }
