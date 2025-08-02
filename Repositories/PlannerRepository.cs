@@ -424,13 +424,6 @@ public class PlannerRepository
         }
         else if (AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
         {
-            /*
-                 Este avión tiene un caso muy particular respecto a las distancias
-                 de vuelo:
-                 Largo Alcance: 450 - 640 NM
-                 Mediano Alcance: 250 - 450 NM
-                 Corto Alcance: 100 - 250 NM
-             */
             switch (FlightType)
             {
                 case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
@@ -469,13 +462,6 @@ public class PlannerRepository
         }
         else if (AircraftModel == AircraftModelEnum.DIAMOND_DA40)
         {
-            /*
-                 Este avión tiene un caso muy particular respecto a las distancias
-                 de vuelo:
-                 Largo Alcance: 720 NM
-                 Mediano Alcance: 480 NM
-                 Corto Alcance: 250 NM
-             */
             switch (FlightType)
             {
                 case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
@@ -514,13 +500,6 @@ public class PlannerRepository
         }
         else if (AircraftModel == AircraftModelEnum.DIAMOND_DA62)
         {
-            /*
-                 Este avión tiene un caso muy particular respecto a las distancias
-                 de vuelo:
-                 Largo Alcance: 1000 NM
-                 Mediano Alcance: 400 NM
-                 Corto Alcance: 150 NM
-             */
             switch (FlightType)
             {
                 case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
@@ -559,13 +538,6 @@ public class PlannerRepository
         }
         else if (AircraftModel == AircraftModelEnum.CESSNA_C400)
         {
-            /*
-                 Este avión tiene un caso muy particular respecto a las distancias
-                 de vuelo:
-                 Largo Alcance: 1100 NM
-                 Mediano Alcance: 400 NM
-                 Corto Alcance: 150 NM
-             */
             switch (FlightType)
             {
                 case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:
@@ -604,13 +576,6 @@ public class PlannerRepository
         }
         else if (AircraftModel == AircraftModelEnum.PIPISTREL_VIRUS)
         {
-            /*
-                 Este avión tiene un caso muy particular respecto a las distancias
-                 de vuelo:
-                 Largo Alcance: 480 NM
-                 Mediano Alcance: 300 NM
-                 Corto Alcance: 120 NM
-             */
             switch (FlightType)
             {
                 case FlightTypesEnum.HIGH_ALTITUDE_FLIGHT:

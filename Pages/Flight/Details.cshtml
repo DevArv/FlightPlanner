@@ -1,4 +1,5 @@
 @page
+@using FlightPlanner.Enum
 @model Details
 
 @{
@@ -22,6 +23,49 @@
 <hr />
 
 <partial name="Partial/_GeneralDetails" model="@Model.Record"/>
+
+@if (Model.Record.AircraftModel == AircraftModelEnum.PIPISTREL_VIRUS)
+{
+    <div class="alert alert-primary" role="alert">
+        <strong>NM:</strong> Vuelo Corto (Máximo 130), Vuelo Mediano (Máximo 280) y Vuelo Largo (Máximo 450)
+    </div>
+}
+else if (Model.Record.AircraftModel == AircraftModelEnum.CESSNA_C400)
+{
+    <div class="alert alert-primary" role="alert">
+        <strong>NM:</strong> Vuelo Corto (Máximo 250), Vuelo Mediano (Máximo 600) y Vuelo Largo (Máximo 950)
+    </div>
+}
+else if (Model.Record.AircraftModel == AircraftModelEnum.DIAMOND_DA62)
+{
+    <div class="alert alert-primary" role="alert">
+        <strong>NM:</strong> Vuelo Corto (Máximo 230), Vuelo Mediano (Máximo 600) y Vuelo Largo (Máximo 950)
+    </div>
+}
+else if (Model.Record.AircraftModel == AircraftModelEnum.DIAMOND_DA40)
+{
+    <div class="alert alert-primary" role="alert">
+        <strong>NM:</strong> Vuelo Corto (Máximo 150), Vuelo Mediano (Máximo 450) y Vuelo Largo (Máximo 750)
+    </div>
+}
+else if (Model.Record.AircraftModel == AircraftModelEnum.CESSNA_S172_SKYHAWK)
+{
+    <div class="alert alert-primary" role="alert">
+        <strong>NM:</strong> Vuelo Corto (Máximo 120), Vuelo Mediano (Máximo 350) y Vuelo Largo (Máximo 600)
+    </div>
+}
+else if (Model.Record.AircraftModel == AircraftModelEnum.CESSNA_CITATION_LONGITUDE)
+{
+    <div class="alert alert-primary" role="alert">
+        <strong>NM:</strong> Vuelo Corto (Máximo 600), Vuelo Mediano (Máximo 1800) y Vuelo Largo (Máximo 3500)
+    </div>
+}
+else
+{
+    <div class="alert alert-primary" role="alert">
+        Este avión no tiene un rango de vuelo definido.
+    </div>
+}
 
 <hr />
 
