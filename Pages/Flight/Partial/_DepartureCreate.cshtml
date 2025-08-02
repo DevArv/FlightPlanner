@@ -1,28 +1,46 @@
+@using FlightPlanner.Tools
+@using FlightPlanner.Constants
 @model FlightPlanner.ViewModels.FlightPlannerSimpleViewModel
 
 <div class="row">
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ICAODeparture)" class="form-label">ICAO</label>
-        <input type="text" class="form-control" style="background-color: lightyellow;" id="@nameof(Model.ICAODeparture)" value="@Model.ICAODeparture"/>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.DepartureAirportName)" class="form-label">Nombre Aeropuerto</label>
-        <input type="text" class="form-control" id="@nameof(Model.DepartureAirportName)" value="@Model.DepartureAirportName"/>
-    </div>
+    @{
+        var icao = new FormFields();
+        icao.Value = Model.ICAODeparture;
+        icao.Name = nameof(Model.ICAODeparture);
+        icao.Caption = "ICAO Aeropuerto de Salida";
+        icao.IsRequired = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.ICAO, icao);
+    }
     
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.DepartureRunway)" class="form-label">Pista de Salida</label>
-        <input type="number" class="form-control" id="@nameof(Model.DepartureRunway)" value="@Model.DepartureRunway"/>
-    </div>
+    @{
+        var airportName = new FormFields();
+        airportName.Value = Model.DepartureAirportName;
+        airportName.Name = nameof(Model.DepartureAirportName);
+        airportName.Caption = "Nombre Aeropuerto de Salida";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.AirportName, airportName);
+    }
+    
+    @{
+        var runway = new FormFields();
+        runway.Value = Model.DepartureRunway;
+        runway.Name = nameof(Model.DepartureRunway);
+        runway.Caption = "Pista de Salida";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.Runway, runway);
+    }
 
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.BaroPressureDeparture)" class="form-label">BARO</label>
-        <input type="number" class="form-control" id="@nameof(Model.BaroPressureDeparture)" value="@Model.BaroPressureDeparture"/>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.TransitionAltitudeDeparture)" class="form-label">Altitud de Transición</label>
-        <input type="number" class="form-control" id="@nameof(Model.TransitionAltitudeDeparture)" value="@Model.TransitionAltitudeDeparture"/>
-    </div>
+    @{
+        var baroPressure = new FormFields();
+        baroPressure.Value = Model.BaroPressureDeparture;
+        baroPressure.Name = nameof(Model.BaroPressureDeparture);
+        baroPressure.Caption = "BARO del Aeropuerto de Salida";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.BaroPressure, baroPressure);
+    }
+    
+    @{
+        var transitionAltitude = new FormFields();
+        transitionAltitude.Value = Model.TransitionAltitudeDeparture;
+        transitionAltitude.Name = nameof(Model.TransitionAltitudeDeparture);
+        transitionAltitude.Caption = "Altitud de Transición de Salida";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.TransitionAltitude, transitionAltitude);
+    }
 </div>

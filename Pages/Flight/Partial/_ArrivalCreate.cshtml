@@ -1,4 +1,6 @@
 @using FlightPlanner.Enum
+@using FlightPlanner.Tools
+@using FlightPlanner.Constants
 @model FlightPlanner.ViewModels.FlightPlannerSimpleViewModel
 
 @{
@@ -6,30 +8,46 @@
 }
 
 <div class="row">
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ICAOArrival)" class="form-label">ICAO</label>
-        <input type="text" class="form-control" style="background-color: lightyellow;" id="@nameof(Model.ICAOArrival)" value="@Model.ICAOArrival"/>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ArrivalAirportName)" class="form-label">Nombre Aeropuerto</label>
-        <input type="text" class="form-control" id="@nameof(Model.ArrivalAirportName)" value="@Model.ArrivalAirportName"/>
-    </div>
+    @{
+        var icao = new FormFields();
+        icao.Value = Model.ICAOArrival;
+        icao.Name = nameof(Model.ICAOArrival);
+        icao.Caption = "ICAO Aeropuerto de Llegada";
+        icao.IsRequired = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.ICAO, icao);
+    }
     
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ArrivalRunway)" class="form-label">Pista de Llegada</label>
-        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunway)" value="@Model.ArrivalRunway"/>
-    </div>
+    @{
+        var airportName = new FormFields();
+        airportName.Value = Model.ArrivalAirportName;
+        airportName.Name = nameof(Model.ArrivalAirportName);
+        airportName.Caption = "Nombre Aeropuerto de Llegada";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.AirportName, airportName);
+    }
+    
+    @{
+        var runway = new FormFields();
+        runway.Value = Model.ArrivalRunway;
+        runway.Name = nameof(Model.ArrivalRunway);
+        runway.Caption = "Pista de Llegada";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.Runway, runway);
+    }
 
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.BaroPressureArrival)" class="form-label">BARO</label>
-        <input type="number" class="form-control" id="@nameof(Model.BaroPressureArrival)" value="@Model.BaroPressureArrival"/>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.TransitionAltitudeArrival)" class="form-label">Altitud de Transición</label>
-        <input type="number" class="form-control" id="@nameof(Model.TransitionAltitudeArrival)" value="@Model.TransitionAltitudeArrival"/>
-    </div>
+    @{
+        var baroPressure = new FormFields();
+        baroPressure.Value = Model.BaroPressureArrival;
+        baroPressure.Name = nameof(Model.BaroPressureArrival);
+        baroPressure.Caption = "BARO del Aeropuerto de Llegada";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.BaroPressure, baroPressure);
+    }
+    
+    @{
+        var transitionAltitude = new FormFields();
+        transitionAltitude.Value = Model.TransitionAltitudeArrival;
+        transitionAltitude.Name = nameof(Model.TransitionAltitudeArrival);
+        transitionAltitude.Caption = "Altitud de Transición de Llegada";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.TransitionAltitude, transitionAltitude);
+    }
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayElevation)" class="form-label">Elevación de Pista</label>
@@ -50,17 +68,17 @@
         <label for="@nameof(Model.LocalizerVectorName)" class="form-label">Vector Final Ruedas de Aterrizaje</label>
         <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorName)" value="@Model.LocalizerVectorName"/>
     </div>
-    
+
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.LocalizerVectorAltitude)" class="form-label">Altitud Vector Localizador</label>
         <input type="number" class="form-control" id="@nameof(Model.LocalizerVectorAltitude)" value="@Model.LocalizerVectorAltitude"/>
     </div>
-    
+
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayLength)" class="form-label">Largo de Pista de Llegada</label>
         <input type="number" class="form-control" id="@nameof(Model.ArrivalRunwayLength)" value="@Model.ArrivalRunwayLength"/>
     </div>
-    
+
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ApproachType)" class="form-label">Tipo de Aterrizaje</label>
         <select name="@nameof(Model.ApproachType)" class="form-select" id="@nameof(Model.ApproachType)">

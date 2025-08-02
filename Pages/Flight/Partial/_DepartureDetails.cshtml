@@ -1,29 +1,51 @@
 @using FlightPlanner.Constants
+@using FlightPlanner.Tools
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
 <div class="row">
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ICAODeparture)" class="form-label">ICAO</label>
-        <input type="text" class="form-control" id="@nameof(Model.ICAODeparture)" value="@Model.ICAODeparture" disabled="disabled" />
-    </div>
+    @{
+        var icao = new FormFields();
+        icao.Value = Model.ICAODeparture;
+        icao.Name = nameof(Model.ICAODeparture);
+        icao.Caption = "ICAO Aeropuerto de Salida";
+        icao.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.ICAO, icao);
+    }
 
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.DepartureAirportName)" class="form-label">Nombre Aeropuerto</label>
-        <input type="text" class="form-control" id="@nameof(Model.DepartureAirportName)" value="@Model.DepartureAirportName" disabled="disabled" />
-    </div>
+    @{
+        var airportName = new FormFields();
+        airportName.Value = Model.DepartureAirportName;
+        airportName.Name = nameof(Model.DepartureAirportName);
+        airportName.Caption = "Nombre Aeropuerto de Salida";
+        airportName.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.AirportName, airportName);
+    }
     
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.DepartureRunway)" class="form-label">Pista de Salida</label>
-        <input type="number" class="form-control" id="@nameof(Model.DepartureRunway)" value="@Model.DepartureRunway" disabled="disabled" />
-    </div>
+    @{
+        var runway = new FormFields();
+        runway.Value = Model.DepartureRunway;
+        runway.Name = nameof(Model.DepartureRunway);
+        runway.Caption = "Pista de Salida";
+        runway.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.Runway, runway);
+    }
 
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.BaroPressureDeparture)" class="form-label">BARO</label>
-        <input type="number" class="form-control" id="@nameof(Model.BaroPressureDeparture)" value="@Model.BaroPressureDeparture" disabled="disabled"/>
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.TransitionAltitudeDeparture)" class="form-label">Altitud de Transición</label>
-        <input type="text" class="form-control" id="@nameof(Model.TransitionAltitudeDeparture)" value="@Model.TransitionAltitudeDeparture.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
-    </div>
+    @{
+        var baroPressure = new FormFields();
+        baroPressure.Value = Model.BaroPressureDeparture;
+        baroPressure.Name = nameof(Model.BaroPressureDeparture);
+        baroPressure.Caption = "BARO del Aeropuerto de Salida";
+        baroPressure.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.BaroPressure, baroPressure);
+    }
+    
+    @{
+        var transitionAltitude = new FormFields();
+        transitionAltitude.Value = Model.TransitionAltitudeDeparture.ToString(Global.FP_FORMAT_NUMBER);
+        transitionAltitude.Name = nameof(Model.TransitionAltitudeDeparture);
+        transitionAltitude.Caption = "Altitud de Transición de Salida";
+        transitionAltitude.IsDisabled = true;
+        transitionAltitude.ToolTip = "Altitud en la que se setea el BARO Standard y se configuran las luces.";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.TransitionAltitude, transitionAltitude);
+    }
 </div>

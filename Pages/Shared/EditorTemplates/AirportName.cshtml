@@ -1,0 +1,23 @@
+@model FlightPlanner.Tools.FormFields
+
+@{
+    var value = Model.Value;
+    var name = Model.Name;
+    var caption = Model.Caption;
+    bool isDisabled = Model.IsDisabled;
+}
+
+@if (isDisabled)
+{
+    <div class="col-md-3 mb-3">
+        <label for="@name" class="form-label">@caption</label>
+        <input type="text" class="form-control" id="@name" value="@value" disabled="disabled" />
+    </div>
+}
+else
+{
+    <div class="col-md-3 mb-3">
+        <label for="@name" class="form-label">@caption</label>
+        <input type="text" class="form-control" id="@name" value="@value" />
+    </div>
+}

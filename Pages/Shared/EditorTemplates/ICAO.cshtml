@@ -1,0 +1,35 @@
+@model FlightPlanner.Tools.FormFields
+
+@{
+    var value = Model.Value;
+    var name = Model.Name;
+    var caption = Model.Caption;
+    bool isRequired = Model.IsRequired;
+    bool isDisabled = Model.IsDisabled;
+    
+    // Set background color based on whether the field is required
+    string backgroundColor;
+    if (isRequired)
+    {
+        backgroundColor = "background-color: lightyellow;";
+    }
+    else
+    {
+        backgroundColor = "";
+    }
+}
+
+@if (isDisabled)
+{
+    <div class="col-md-3 mb-3">
+        <label for="@name" class="form-label">@caption</label>
+        <input type="text" class="form-control" id="@name" value="@value" disabled="disabled" />
+    </div>
+}
+else
+{
+    <div class="col-md-3 mb-3">
+        <label for="@name" class="form-label">@caption</label>
+        <input type="text" class="form-control" style="@backgroundColor" id="@name" value="@value" />
+    </div>
+}
