@@ -1,4 +1,5 @@
 @using FlightPlanner.Constants
+@using FlightPlanner.Tools
 @using FlightPlanner.Enum
 @model FlightPlanner.ViewModels.FlightPlannerDetailsViewModel
 
@@ -7,61 +8,82 @@
 }
 
 <div class="row">
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ICAOArrival)" class="form-label">ICAO</label>
-        <input type="text" class="form-control" id="@nameof(Model.ICAOArrival)" value="@Model.ICAOArrival" disabled="disabled" />
-    </div>
+    @{
+        var icao = new FormFields();
+        icao.Value = Model.ICAOArrival;
+        icao.Name = nameof(Model.ICAOArrival);
+        icao.Caption = "ICAO Aeropuerto de Llegada";
+        icao.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.ICAO, icao);
+    }
 
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ArrivalAirportName)" class="form-label">Nombre Aeropuerto</label>
-        <input type="text" class="form-control" id="@nameof(Model.ArrivalAirportName)" value="@Model.ArrivalAirportName" disabled="disabled" />
-    </div>
+    @{
+        var airportName = new FormFields();
+        airportName.Value = Model.ArrivalAirportName;
+        airportName.Name = nameof(Model.ArrivalAirportName);
+        airportName.Caption = "Nombre Aeropuerto de Llegada";
+        airportName.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.AirportName, airportName);
+    }
     
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.ArrivalRunway)" class="form-label">Pista de Llegada</label>
-        <input type="number" class="form-control" id="@nameof(Model.ArrivalRunway)" value="@Model.ArrivalRunway" disabled="disabled" />
-    </div>
+    @{
+        var runway = new FormFields();
+        runway.Value = Model.ArrivalRunway;
+        runway.Name = nameof(Model.ArrivalRunway);
+        runway.Caption = "Pista de Llegada";
+        runway.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.Runway, runway);
+    }
 
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.BaroPressureArrival)" class="form-label">BARO</label>
-        <input type="number" class="form-control" id="@nameof(Model.BaroPressureArrival)" value="@Model.BaroPressureArrival" disabled="disabled" />
-    </div>
-
-    <div class="col-md-3 mb-3">
-        <label for="@nameof(Model.TransitionAltitudeArrival)" class="form-label">Altitud de Transición</label>
-        <input type="text" class="form-control" id="@nameof(Model.TransitionAltitudeArrival)" value="@Model.TransitionAltitudeArrival.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
-    </div>
+    @{
+        var baroPressure = new FormFields();
+        baroPressure.Value = Model.BaroPressureArrival;
+        baroPressure.Name = nameof(Model.BaroPressureArrival);
+        baroPressure.Caption = "BARO del Aeropuerto de Llegada";
+        baroPressure.IsDisabled = true;
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.BaroPressure, baroPressure);
+    }
+    
+    @{
+        var transitionAltitude = new FormFields();
+        transitionAltitude.Value = Model.TransitionAltitudeArrival.ToString(Global.FP_FORMAT_NUMBER);
+        transitionAltitude.Name = nameof(Model.TransitionAltitudeArrival);
+        transitionAltitude.Caption = "Altitud de Transición de Llegada";
+        transitionAltitude.IsDisabled = true;
+        transitionAltitude.ToolTip = "Altitud en la que se setea el BARO de Llegada y se configuran las luces.";
+        Html.RenderPartial(PartialRoutes.SHARED_TEMPLATE + DataTypes.TransitionAltitude, transitionAltitude);
+    }
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayElevation)" class="form-label">Elevación de Pista</label>
-        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayElevation)" value="@Model.ArrivalRunwayElevation.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayElevation)" value="@Model.ArrivalRunwayElevation.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled"/>
     </div>
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayMinimumAltitude)" class="form-label">Altitud Minima de Aproximación</label>
-        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayMinimumAltitude)" value="@Model.ArrivalRunwayMinimumAltitude.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayMinimumAltitude)" value="@Model.ArrivalRunwayMinimumAltitude.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled"/>
     </div>
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.LocalizerFrequency)" class="form-label">Localizador</label>
-        <input type="number" class="form-control" id="@nameof(Model.LocalizerFrequency)" value="@Model.LocalizerFrequency" disabled="disabled" />
+        <input type="number" class="form-control" id="@nameof(Model.LocalizerFrequency)" value="@Model.LocalizerFrequency" disabled="disabled"/>
     </div>
 
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.LocalizerVectorName)" class="form-label">Vector Final Ruedas de Aterrizaje</label>
-        <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorName)" value="@Model.LocalizerVectorName" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorName)" value="@Model.LocalizerVectorName" disabled="disabled"/>
     </div>
-    
+
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.LocalizerVectorAltitude)" class="form-label">Altitud Vector Localizador</label>
-        <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorAltitude)" value="@Model.LocalizerVectorAltitude.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.LocalizerVectorAltitude)" value="@Model.LocalizerVectorAltitude.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled"/>
     </div>
-    
+
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ArrivalRunwayLength)" class="form-label">Largo de Pista de Llegada</label>
-        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayLength)" value="@Model.ArrivalRunwayLength.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled" />
+        <input type="text" class="form-control" id="@nameof(Model.ArrivalRunwayLength)" value="@Model.ArrivalRunwayLength.ToString(Global.FP_FORMAT_NUMBER)" disabled="disabled"/>
     </div>
-    
+
     <div class="col-md-3 mb-3">
         <label for="@nameof(Model.ApproachType)" class="form-label">Tipo de Aterrizaje</label>
         <select name="@nameof(Model.ApproachType)" class="form-select" id="@nameof(Model.ApproachType)" disabled="disabled">
